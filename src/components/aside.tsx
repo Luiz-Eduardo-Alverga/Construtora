@@ -7,7 +7,7 @@ import {
   ShoppingCart,
   Users2,
 } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import { NavigatioBar } from './navigation-bar'
 import {
@@ -25,23 +25,23 @@ export function Aside() {
           <NavigatioBar />
         </nav>
         <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
-          <Link
+          <NavLink
             to="#"
             className="group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-primary text-lg font-semibold text-primary-foreground md:h-8 md:w-8 md:text-base"
           >
             <Package2 className="h-4 w-4 transition-all group-hover:scale-110" />
             <span className="sr-only">Acme Inc</span>
-          </Link>
+          </NavLink>
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link
+                <NavLink
                   to="#"
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <Home className="h-5 w-5" />
                   <span className="sr-only">Dashboard</span>
-                </Link>
+                </NavLink>
               </TooltipTrigger>
               <TooltipContent side="right">Dashboard</TooltipContent>
             </Tooltip>
@@ -49,13 +49,13 @@ export function Aside() {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link
+                <NavLink
                   to="#"
                   className="flex h-9 w-9 items-center justify-center rounded-lg  text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <ShoppingCart className="h-5 w-5" />
                   <span className="sr-only">Orders</span>
-                </Link>
+                </NavLink>
               </TooltipTrigger>
               <TooltipContent side="right">Orders</TooltipContent>
             </Tooltip>
@@ -63,13 +63,13 @@ export function Aside() {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link
+                <NavLink
                   to="#"
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <Package className="h-5 w-5" />
                   <span className="sr-only">Products</span>
-                </Link>
+                </NavLink>
               </TooltipTrigger>
               <TooltipContent side="right">Products</TooltipContent>
             </Tooltip>
@@ -77,13 +77,13 @@ export function Aside() {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link
+                <NavLink
                   to="#"
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <Users2 className="h-5 w-5" />
                   <span className="sr-only">Customers</span>
-                </Link>
+                </NavLink>
               </TooltipTrigger>
               <TooltipContent side="right">Customers</TooltipContent>
             </Tooltip>
@@ -91,13 +91,13 @@ export function Aside() {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link
+                <NavLink
                   to="#"
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <LineChart className="h-5 w-5" />
                   <span className="sr-only">Analytics</span>
-                </Link>
+                </NavLink>
               </TooltipTrigger>
               <TooltipContent side="right">Analytics</TooltipContent>
             </Tooltip>
@@ -107,13 +107,13 @@ export function Aside() {
           <TooltipProvider>
             <Tooltip>
               <TooltipTrigger asChild>
-                <Link
-                  to="#"
+                <NavLink
+                  to="sign-in"
                   className="flex h-9 w-9 items-center justify-center rounded-lg text-muted-foreground transition-colors hover:text-foreground md:h-8 md:w-8"
                 >
                   <Settings className="h-5 w-5" />
                   <span className="sr-only">Settings</span>
-                </Link>
+                </NavLink>
               </TooltipTrigger>
               <TooltipContent side="right">Settings</TooltipContent>
             </Tooltip>
