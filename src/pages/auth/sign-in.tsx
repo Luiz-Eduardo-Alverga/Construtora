@@ -35,7 +35,7 @@ export function SignIn() {
     try {
       await authenticate({ username: data.username, password: data.password })
       toast.success('Usuário logado com sucesso')
-      navigate('/Dashboard')
+      navigate('/app')
     } catch {
       toast.error('Credenciais Invalidas')
     }
