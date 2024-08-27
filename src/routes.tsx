@@ -9,12 +9,12 @@ import { AppLayout } from './pages/layouts/app'
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <AppLayout />,
-    children: [{ path: '/dashboard', element: <Dashboard /> }],
+    element: <AuthLayout />,
+    children: [{ path: '/', element: <SignIn /> }],
   },
   {
-    path: '/',
-    element: <AuthLayout />,
-    children: [{ path: '/sign-in', element: <SignIn /> }],
+    path: '/app',
+    element: <AppLayout />,
+    children: [{ path: '/app/dashboard', element: <Dashboard /> }],
   },
 ])
