@@ -9,7 +9,11 @@ export function Header() {
     <div className="border-b">
       <div className="flex h-12 items-center gap-4 px-6">
         <div className="hidden sm:flex sm:gap-2">
-          <img src="../../assets/logo_softcom.png" alt="" className="h-8" />
+          <img
+            src="https://softcomshop.s3-us-west-2.amazonaws.com/img/logo_softcom.png"
+            alt=""
+            className="h-8"
+          />
         </div>
 
         <Separator orientation="vertical" className="hidden sm:h-6 sm:flex" />

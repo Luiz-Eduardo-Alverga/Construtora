@@ -24,7 +24,11 @@ export function NavigatioBar() {
 
       <SheetContent side="left" className="overflow-y-auto sm:max-w-xs">
         <nav className="grid gap-6 text-lg font-medium">
-          <img src="../../assets/logo_softcom.png" alt="" className="h-10" />
+          <img
+            src="https://softcomshop.s3-us-west-2.amazonaws.com/img/logo_softcom.png"
+            alt=""
+            className="h-10"
+          />
 
           <NavigationItem to="/dashboard" icon={Home}>
             Dashboard
