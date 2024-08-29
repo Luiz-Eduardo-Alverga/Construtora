@@ -1,10 +1,10 @@
 import {
+  ClockArrowUp,
   Home,
   Menu,
   Package,
   Package2,
   ShoppingCart,
-  Users2,
 } from 'lucide-react'
 
 import { ExpandableMenu } from './expandable-menu'
@@ -48,8 +48,8 @@ export function NavigatioBar() {
           <NavigationItem to="/products" icon={Package}>
             Products
           </NavigationItem>
-          <NavigationItem to="/customers" icon={Users2}>
-            Customers
+          <NavigationItem to="/ponto" icon={ClockArrowUp}>
+            Ponto
           </NavigationItem>
         </nav>
       </SheetContent>

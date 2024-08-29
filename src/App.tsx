@@ -5,8 +5,9 @@ import { HelmetProvider } from 'react-helmet-async'
 import { RouterProvider } from 'react-router-dom'
 import { Toaster } from 'sonner'
 
+import { router } from '@/routes/routes'
+
 import { queryClient } from './lib/react-query'
-import { router } from './routes'
 
 function App() {
   return (

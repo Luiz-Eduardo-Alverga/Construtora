@@ -1,6 +1,6 @@
 import {
+  ClockArrowUp,
   Home,
-  LineChart,
   Package,
   Package2,
   ShoppingCart,
@@ -20,7 +20,7 @@ export function Aside() {
         <AsideNavItem to="/orders" icon={ShoppingCart} label="Orders" />
         <AsideNavItem to="/products" icon={Package} label="Products" />
         <AsideNavItem to="/customers" icon={Users2} label="Customers" />
-        <AsideNavItem to="/analytics" icon={LineChart} label="Analytics" />
+        <AsideNavItem to="/ponto" icon={ClockArrowUp} label="Ponto" />
       </nav>
     </aside>
   )
