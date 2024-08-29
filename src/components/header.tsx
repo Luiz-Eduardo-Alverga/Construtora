@@ -1,16 +1,20 @@
-import { Hammer, Power } from 'lucide-react'
+import { Power } from 'lucide-react'
 
 import { NavLink } from './nav-link'
+import { NavigatioBar } from './navigation-bar'
 import { Separator } from './ui/separator'
 
 export function Header() {
   return (
     <div className="border-b">
-      <div className="flex h-12 items-center gap-6 px-6">
-        <div className="flex gap-2">
-          <Hammer className="h-9 w-9 " />
+      <div className="flex h-12 items-center gap-4 px-6">
+        <div className="hidden sm:flex sm:gap-2">
+          <img src="../../assets/logo_softcom.png" alt="" className="h-8" />
         </div>
-        <Separator orientation="vertical" className="h-6" />
+
+        <Separator orientation="vertical" className="hidden sm:h-6 sm:flex" />
+
+        <NavigatioBar />
 
         <div className="ml-auto flex items-center gap-2">
           <NavLink to="">
