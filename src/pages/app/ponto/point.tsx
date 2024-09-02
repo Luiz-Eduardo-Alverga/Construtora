@@ -1,18 +1,19 @@
 import {
   BadgeX,
   Clock,
+  Files,
   Hourglass,
   LineChart,
   ShieldCheck,
   Users,
 } from 'lucide-react'
 
-import { Button } from '@/components/ui/button'
+import { PointOptionButton } from './point-option-button'
 
 export function PointOptions() {
   return (
-    <div className="flex flex-col min-h-screen items-center ">
-      <h1 className="flex gap-1 items-center text-center sm:text-left pl-2 pt-2 text-2xl font-medium">
+    <div className="pt-3 flex flex-col items-center">
+      <h1 className="flex gap-1 sm:text-left pl-2 pt-2 text-2xl font-medium">
         Gestão de Ponto <ShieldCheck className="h-8 w-8 text-primary" />
       </h1>
       <span className="pl-2 pt-2 text-slate-600">
@@ -20,36 +21,54 @@ export function PointOptions() {
       </span>
 
       <div className="flex pt-10 m-2">
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2  items-center">
-          <Button className="p-16 bg-white text-primary hover:bg-slate-100">
-            <Users className="hidden sm:block sm:w-10 sm:h-10" />
-            <span>Usuários</span>
-          </Button>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 items-center">
+          <PointOptionButton
+            icon={Users}
+            label="Usuários"
+            to="/ponto/usuarios"
+            bgColor="bg-white"
+            textColor="text-primary"
+            hoverBg="bg-slate-100"
+          />
 
-          <Button className="p-16">
-            <Clock className="hidden sm:block sm:w-10 sm:h-10" />
-            <span>Ponto Eletrônico</span>
-          </Button>
+          <PointOptionButton
+            icon={Clock}
+            label="Ponto Eletrônico"
+            to="/ponto/ponto-eletronico"
+            bgColor="bg-primary"
+          />
 
-          <Button className="p-16 bg-white text-primary hover:bg-slate-100">
-            <Users className="hidden sm:block sm:w-10 sm:h-10" />
-            <span>Documentos</span>
-          </Button>
+          <PointOptionButton
+            icon={Files}
+            label="Documentos"
+            to="/ponto/documentos"
+            bgColor="bg-white"
+            textColor="text-primary"
+            hoverBg="bg-slate-100"
+          />
 
-          <Button className="p-16">
-            <LineChart className="hidden sm:block sm:w-10 sm:h-10" />
-            <span>Relatórios</span>
-          </Button>
+          <PointOptionButton
+            icon={LineChart}
+            label="Relatórios"
+            to="/ponto/relatórios"
+            bgColor="bg-primary"
+          />
 
-          <Button className="p-16 bg-white text-primary hover:bg-slate-100">
-            <Hourglass className="hidden sm:block sm:w-10 sm:h-10" />
-            <span>Banco de Horas</span>
-          </Button>
+          <PointOptionButton
+            icon={Hourglass}
+            label="Banco de Horas"
+            to="/ponto/banco-de-horas"
+            bgColor="bg-white"
+            textColor="text-primary"
+            hoverBg="bg-slate-100"
+          />
 
-          <Button className="p-16">
-            <BadgeX className="hidden sm:block sm:w-10 sm:h-10" />
-            <span>Faltas</span>
-          </Button>
+          <PointOptionButton
+            icon={BadgeX}
+            label="Faltas"
+            to="/ponto/faltas"
+            bgColor="bg-primary"
+          />
         </div>
       </div>
     </div>
