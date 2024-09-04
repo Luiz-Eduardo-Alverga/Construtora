@@ -56,17 +56,25 @@ export function EmployeePoints() {
           </TableRow>
         </TableHeader>
         <TableBody>
-          {results?.map((result) => (
-            <TableRow key={result.Data}>
-              <TableCell className="w-[200px]">
-                {format(new Date(result.Data), 'yyyy-MM-dd')}
+          {Array.isArray(results) && results.length > 0 ? (
+            results.map((result) => (
+              <TableRow key={result.Data}>
+                <TableCell className="w-[200px]">
+                  {format(new Date(result.Data), 'yyyy-MM-dd')}
+                </TableCell>
+                <TableCell>{result.HoraInicio ?? '--|--'}</TableCell>
+                <TableCell>{result.HoraAlmoco ?? '--|--'}</TableCell>
+                <TableCell>{result.HoraRetorno ?? '--|--'}</TableCell>
+                <TableCell>{result.HoraFim ?? '--|--'}</TableCell>
+              </TableRow>
+            ))
+          ) : (
+            <TableRow>
+              <TableCell colSpan={5} className="text-center">
+                Nenhum ponto encontrado
               </TableCell>
-              <TableCell>{result.HoraInicio ?? 'Falta'}</TableCell>{' '}
-              <TableCell>{result.HoraAlmoco ?? 'Falta'}</TableCell>{' '}
-              <TableCell>{result.HoraRetorno ?? 'Falta'}</TableCell>{' '}
-              <TableCell>{result.HoraFim ?? 'Falta'}</TableCell>{' '}
             </TableRow>
-          ))}
+          )}
         </TableBody>
       </Table>
     </div>

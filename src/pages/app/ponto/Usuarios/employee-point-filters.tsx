@@ -23,8 +23,8 @@ type SearchEmployeePointsForm = z.infer<typeof searchEmployeePointsSchema>
 
 export function EmployeePontFilters() {
   const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(2024, 0, 20),
-    to: addDays(new Date(2024, 10, 20), 20),
+    from: new Date(),
+    to: addDays(new Date(), 30),
   })
 
   const [searchParams, setSearchParams] = useSearchParams()
@@ -111,7 +111,7 @@ export function EmployeePontFilters() {
             <Calendar
               initialFocus
               mode="range"
-              defaultMonth={date?.from}
+              defaultMonth={new Date()} // Define o mês atual como padrão
               selected={date}
               onSelect={setDate}
               numberOfMonths={2}

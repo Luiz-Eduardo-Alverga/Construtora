@@ -45,7 +45,5 @@ export async function getEmployeePoints({
     },
   )
 
-  // Parse a string JSON para um array de objetos
-
   return JSON.parse(response.data.body)
 }
