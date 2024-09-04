@@ -10,7 +10,7 @@ export function Header() {
       <div className="flex h-12 items-center gap-4 px-6">
         <div className="hidden sm:flex sm:gap-2">
           <img
-            src="https://softcomshop.s3-us-west-2.amazonaws.com/img/logo_softcom.png"
+            src="https://softcomshop.s3-us-west-2.amazonaws.com/img/logo.png"
             alt=""
             className="h-8"
           />

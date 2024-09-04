@@ -6,7 +6,10 @@ export interface SignInBody {
 }
 
 export async function signIn({ username, password }: SignInBody) {
-  const response = await api.post('/prod', { username, password })
+  const response = await api.post(
+    'djz68gs30g.execute-api.sa-east-1.amazonaws.com/prod',
+    { username, password },
+  )
 
   if (response.data.statusCode === 401) {
     throw new Error()
