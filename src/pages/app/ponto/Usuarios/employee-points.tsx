@@ -62,10 +62,10 @@ export function EmployeePoints() {
                 <TableCell className="w-[200px]">
                   {format(new Date(result.Data), 'yyyy-MM-dd')}
                 </TableCell>
-                <TableCell>{result.HoraInicio ?? '--|--'}</TableCell>
-                <TableCell>{result.HoraAlmoco ?? '--|--'}</TableCell>
-                <TableCell>{result.HoraRetorno ?? '--|--'}</TableCell>
-                <TableCell>{result.HoraFim ?? '--|--'}</TableCell>
+                <TableCell>{result.HoraInicio}</TableCell>
+                <TableCell>{result.HoraAlmoco}</TableCell>
+                <TableCell>{result.HoraRetorno}</TableCell>
+                <TableCell>{result.HoraFim}</TableCell>
               </TableRow>
             ))
           ) : (

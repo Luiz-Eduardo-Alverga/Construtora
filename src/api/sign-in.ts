@@ -22,6 +22,7 @@ export async function signIn({ username, password }: SignInBody) {
 
   document.cookie = `token=${token}; path=/; max-age=${7 * 24 * 60 * 60};`
   document.cookie = `crf=${target}`
+  localStorage.setItem('authToken', token)
 
   console.log(response)
 
