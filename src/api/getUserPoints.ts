@@ -31,7 +31,7 @@ export async function getEmployeePoints({
   const crf = getCookieValue('crf')
 
   const response = await api.get(
-    'c9bl4gbqjd.execute-api.sa-east-1.amazonaws.com/BuscaPonto',
+    'https://c9bl4gbqjd.execute-api.sa-east-1.amazonaws.com/BuscaPonto',
     {
       params: {
         Employeeid,

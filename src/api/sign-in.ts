@@ -7,7 +7,7 @@ export interface SignInBody {
 
 export async function signIn({ username, password }: SignInBody) {
   const response = await api.post(
-    'ngpflj9til.execute-api.sa-east-1.amazonaws.com/Login',
+    'https://ngpflj9til.execute-api.sa-east-1.amazonaws.com/Login',
     { username, password },
   )
 
