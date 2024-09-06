@@ -7,15 +7,18 @@ import { Toaster } from 'sonner'
 
 import { router } from '@/routes/routes'
 
+import { ThemeProvider } from './components/theme/theme-provider'
 import { queryClient } from './lib/react-query'
 
 function App() {
   return (
     <HelmetProvider>
-      <Toaster richColors />
-      <QueryClientProvider client={queryClient}>
-        <RouterProvider router={router} />
-      </QueryClientProvider>
+      <ThemeProvider defaultTheme="light" storageKey="point-theme">
+        <Toaster richColors />
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
+      </ThemeProvider>
     </HelmetProvider>
   )
 }

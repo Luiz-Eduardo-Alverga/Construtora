@@ -2,6 +2,7 @@ import { Power } from 'lucide-react'
 
 import { NavLink } from './nav-link'
 import { NavigatioBar } from './navigation-bar'
+import { ModeToggle } from './theme/theme-toggle'
 import { Separator } from './ui/separator'
 
 export function Header() {
@@ -20,7 +21,8 @@ export function Header() {
 
         <NavigatioBar />
 
-        <div className="ml-auto flex items-center gap-2">
+        <div className="ml-auto flex items-center gap-4">
+          <ModeToggle />
           <NavLink to="">
             <Power />
           </NavLink>

@@ -28,7 +28,7 @@ export function PointOptions() {
             to="/ponto/usuarios"
             bgColor="bg-white"
             textColor="text-primary"
-            hoverBg="bg-slate-100"
+            hoverBg="bg-zinc-300"
           />
 
           <PointOptionButton

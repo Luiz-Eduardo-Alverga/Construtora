@@ -37,7 +37,7 @@ export function EmployeePointDetailsDialog({
           <TableHeader>
             <TableRow>
               <TableCell>Hora Inicio</TableCell>
-              <TableCell>Hora Almoco</TableCell>
+              <TableCell>Hora Almoço</TableCell>
               <TableCell>Hora Retorno</TableCell>
               <TableCell>Hora Fim</TableCell>
             </TableRow>

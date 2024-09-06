@@ -3,7 +3,7 @@ import { Label } from '@radix-ui/react-label'
 import { PopoverContent } from '@radix-ui/react-popover'
 import { addDays, format as formatDate } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { DateRange } from 'react-day-picker'
 import { useForm } from 'react-hook-form'
 import { useSearchParams } from 'react-router-dom'
@@ -26,6 +26,24 @@ export function EmployeePontFilters() {
     from: new Date(),
     to: addDays(new Date(), 30),
   })
+
+  const [numberOfMonths, setNumberOfMonths] = useState(2)
+
+  useEffect(() => {
+    function updateNumberOfMonths() {
+      if (window.innerWidth < 640) {
+        setNumberOfMonths(1)
+      } else {
+        setNumberOfMonths(2)
+      }
+    }
+
+    window.addEventListener('resize', updateNumberOfMonths)
+
+    updateNumberOfMonths()
+
+    return () => window.removeEventListener('resize', updateNumberOfMonths)
+  }, [])
 
   const [searchParams, setSearchParams] = useSearchParams()
 
@@ -71,7 +89,7 @@ export function EmployeePontFilters() {
   return (
     <form onSubmit={handleSubmit(handleFilter)}>
       <Label className="font-normal text-sm">Nome do funcionário</Label>
-      <div className="flex  gap-3 pt-2 flex-col sm:flex-row">
+      <div className="flex gap-3 pt-2 flex-col sm:flex-row">
         <Input
           className="w-full sm:w-64"
           type="number"
@@ -92,11 +110,11 @@ export function EmployeePontFilters() {
               {date?.from ? (
                 date.to ? (
                   <>
-                    {formatDate(date.from, 'LLL dd, y')} -{' '}
-                    {formatDate(date.to, 'LLL dd, y')}
+                    {formatDate(date.from, 'dd MMM yyyy')} -{' '}
+                    {formatDate(date.to, 'dd MMM yyyy')}
                   </>
                 ) : (
-                  formatDate(date.from, 'LLL dd, y')
+                  formatDate(date.from, 'dd MMM yyyy')
                 )
               ) : (
                 <span>Selecione uma data</span>
@@ -105,21 +123,21 @@ export function EmployeePontFilters() {
           </PopoverTrigger>
 
           <PopoverContent
-            className="w-auto p-0 z-50 bg-secondary rounded-md"
+            className="w-auto p-0 z-50 bg-white dark:bg-black rounded-md"
             align="start"
           >
             <Calendar
               initialFocus
               mode="range"
-              defaultMonth={new Date()} // Define o mês atual como padrão
+              defaultMonth={new Date()}
               selected={date}
               onSelect={setDate}
-              numberOfMonths={2}
+              numberOfMonths={numberOfMonths} // Número de meses dinâmico
             />
           </PopoverContent>
         </Popover>
 
-        <Button type="submit" className="p-5 w-full sm:w-32">
+        <Button className="p-5 w-full sm:w-32" type="submit">
           Buscar
         </Button>
       </div>
