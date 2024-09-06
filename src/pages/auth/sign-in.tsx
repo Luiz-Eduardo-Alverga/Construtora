@@ -58,12 +58,21 @@ export function SignIn() {
           <form className="space-y-4" onSubmit={handleSubmit(handleSignIn)}>
             <div className="space-y-2">
               <Label htmlFor="username">Seu usuário</Label>
-              <Input id="username" {...register('username')} />
+              <Input
+                className="text-base"
+                id="username"
+                {...register('username')}
+              />
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="password">Sua senha</Label>
-              <Input id="password" type="password" {...register('password')} />
+              <Input
+                className="text-base"
+                id="password"
+                type="password"
+                {...register('password')}
+              />
             </div>
 
             <Button className="w-full" disabled={isSubmitting}>

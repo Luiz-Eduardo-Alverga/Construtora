@@ -91,7 +91,7 @@ export function EmployeePontFilters() {
       <Label className="font-normal text-sm">Nome do funcionário</Label>
       <div className="flex gap-3 pt-2 flex-col sm:flex-row">
         <Input
-          className="w-full sm:w-64"
+          className="w-full sm:w-64 text-base"
           type="number"
           {...register('employeeId', { valueAsNumber: true })}
         />
