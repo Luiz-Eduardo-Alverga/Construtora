@@ -71,9 +71,9 @@ export function EmployeePontFilters() {
   return (
     <form onSubmit={handleSubmit(handleFilter)}>
       <Label className="font-normal text-sm">Nome do funcionário</Label>
-      <div className="flex gap-3 pt-2">
+      <div className="flex  gap-3 pt-2 flex-col sm:flex-row">
         <Input
-          className="w-64"
+          className="w-full sm:w-64"
           type="number"
           {...register('employeeId', { valueAsNumber: true })}
         />
@@ -84,7 +84,7 @@ export function EmployeePontFilters() {
               id="date"
               variant="outline"
               className={cn(
-                'w-[300px] justify-start text-left font-normal',
+                'w-full sm:w-[300px] justify-start text-left font-normal',
                 !date && 'text-muted-foreground',
               )}
             >
@@ -119,7 +119,7 @@ export function EmployeePontFilters() {
           </PopoverContent>
         </Popover>
 
-        <Button type="submit" className="p-5">
+        <Button type="submit" className="p-5 w-full sm:w-32">
           Buscar
         </Button>
       </div>
