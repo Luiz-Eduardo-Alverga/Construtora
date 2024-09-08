@@ -1,4 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
+import { Eye, EyeOff } from 'lucide-react' // Ícones para mostrar/ocultar senha
+import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
@@ -18,6 +20,8 @@ const signInForm = z.object({
 type SignInForm = z.infer<typeof signInForm>
 
 export function SignIn() {
+  const [showPassword, setShowPassword] = useState(false) // Estado para controlar a visibilidade da senha
+
   const {
     register,
     handleSubmit,
@@ -31,7 +35,6 @@ export function SignIn() {
   })
 
   async function handleSignIn(data: SignInForm) {
-    console.log(data)
     try {
       await authenticate({ username: data.username, password: data.password })
       toast.success('Usuário logado com sucesso')
@@ -44,7 +47,7 @@ export function SignIn() {
   return (
     <>
       <Helmet title="Login" />
-      <div className=" flex items-center justify-center min-h-screen p-8">
+      <div className="flex items-center justify-center min-h-screen p-8">
         <div className="bg-white rounded-lg p-8 sm:p-0 w-full sm:w-[350px] flex flex-col justify-center gap-6">
           <div className="flex flex-col gap-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
@@ -65,14 +68,25 @@ export function SignIn() {
               />
             </div>
 
-            <div className="space-y-2">
+            <div className="space-y-2 relative">
               <Label htmlFor="password">Sua senha</Label>
               <Input
-                className="text-base"
+                className="text-base pr-10"
                 id="password"
-                type="password"
+                type={showPassword ? 'text' : 'password'}
                 {...register('password')}
               />
+              <button
+                type="button"
+                className="absolute right-2 top-9"
+                onClick={() => setShowPassword(!showPassword)}
+              >
+                {showPassword ? (
+                  <EyeOff className="h-5 w-5 text-gray-500" />
+                ) : (
+                  <Eye className="h-5 w-5 text-gray-500" />
+                )}
+              </button>
             </div>
 
             <Button className="w-full" disabled={isSubmitting}>

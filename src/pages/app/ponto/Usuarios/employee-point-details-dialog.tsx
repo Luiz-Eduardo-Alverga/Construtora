@@ -1,7 +1,13 @@
+import { DialogDescription, DialogTitle } from '@radix-ui/react-dialog'
 import { Search } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
-import { Dialog, DialogContent, DialogTrigger } from '@/components/ui/dialog'
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTrigger,
+} from '@/components/ui/dialog'
 import {
   Table,
   TableBody,
@@ -33,6 +39,13 @@ export function EmployeePointDetailsDialog({
       </DialogTrigger>
 
       <DialogContent>
+        <DialogHeader>
+          <DialogTitle className="text-left">Horarios</DialogTitle>
+          <DialogDescription className="text-left">
+            Listagem dos seus Pontos
+          </DialogDescription>
+        </DialogHeader>
+
         <Table>
           <TableHeader>
             <TableRow>

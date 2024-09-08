@@ -1,6 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'react-router-dom'
 
+import { getEmplooyers } from '@/api/get-employeers'
 import { getEmployeePoints } from '@/api/getUserPoints'
 
 import { EmployeePontFilters } from './employee-point-filters'
@@ -15,8 +16,13 @@ export function EmployeePoints() {
   const dataInicio = searchParams.get('dataInicio')
   const dataFim = searchParams.get('dataFim')
 
+  const { data: employeers } = useQuery({
+    queryKey: ['Employeers'],
+    queryFn: getEmplooyers,
+  })
+
   const { data: results = [] } = useQuery({
-    queryKey: ['employee', parsedEmployeeId, dataInicio, dataFim],
+    queryKey: ['employeePoints', parsedEmployeeId, dataInicio, dataFim],
     queryFn: () =>
       getEmployeePoints({
         Employeeid: parsedEmployeeId,
@@ -28,7 +34,7 @@ export function EmployeePoints() {
   return (
     <div className="m-2 pt-4 space-y-10">
       <EmployeePointsHeader />
-      <EmployeePontFilters />
+      <EmployeePontFilters employeers={employeers ?? []} />
       <EmployeePointsTable results={results} />
     </div>
   )
