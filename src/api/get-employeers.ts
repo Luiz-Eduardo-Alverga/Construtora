@@ -10,7 +10,7 @@ export async function getEmplooyers(): Promise<Employeers[]> {
   const token = getCookieValue('token')
   const crf = getCookieValue('crf')
 
-  const response = await api.get('https://servicesapis.com/Funcionarios', {
+  const response = await api.get('/Funcionarios', {
     params: {
       target: crf,
     },

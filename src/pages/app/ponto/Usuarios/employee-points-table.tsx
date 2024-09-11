@@ -26,7 +26,9 @@ export function EmployeePointsTable({ results }: EmployeePointsTableProps) {
   return (
     <div className="overflow-hidden overflow-x-auto">
       <Table className="border-collapse w-full">
-        <TableCaption>Uma lista dos pontos do seu funcionário</TableCaption>
+        <TableCaption className="sr-only">
+          Uma lista dos pontos do seu funcionário
+        </TableCaption>
         <TableHeader>
           <TableRow>
             <TableHead className="w-[150px]">Data</TableHead>

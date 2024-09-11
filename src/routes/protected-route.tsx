@@ -1,13 +1,15 @@
 import { ReactNode } from 'react'
 import { Navigate } from 'react-router-dom'
 
+import { getCookieValue } from '@/utils/get-cookie.value'
+
 interface ProtectedRouteProps {
   children: ReactNode
 }
 
 // Função para verificar se o token está presente (autenticado)
 const isAuthenticated = () => {
-  return !!localStorage.getItem('authToken')
+  return !!getCookieValue('token')
 }
 
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {

@@ -19,7 +19,7 @@ export function PointOptions() {
         <h1 className="flex gap-1 sm:text-left pl-2 pt-2 text-2xl font-medium">
           Gestão de Ponto <ShieldCheck className="h-8 w-8 text-primary" />
         </h1>
-        <span className="pl-2 pt-2 text-slate-600">
+        <span className="pl-2 pt-2 text-secondary-foreground">
           Navegue por todas as opções de controle de ponto
         </span>
 

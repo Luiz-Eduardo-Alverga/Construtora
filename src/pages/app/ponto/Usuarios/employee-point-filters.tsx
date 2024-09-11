@@ -53,7 +53,7 @@ export function EmployeePontFilters({ employeers }: EmployeersProps) {
     to: addDays(new Date(), 30),
   })
 
-  const [employeeId, setEmployeeId] = useState(1)
+  const [employeeId, setEmployeeId] = useState(0)
 
   const [searchParams, setSearchParams] = useSearchParams()
   const employeeName = searchParams.get('employeeId') || ''

@@ -1,9 +1,11 @@
 import { ReactNode } from 'react'
 import { Navigate } from 'react-router-dom'
 
+import { getCookieValue } from '@/utils/get-cookie.value'
+
 // Função que verifica se o usuário está autenticado (token presente)
 const isAuthenticated = () => {
-  return !!localStorage.getItem('authToken')
+  return !!getCookieValue('token')
 }
 
 interface PublicRouteProps {

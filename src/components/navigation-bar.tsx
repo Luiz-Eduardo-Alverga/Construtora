@@ -1,13 +1,6 @@
-import {
-  ClockArrowUp,
-  Home,
-  Menu,
-  Package,
-  Package2,
-  ShoppingCart,
-} from 'lucide-react'
+import { ClockArrowUp, Menu, Users } from 'lucide-react'
 
-import { ExpandableMenu } from './expandable-menu'
+// import { ExpandableMenu } from './expandable-menu'
 import { NavigationItem } from './navigation-item'
 import { Button } from './ui/button'
 import { Sheet, SheetContent, SheetTrigger } from './ui/sheet'
@@ -30,14 +23,11 @@ export function NavigatioBar() {
             className="h-10"
           />
 
-          <NavigationItem to="/dashboard" icon={Home}>
-            Dashboard
-          </NavigationItem>
-          <NavigationItem to="/orders" icon={ShoppingCart}>
-            Orders
+          <NavigationItem to="/dashboard" icon={Users}>
+            Funcionários
           </NavigationItem>
 
-          <ExpandableMenu title="Products" icon={Package}>
+          {/* <ExpandableMenu title="Products" icon={Package}>
             <NavigationItem to="/sub-option-1" icon={Package2}>
               Sub Option 1
             </NavigationItem>
@@ -47,11 +37,8 @@ export function NavigatioBar() {
             <NavigationItem to="/sub-option-3" icon={Package2}>
               Sub Option 3
             </NavigationItem>
-          </ExpandableMenu>
+          </ExpandableMenu> */}
 
-          <NavigationItem to="/products" icon={Package}>
-            Products
-          </NavigationItem>
           <NavigationItem to="/ponto" icon={ClockArrowUp}>
             Ponto
           </NavigationItem>
