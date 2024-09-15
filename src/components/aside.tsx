@@ -9,7 +9,11 @@ export function Aside() {
       <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
         <AsideLogo to="/" icon={Home} />
 
-        <AsideNavItem to="/funcionarios" icon={Users} label="Dashboard" />
+        <AsideNavItem
+          to="/cadastros/funcionarios"
+          icon={Users}
+          label="Dashboard"
+        />
         {/* <AsideNavItem to="/orders" icon={ShoppingCart} label="Orders" />
         <AsideNavItem to="/products" icon={Package} label="Products" />
         <AsideNavItem to="/customers" icon={Users2} label="Customers" /> */}

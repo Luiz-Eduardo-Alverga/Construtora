@@ -1,4 +1,4 @@
-import { format } from 'date-fns'
+import { format, parse } from 'date-fns'
 
 import {
   Table,
@@ -44,19 +44,22 @@ export function EmployeePointsTable({ results }: EmployeePointsTableProps) {
             results.map((result) => (
               <TableRow key={result.Data}>
                 <TableCell>
-                  {format(new Date(result.Data), 'yyyy-MM-dd')}
+                  {format(
+                    parse(result.Data, 'dd/MM/yyyy', new Date()),
+                    'yyyy-MM-dd',
+                  )}
                 </TableCell>
                 <TableCell className="hidden sm:table-cell">
-                  {result.HoraInicio}
+                  {result.HoraInicio ?? 'N/A'}
                 </TableCell>
                 <TableCell className="hidden sm:table-cell">
-                  {result.HoraAlmoco}
+                  {result.HoraAlmoco ?? 'N/A'}
                 </TableCell>
                 <TableCell className="hidden sm:table-cell">
-                  {result.HoraRetorno}
+                  {result.HoraRetorno ?? 'N/A'}
                 </TableCell>
                 <TableCell className="hidden sm:table-cell">
-                  {result.HoraFim}
+                  {result.HoraFim ?? 'N/A'}
                 </TableCell>
                 <TableCell className="text-right sm:hidden">
                   <EmployeePointDetailsDialog

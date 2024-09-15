@@ -6,10 +6,7 @@ export interface SignInBody {
 }
 
 export async function signIn({ username, password }: SignInBody) {
-  const response = await api.post(
-    'https://ngpflj9til.execute-api.sa-east-1.amazonaws.com/Login',
-    { username, password },
-  )
+  const response = await api.post('/Login', { username, password })
 
   if (response.data.statusCode === 401) {
     throw new Error()
@@ -23,8 +20,6 @@ export async function signIn({ username, password }: SignInBody) {
   document.cookie = `token=${token}; path=/; max-age=${60 * 60};`
   document.cookie = `crf=${target}`
   localStorage.setItem('authToken', token)
-
-  console.log(response)
 
   return response.data
 }

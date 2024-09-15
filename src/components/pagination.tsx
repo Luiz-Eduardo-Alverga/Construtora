@@ -33,7 +33,7 @@ export function Pagination({
             variant="outline"
             className="h-8 w-8 p-0"
             onClick={() => onPageChange(0)}
-            disabled={pageIndex === 0}
+            disabled={pageIndex === 1}
           >
             <ChevronsLeft className="h-4 w-4" />
             <span className="sr-only">Primeira página</span>
@@ -43,7 +43,7 @@ export function Pagination({
             variant="outline"
             className="h-8 w-8 p-0"
             onClick={() => onPageChange(pageIndex - 2)}
-            disabled={pageIndex === 0}
+            disabled={pageIndex === 1}
           >
             <ChevronLeft className="h-4 w-4" />
             <span className="sr-only">Página anterior</span>

@@ -1,13 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
+import { FileClock } from 'lucide-react'
 import { useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
 
 import { getEmplooyers } from '@/api/get-employeers'
 import { getEmployeePoints } from '@/api/getUserPoints'
+import { HeaderPages } from '@/components/header-pages'
 import { Pagination } from '@/components/pagination'
 
 import { EmployeePontFilters } from './employee-point-filters'
-import { EmployeePointsHeader } from './employee-points-header'
 import { EmployeePointsTable } from './employee-points-table'
 
 export function EmployeePoints() {
@@ -15,8 +16,8 @@ export function EmployeePoints() {
 
   const employeeId = searchParams.get('employeeId')
   const parsedEmployeeId = employeeId ? parseInt(employeeId, 10) : undefined
-  const dataInicio = searchParams.get('dataInicio')
-  const dataFim = searchParams.get('dataFim')
+  const dateFom = searchParams.get('dataInicio')
+  const dateTo = searchParams.get('dataFim')
 
   const pageIndex = z.coerce
     .number()
@@ -41,16 +42,16 @@ export function EmployeePoints() {
     queryKey: [
       'employeePoints',
       parsedEmployeeId,
-      dataInicio,
-      dataFim,
+      dateFom,
+      dateTo,
       pageIndex,
       limit,
     ],
     queryFn: () =>
       getEmployeePoints({
         employeeId: parsedEmployeeId,
-        DataInicio: dataInicio,
-        DataFim: dataFim,
+        DataInicio: dateFom,
+        DataFim: dateTo,
         page: pageIndex,
         limit,
       }),
@@ -60,7 +61,11 @@ export function EmployeePoints() {
 
   return (
     <div className="m-2 pt-4 space-y-6">
-      <EmployeePointsHeader />
+      <HeaderPages
+        title="Listagem de Pontos"
+        description="Verifique os registros de pontos do seu funcionário"
+        icon={FileClock}
+      />
       <EmployeePontFilters employeers={employeers ?? []} />
       <EmployeePointsTable results={results?.data ?? []} />
 

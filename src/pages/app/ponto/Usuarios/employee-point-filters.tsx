@@ -5,6 +5,7 @@ import { useState } from 'react'
 import { DateRange } from 'react-day-picker'
 import { useForm } from 'react-hook-form'
 import { useSearchParams } from 'react-router-dom'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { CalendarPicker } from '@/components/calendar-picker'
@@ -66,6 +67,9 @@ export function EmployeePontFilters({ employeers }: EmployeersProps) {
   })
 
   function handleFilter({ employeeName }: SearchEmployeePointsForm) {
+    if (employeeName === '') {
+      toast.warning('Preencha o funcionário')
+    }
     const formattedFromDate = date?.from
       ? formatDate(date.from, 'yyyy-MM-dd')
       : ''
