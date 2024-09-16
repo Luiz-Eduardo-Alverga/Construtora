@@ -23,7 +23,7 @@ export function NavigatioBar() {
             className="h-10"
           />
 
-          <NavigationItem to="/dashboard" icon={Users}>
+          <NavigationItem to="/cadastros/funcionarios" icon={Users}>
             Funcionários
           </NavigationItem>
 

@@ -10,13 +10,16 @@ interface GetEmployeersListQuery {
 }
 
 interface GetEmployeersListResponse {
-  listEmployeers: {
+  data: {
     nome: string | null
     cpf: string | null
     funcao: string | null
-    codigo: string | null
+    cod: string | null
   }[]
-  pages: number | null
+  totalPages: number | null
+  totalRecords: number | null
+  currentPage: string | null
+  pageSize: string | null
 }
 
 export async function getEmployeersList({

@@ -1,48 +1,40 @@
 import { useQuery } from '@tanstack/react-query'
-import { MoreHorizontal, Users } from 'lucide-react'
-import { NavLink, useSearchParams } from 'react-router-dom'
+import { Users } from 'lucide-react'
+import { useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
 
 import { getEmployeersList } from '@/api/get-employeers-list'
 import { HeaderPages } from '@/components/header-pages'
+import { Pagination } from '@/components/pagination'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from '@/components/ui/table'
 
 import { EmployeersFilters } from './employeers-filters'
+import { EmployeersTable } from './employeers-table'
 import { RegisterNewEmployeeDialog } from './register-employee-dialog'
 
 export function Employeers() {
-  const [searchParams] = useSearchParams()
+  const [searchParams, setSearchParams] = useSearchParams()
   const name = searchParams.get('nome')
   const employeeCpf = searchParams.get('cpf')
   const employeeId = searchParams.get('codigoFuncionario')
 
   const limit = 10
 
+  function handlePaginate(pageIndex: number) {
+    setSearchParams((prev) => {
+      prev.set('page', (pageIndex + 1).toString())
+
+      return prev
+    })
+  }
+
   const pageIndex = z.coerce
     .number()
     .transform((page) => page)
     .parse(searchParams.get('page') ?? '1')
 
-  const {
-    data: employeers,
-    isLoading,
-    isError,
-  } = useQuery({
+  const { data: employeers } = useQuery({
     queryKey: ['Employeers', pageIndex, name, employeeCpf, employeeId],
     queryFn: () =>
       getEmployeersList({
@@ -54,13 +46,7 @@ export function Employeers() {
       }),
   })
 
-  if (isLoading) {
-    return <div>Carregando...</div>
-  }
-
-  if (isError || !employeers?.listEmployeers) {
-    return <div>Erro ao carregar os funcionários.</div>
-  }
+  console.log(employeers)
 
   return (
     <div className="m-2 pt-4 space-y-6">
@@ -83,51 +69,15 @@ export function Employeers() {
         </Dialog>
       </div>
 
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Id</TableHead>
-            <TableHead>Nome</TableHead>
-            <TableHead>CPF</TableHead>
-            <TableHead>Função</TableHead>
-            <TableHead className="sr-only">Toggle Menu</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {employeers?.listEmployeers.length > 0 ? (
-            employeers.listEmployeers.map((employee) => (
-              <TableRow key={employee.codigo}>
-                <TableCell>{employee.codigo}</TableCell>
-                <TableCell>{employee.nome}</TableCell>
-                <TableCell>{employee.cpf}</TableCell>
-                <TableCell>{employee.funcao}</TableCell>
-                <TableCell className="ml-auto">
-                  <DropdownMenu>
-                    <DropdownMenuTrigger asChild>
-                      <Button size="icon" variant="ghost" aria-haspopup="true">
-                        <MoreHorizontal className="h-4 w-4" />
-                        <span className="sr-only">Toggle Menu</span>
-                      </Button>
-                    </DropdownMenuTrigger>
-                    <DropdownMenuContent align="end">
-                      <NavLink to={`${employee.codigo}/editar`}>
-                        <DropdownMenuItem>Alterar</DropdownMenuItem>
-                      </NavLink>
-                      <DropdownMenuItem>Excluir</DropdownMenuItem>
-                    </DropdownMenuContent>
-                  </DropdownMenu>
-                </TableCell>
-              </TableRow>
-            ))
-          ) : (
-            <TableRow>
-              <TableCell colSpan={5} className="text-center">
-                Nenhum funcionário encontrado.
-              </TableCell>
-            </TableRow>
-          )}
-        </TableBody>
-      </Table>
+      <EmployeersTable employeers={employeers?.data ?? []} />
+
+      {employeers?.totalPages && (
+        <Pagination
+          onPageChange={handlePaginate}
+          pageIndex={pageIndex}
+          pages={employeers.totalPages ?? 0}
+        />
+      )}
     </div>
   )
 }
