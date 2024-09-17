@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { Users } from 'lucide-react'
+import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { getEmployeersList } from '@/api/get-employeers-list'
@@ -24,7 +26,6 @@ export function Employeers() {
   function handlePaginate(pageIndex: number) {
     setSearchParams((prev) => {
       prev.set('page', (pageIndex + 1).toString())
-
       return prev
     })
   }
@@ -34,7 +35,7 @@ export function Employeers() {
     .transform((page) => page)
     .parse(searchParams.get('page') ?? '1')
 
-  const { data: employeers } = useQuery({
+  const { data: employeers, isLoading: isLoadingEmployeers } = useQuery({
     queryKey: ['Employeers', pageIndex, name, employeeCpf, employeeId],
     queryFn: () =>
       getEmployeersList({
@@ -46,7 +47,11 @@ export function Employeers() {
       }),
   })
 
-  console.log(employeers)
+  useEffect(() => {
+    if (!isLoadingEmployeers && employeers?.data.length === 0) {
+      toast.info('Nenhum funcionário encontrado')
+    }
+  }, [isLoadingEmployeers, employeers])
 
   return (
     <div className="m-2 pt-4 space-y-6">
@@ -56,11 +61,11 @@ export function Employeers() {
         icon={Users}
       />
 
-      <div className="flex items-center justify-between h-20">
+      <div className="flex gap-2 flex-col sm:flex-row items-center justify-between h-20">
         <EmployeersFilters />
         <Dialog>
           <DialogTrigger asChild>
-            <Button type="button" className="p-5">
+            <Button type="button" className="w-full sm:w-32 p-5">
               Novo Cadastro
             </Button>
           </DialogTrigger>
@@ -69,9 +74,12 @@ export function Employeers() {
         </Dialog>
       </div>
 
-      <EmployeersTable employeers={employeers?.data ?? []} />
+      <EmployeersTable
+        isLoadingEmployeers={isLoadingEmployeers}
+        employeers={employeers?.data ?? []}
+      />
 
-      {employeers?.totalPages && (
+      {employeers && employeers?.data && (
         <Pagination
           onPageChange={handlePaginate}
           pageIndex={pageIndex}

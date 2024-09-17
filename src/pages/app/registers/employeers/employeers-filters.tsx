@@ -36,10 +36,7 @@ export function EmployeersFilters() {
     // Remove todos os caracteres que não sejam números do CPF
     const sanitizedCpf = employeeCpf ? employeeCpf.replace(/\D/g, '') : ''
 
-    console.log({ sanitizedCpf, employeeId, employeeName }) // Verificando os valores recebidos
-
     setSearchParams((state) => {
-      // Verifique os valores antes de setar
       if (employeeId) {
         state.set('codigoFuncionario', employeeId.toString())
       } else {
@@ -53,21 +50,28 @@ export function EmployeersFilters() {
       }
 
       if (sanitizedCpf && sanitizedCpf.trim()) {
-        state.set('cpf', sanitizedCpf) // Usa o CPF sanitizado, sem caracteres especiais
+        state.set('cpf', sanitizedCpf)
       } else {
         state.delete('cpf')
       }
+
+      state.delete('page')
 
       return state
     })
   }
 
   return (
-    <form className="flex" onSubmit={handleSubmit(handleFilter)}>
-      <div className="flex gap-3 items-center">
-        <div>
+    <form onSubmit={handleSubmit(handleFilter)}>
+      <div className="flex gap-3">
+        <div className="hidden sm:block">
           <Label className="sr-only">Código</Label>
-          <Input type="text" placeholder="Código" {...register('employeeId')} />
+          <Input
+            type="text"
+            placeholder="Código"
+            className="w-20"
+            {...register('employeeId')}
+          />
         </div>
 
         <div>
