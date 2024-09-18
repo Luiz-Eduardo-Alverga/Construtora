@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { Search } from 'lucide-react'
+import { Search, X } from 'lucide-react'
 import { Controller, useForm } from 'react-hook-form'
 import { useSearchParams } from 'react-router-dom'
 import { z } from 'zod'
@@ -21,6 +21,7 @@ export function EmployeersFilters() {
   const setSearchParams = useSearchParams()[1] // Mantendo apenas o setSearchParams
   const {
     register,
+    reset,
     handleSubmit,
     control, // Control para usar com Controller
     formState: { isSubmitting },
@@ -61,9 +62,27 @@ export function EmployeersFilters() {
     })
   }
 
+  function handleClearFilters() {
+    setSearchParams((state) => {
+      state.delete('nome')
+      state.delete('cpf')
+      state.delete('codigoFuncionario')
+
+      state.set('page', '1')
+
+      return state
+    })
+
+    reset({
+      employeeId: '',
+      employeeName: '',
+      employeeCpf: '',
+    })
+  }
+
   return (
     <form onSubmit={handleSubmit(handleFilter)}>
-      <div className="flex gap-3">
+      <div className="flex flex-col sm:flex-row gap-3">
         <div className="hidden sm:block">
           <Label className="sr-only">Código</Label>
           <Input
@@ -94,9 +113,16 @@ export function EmployeersFilters() {
           />
         </div>
 
-        <Button type="submit" disabled={isSubmitting}>
-          <Search className="h-5 w-5" />
-        </Button>
+        <div className="flex gap-2 justify-between">
+          <Button type="submit" disabled={isSubmitting}>
+            <Search className="w-full mr-2 h-5 sm:w-5" />
+            Filtrar resultado
+          </Button>
+
+          <Button variant={'outline'} onClick={handleClearFilters}>
+            <X className="w-full mr-2 h-5 sm:w-5" /> Remover Filtros
+          </Button>
+        </div>
       </div>
     </form>
   )

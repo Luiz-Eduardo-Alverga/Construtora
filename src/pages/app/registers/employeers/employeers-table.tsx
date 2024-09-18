@@ -1,4 +1,4 @@
-import { MoreHorizontal } from 'lucide-react'
+import { MoreHorizontal, SquarePen, Trash2 } from 'lucide-react'
 import { NavLink } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
@@ -72,9 +72,15 @@ export function EmployeersTable({
                       </DropdownMenuTrigger>
                       <DropdownMenuContent align="end">
                         <NavLink to={`${employee.cod}/editar`}>
-                          <DropdownMenuItem>Alterar</DropdownMenuItem>
+                          <DropdownMenuItem className="space-x-1">
+                            <SquarePen className="h-5 w-5 text-green-400" />
+                            <span>Alterar</span>
+                          </DropdownMenuItem>
                         </NavLink>
-                        <DropdownMenuItem>Excluir</DropdownMenuItem>
+                        <DropdownMenuItem className="space-x-1">
+                          <Trash2 className="text-red-500 h-5 w-5" />
+                          <span>Excluir</span>
+                        </DropdownMenuItem>
                       </DropdownMenuContent>
                     </DropdownMenu>
                   </TableCell>

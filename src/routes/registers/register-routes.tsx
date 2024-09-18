@@ -1,7 +1,7 @@
 import { RouteObject } from 'react-router-dom'
 
+import { RegisterEmployeeForm } from '@/pages/app/registers/employeers/editEmployee/register-employee-form'
 import { Employeers } from '@/pages/app/registers/employeers/employeers'
-import { RegisterEmployeeForm } from '@/pages/app/registers/employeers/register-employee-form'
 import { AppLayout } from '@/pages/layouts/app'
 
 import ProtectedRoute from '../protected-route'

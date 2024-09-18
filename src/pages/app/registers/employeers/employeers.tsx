@@ -61,7 +61,7 @@ export function Employeers() {
         icon={Users}
       />
 
-      <div className="flex gap-2 flex-col sm:flex-row items-center justify-between h-20">
+      <div className="flex gap-2 flex-col sm:flex-row justify-between ">
         <EmployeersFilters />
         <Dialog>
           <DialogTrigger asChild>

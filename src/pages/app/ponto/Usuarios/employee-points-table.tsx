@@ -46,7 +46,7 @@ export function EmployeePointsTable({ results }: EmployeePointsTableProps) {
                 <TableCell>
                   {format(
                     parse(result.Data, 'dd/MM/yyyy', new Date()),
-                    'yyyy-MM-dd',
+                    'dd/MM/yyyy',
                   )}
                 </TableCell>
                 <TableCell className="hidden sm:table-cell">

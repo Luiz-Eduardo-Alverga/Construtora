@@ -12,7 +12,7 @@ export function Aside() {
         <AsideNavItem
           to="/cadastros/funcionarios"
           icon={Users}
-          label="Dashboard"
+          label="Funcionários"
         />
         {/* <AsideNavItem to="/orders" icon={ShoppingCart} label="Orders" />
         <AsideNavItem to="/products" icon={Package} label="Products" />
