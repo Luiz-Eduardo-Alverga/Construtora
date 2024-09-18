@@ -41,8 +41,8 @@ export function EmployeersTable({
             <TableRow>
               <TableHead>Id</TableHead>
               <TableHead>Nome</TableHead>
-              <TableHead>CPF</TableHead>
-              <TableHead className="hidden sm:table-cell">Função</TableHead>
+              <TableHead className="hidden sm:table-cell">CPF</TableHead>
+              <TableHead>Função</TableHead>
               <TableHead className="sr-only">Toggle Menu</TableHead>
             </TableRow>
           </TableHeader>

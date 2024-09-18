@@ -34,7 +34,7 @@ export function RegisterEmployeeForm() {
             <Separator className="dark:bg-white" />
           </div>
 
-          <div className="mx-4 mt-16">
+          <div className="mx-4 mt-12">
             <form action="" className="space-y-4">
               <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
                 <div className="space-y-0.5 relative">
