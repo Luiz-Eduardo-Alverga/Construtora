@@ -35,6 +35,7 @@ export function EmployeersTable({
 }: EmployeersProps) {
   return (
     <>
+      {isLoadingEmployeers && <EmployeersTableSkeleton />}
       {employeers.length > 0 ? (
         <Table>
           <TableHeader>
@@ -47,8 +48,6 @@ export function EmployeersTable({
             </TableRow>
           </TableHeader>
           <TableBody>
-            {isLoadingEmployeers && <EmployeersTableSkeleton />}
-
             {employeers &&
               employeers.map((employee) => (
                 <TableRow key={employee.cod}>

@@ -2,6 +2,7 @@ import { RouteObject } from 'react-router-dom'
 
 import { RegisterEmployeeForm } from '@/pages/app/registers/employeers/editEmployee/register-employee-form'
 import { Employeers } from '@/pages/app/registers/employeers/employeers'
+import { Error } from '@/pages/error'
 import { AppLayout } from '@/pages/layouts/app'
 
 import ProtectedRoute from '../protected-route'
@@ -13,6 +14,7 @@ export const registersRoutes: RouteObject = {
       <AppLayout />
     </ProtectedRoute>
   ),
+  errorElement: <Error />,
   children: [
     { path: '/cadastros/funcionarios', element: <Employeers /> },
     {
