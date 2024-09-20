@@ -8,7 +8,7 @@ import { useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
-import { CalendarPicker } from '@/components/calendar-picker'
+import { CalendarPicker } from '@/components/calendar-picker-range'
 import { Button } from '@/components/ui/button'
 import {
   Command,

@@ -13,7 +13,7 @@ import {
 } from '@/components/ui/select'
 
 // Objeto com as UFs
-const ufs = [
+export const ufs = [
   { value: 'AC', label: 'Acre' },
   { value: 'AL', label: 'Alagoas' },
   { value: 'AP', label: 'Amapá' },

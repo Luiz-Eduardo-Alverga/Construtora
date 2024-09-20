@@ -48,7 +48,7 @@ export function SignIn() {
     <>
       <Helmet title="Login" />
       <div className="flex items-center justify-center min-h-screen p-8">
-        <div className="bg-white rounded-lg p-8 sm:p-0 w-full sm:w-[350px] flex flex-col justify-center gap-6">
+        <div className="bg-white dark:bg-slate-950 rounded-lg p-8 sm:p-0 w-full sm:w-[350px] flex flex-col justify-center gap-6">
           <div className="flex flex-col gap-2 text-center">
             <h1 className="text-2xl font-semibold tracking-tight">
               Acessar painel

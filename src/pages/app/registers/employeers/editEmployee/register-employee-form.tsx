@@ -1,9 +1,11 @@
 import { useQuery } from '@tanstack/react-query'
-import { CalendarDays, SquarePen, User } from 'lucide-react'
+import { SquarePen, User } from 'lucide-react'
+import { useState } from 'react'
 // Importando o ícone de usuário
 import { useParams } from 'react-router-dom'
 
 import { getEmployee } from '@/api/get-employee'
+import { CalendarSingleDatePicker } from '@/components/calendar-picker-single'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
@@ -19,9 +21,11 @@ import {
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
+import { EditEmployeeInformationTabs } from './edit-employee.-tab-informations'
 import { EditEmployeeAddressTab } from './edit-employee-tab-address'
 
 export function RegisterEmployeeForm() {
+  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const { id } = useParams()
 
   const { data: employeers } = useQuery({
@@ -87,10 +91,10 @@ export function RegisterEmployeeForm() {
 
                 <div className="space-y-0.5 flex-1 relative">
                   <Label htmlFor="codigoPonto">Data Admissão</Label>
-                  <div className="relative">
-                    <CalendarDays className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                    <Input id="codigoPonto" className="" />
-                  </div>
+                  <CalendarSingleDatePicker
+                    date={selectedDate}
+                    setDate={setSelectedDate}
+                  />
                 </div>
 
                 <div className="space-y-0.5 flex-1 relative">
@@ -128,8 +132,11 @@ export function RegisterEmployeeForm() {
                       Dados Pessoais
                     </TabsTrigger>
                   </TabsList>
-                  <TabsContent value="endereco">
+                  <TabsContent value="endereco" className="mt-6">
                     <EditEmployeeAddressTab />
+                  </TabsContent>
+                  <TabsContent value="dados pessoais" className="mt-6">
+                    <EditEmployeeInformationTabs />
                   </TabsContent>
                 </Tabs>
               </div>

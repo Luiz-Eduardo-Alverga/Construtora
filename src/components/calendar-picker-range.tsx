@@ -1,4 +1,3 @@
-// src/components/CalendarPicker.tsx
 import { format as formatDate } from 'date-fns'
 import { CalendarIcon } from 'lucide-react'
 import { useEffect, useState } from 'react'
@@ -51,11 +50,11 @@ export function CalendarPicker({ date, setDate }: CalendarPickerProps) {
           {date?.from ? (
             date.to ? (
               <>
-                {formatDate(date.from, 'dd MMM yyyy')} -{' '}
-                {formatDate(date.to, 'dd MMM yyyy')}
+                {formatDate(date.from, 'dd/MM/yyyy')} -{' '}
+                {formatDate(date.to, 'dd/MM/yyyy')}
               </>
             ) : (
-              formatDate(date.from, 'dd MMM yyyy')
+              formatDate(date.from, 'dd/MM/yyyy')
             )
           ) : (
             <span>Selecione uma data</span>
