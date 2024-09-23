@@ -17,8 +17,9 @@ import { Separator } from '@/components/ui/separator'
 import { ufs } from './edit-employee-tab-address'
 
 export function EditEmployeeInformationTabs() {
-  const { control } = useForm()
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
+
+  const { control } = useForm()
 
   return (
     <div className="space-y-4">

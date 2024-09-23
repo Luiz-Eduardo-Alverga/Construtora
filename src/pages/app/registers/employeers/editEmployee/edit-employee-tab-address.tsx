@@ -1,6 +1,8 @@
+import { useQuery } from '@tanstack/react-query'
 import { SquarePen } from 'lucide-react'
-import { Controller, useForm } from 'react-hook-form'
+import { Controller, useFormContext } from 'react-hook-form'
 
+import { getSearchCep } from '@/api/search-cep'
 import { Input } from '@/components/ui/input'
 import { InputWithMask } from '@/components/ui/input-mask'
 import { Label } from '@/components/ui/label'
@@ -44,7 +46,18 @@ export const ufs = [
 ]
 
 export function EditEmployeeAddressTab() {
-  const { control } = useForm()
+  const { watch, control, register } = useFormContext()
+
+  const cep = watch('cep')
+
+  const clearCpf = cep ? cep.replace(/\D/g, '') : ''
+
+  const { data: address } = useQuery({
+    queryKey: ['SearchCep', clearCpf],
+    queryFn: () => getSearchCep({ cep: clearCpf }),
+  })
+
+  console.log(address)
 
   return (
     <div className="space-y-4">
@@ -54,7 +67,7 @@ export function EditEmployeeAddressTab() {
           <div className="relative">
             <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <Controller
-              name="CEP"
+              name="cep"
               control={control}
               render={({ field }) => (
                 <InputWithMask
@@ -69,10 +82,10 @@ export function EditEmployeeAddressTab() {
         </div>
 
         <div className="space-y-0.5 flex-1 relative">
-          <Label htmlFor="codigoPonto">Endereço</Label>
+          <Label htmlFor="endereco">Endereço</Label>
           <div className="relative">
             <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <Input id="codigoPonto" />
+            <Input id="endereco" {...register('endereco')} />
           </div>
         </div>
 
@@ -80,7 +93,7 @@ export function EditEmployeeAddressTab() {
           <Label htmlFor="Numero">Numero</Label>
           <div className="relative">
             <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <Input id="Numero" />
+            <Input id="Numero" {...register('numeroEndereco')} />
           </div>
         </div>
       </div>
@@ -90,20 +103,20 @@ export function EditEmployeeAddressTab() {
           <Label htmlFor="bairro">Bairro</Label>
           <div className="relative">
             <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <Input id="bairro" />
+            <Input id="bairro" {...register('bairro')} />
           </div>
         </div>
         <div className="space-y-0.5">
           <Label htmlFor="cidade">Cidade</Label>
           <div className="relative">
             <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <Input id="cidade" />
+            <Input id="cidade" {...register('cidade')} />
           </div>
         </div>
         <div className="space-y-0.5">
           <Label htmlFor="uf">UF</Label>
           <Controller
-            name="UF"
+            name="uf"
             control={control}
             render={({ field }) => (
               <Select onValueChange={field.onChange} value={field.value}>
@@ -125,7 +138,7 @@ export function EditEmployeeAddressTab() {
           <Label htmlFor="complemento">Complemento</Label>
           <div className="relative">
             <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <Input id="complemento" />
+            <Input id="complemento" {...register('complemento')} />
           </div>
         </div>
       </div>

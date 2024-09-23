@@ -11,11 +11,9 @@ export async function getEmplooyers(): Promise<Employeers[]> {
   const crf = getCookieValue('crf')
 
   const response = await api.get('/Funcionarios', {
-    params: {
-      target: crf,
-    },
     headers: {
       Authorization: token,
+      target: crf,
     },
   })
 

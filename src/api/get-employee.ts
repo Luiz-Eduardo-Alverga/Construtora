@@ -22,7 +22,7 @@ interface GetEmployeeResponse {
   rg: string | null
   uf_rg: string | null
   dataEmissao: string | null
-  pisPasep: string | null
+  pis: string | null
   ctps: string | null
   serieCTPS: string | null
   nomePai: string | null
