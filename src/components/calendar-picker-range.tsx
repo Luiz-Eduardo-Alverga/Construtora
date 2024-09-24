@@ -50,7 +50,7 @@ export function CalendarPicker({ date, setDate }: CalendarPickerProps) {
           {date?.from ? (
             date.to ? (
               <>
-                {formatDate(date.from, 'dd/MM/yyyy')} -{' '}
+                {formatDate(date.from, 'dd/MM/yyyy')} à{' '}
                 {formatDate(date.to, 'dd/MM/yyyy')}
               </>
             ) : (

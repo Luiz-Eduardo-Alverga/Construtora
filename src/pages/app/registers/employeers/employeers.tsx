@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Users } from 'lucide-react'
+import { PlusCircle, Users } from 'lucide-react'
 import { useEffect } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -65,8 +65,9 @@ export function Employeers() {
         <EmployeersFilters />
         <Dialog>
           <DialogTrigger asChild>
-            <Button type="button" className="w-full sm:w-32 p-5">
-              Novo Cadastro
+            <Button type="button" className="w-full sm:w-44 p-5 space-x-2">
+              <PlusCircle className="h-5 w-5" />
+              <span>Novo Cadastro</span>
             </Button>
           </DialogTrigger>
 

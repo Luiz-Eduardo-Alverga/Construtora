@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQuery } from '@tanstack/react-query'
-import { SquarePen, User } from 'lucide-react'
+import { formatDate } from 'date-fns'
 import { useState } from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
 // Importando o ícone de usuário
@@ -10,7 +10,6 @@ import { z } from 'zod'
 import { getEmployee } from '@/api/get-employee'
 import { CalendarSingleDatePicker } from '@/components/calendar-picker-single'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import {
@@ -26,6 +25,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 import { EditEmployeeInformationTabs } from './edit-employee.-tab-informations'
 import { EditEmployeeAddressTab } from './edit-employee-tab-address'
+import { InputForm } from './Inputs/input-form'
 
 const editEmployeeSchema = z.object({
   nome: z.string().optional(),
@@ -63,8 +63,6 @@ export function RegisterEmployeeForm() {
   const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
   const { id } = useParams()
 
-  console.log(selectedDate)
-
   const editEmployeeForm = useForm<EditEmployeeSchema>({
     resolver: zodResolver(editEmployeeSchema),
   })
@@ -75,6 +73,12 @@ export function RegisterEmployeeForm() {
   })
 
   function handleEditEmployee(data: EditEmployeeSchema) {
+    const formatedDate = selectedDate
+      ? formatDate(selectedDate, 'yyyy-MM-dd')
+      : ''
+
+    data.dataAdmissao = formatedDate
+
     console.log(data)
   }
 
@@ -95,30 +99,21 @@ export function RegisterEmployeeForm() {
                 className="space-y-4"
               >
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
-                  <div className="space-y-0.5 relative">
-                    <Label htmlFor="name">*Nome</Label>
-                    <div className="relative">
-                      <User className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                      <Input
-                        id="name"
-                        className="w-full sm:w-[850px]"
-                        defaultValue={employee.nome ?? ''}
-                        {...editEmployeeForm.register('nome')}
-                      />
-                    </div>
-                  </div>
+                  <InputForm
+                    label="Nome"
+                    registerName="nome"
+                    id="name"
+                    allspace="sm:w-[850px]"
+                    defaultValueData={employee.nome ?? ''}
+                  />
 
-                  <div className="space-y-0.5 flex-1 relative">
-                    <Label htmlFor="codigoPonto">Código ponto</Label>
-                    <div className="relative">
-                      <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                      <Input
-                        id="codigoPonto"
-                        {...editEmployeeForm.register('codigoPonto')}
-                        defaultValue={employee.Codigo ?? ''}
-                      />
-                    </div>
-                  </div>
+                  <InputForm
+                    label="Código ponto"
+                    registerName="codigoPonto"
+                    id="codigoPonto"
+                    allspace="flex-1"
+                    defaultValueData={employee.Codigo ?? ''}
+                  />
                 </div>
 
                 <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
@@ -155,17 +150,13 @@ export function RegisterEmployeeForm() {
                     />
                   </div>
 
-                  <div className="space-y-0.5 flex-1 relative">
-                    <Label htmlFor="pis">PIS</Label>
-                    <div className="relative">
-                      <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-                      <Input
-                        id="pis"
-                        defaultValue={employee.pis ?? ''}
-                        {...editEmployeeForm.register('pis')}
-                      />
-                    </div>
-                  </div>
+                  <InputForm
+                    label="PIS"
+                    registerName="pis"
+                    id="pis"
+                    allspace="flex-1"
+                    defaultValueData={employee.pis ?? ''}
+                  />
 
                   <div className="space-y-0.5">
                     <Label>Status:</Label>

@@ -17,7 +17,12 @@ import { Separator } from '@/components/ui/separator'
 import { ufs } from './edit-employee-tab-address'
 
 export function EditEmployeeInformationTabs() {
-  const [selectedDate, setSelectedDate] = useState<Date | undefined>(undefined)
+  const [selectedDateBirth, setSelectedDateBirth] = useState<Date | undefined>(
+    undefined,
+  )
+  const [selectedDateResignation, setSelectedDateResignation] = useState<
+    Date | undefined
+  >(undefined)
 
   const { control } = useForm()
 
@@ -78,8 +83,8 @@ export function EditEmployeeInformationTabs() {
         <div>
           <Label>Data de Nascimento</Label>
           <CalendarSingleDatePicker
-            date={selectedDate}
-            setDate={setSelectedDate}
+            date={selectedDateBirth}
+            setDate={setSelectedDateBirth}
           />
         </div>
       </div>
@@ -161,8 +166,8 @@ export function EditEmployeeInformationTabs() {
         <div>
           <Label>Data de Demissão</Label>
           <CalendarSingleDatePicker
-            date={selectedDate}
-            setDate={setSelectedDate}
+            date={selectedDateResignation}
+            setDate={setSelectedDateResignation}
           />
         </div>
 

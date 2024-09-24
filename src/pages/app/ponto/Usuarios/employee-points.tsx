@@ -57,8 +57,6 @@ export function EmployeePoints() {
       }),
   })
 
-  console.log(results)
-
   return (
     <div className="m-2 pt-4 space-y-6">
       <HeaderPages

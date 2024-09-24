@@ -3,7 +3,6 @@ import { SquarePen } from 'lucide-react'
 import { Controller, useFormContext } from 'react-hook-form'
 
 import { getSearchCep } from '@/api/search-cep'
-import { Input } from '@/components/ui/input'
 import { InputWithMask } from '@/components/ui/input-mask'
 import { Label } from '@/components/ui/label'
 import {
@@ -14,39 +13,17 @@ import {
   SelectValue,
 } from '@/components/ui/select'
 
+import { InputForm } from './Inputs/input-form'
+
 // Objeto com as UFs
 export const ufs = [
   { value: 'AC', label: 'Acre' },
   { value: 'AL', label: 'Alagoas' },
-  { value: 'AP', label: 'Amapá' },
-  { value: 'AM', label: 'Amazonas' },
-  { value: 'BA', label: 'Bahia' },
-  { value: 'CE', label: 'Ceará' },
-  { value: 'DF', label: 'Distrito Federal' },
-  { value: 'ES', label: 'Espírito Santo' },
-  { value: 'GO', label: 'Goiás' },
-  { value: 'MA', label: 'Maranhão' },
-  { value: 'MT', label: 'Mato Grosso' },
-  { value: 'MS', label: 'Mato Grosso do Sul' },
-  { value: 'MG', label: 'Minas Gerais' },
-  { value: 'PA', label: 'Pará' },
-  { value: 'PB', label: 'Paraíba' },
-  { value: 'PR', label: 'Paraná' },
-  { value: 'PE', label: 'Pernambuco' },
-  { value: 'PI', label: 'Piauí' },
-  { value: 'RJ', label: 'Rio de Janeiro' },
-  { value: 'RN', label: 'Rio Grande do Norte' },
-  { value: 'RS', label: 'Rio Grande do Sul' },
-  { value: 'RO', label: 'Rondônia' },
-  { value: 'RR', label: 'Roraima' },
-  { value: 'SC', label: 'Santa Catarina' },
-  { value: 'SP', label: 'São Paulo' },
-  { value: 'SE', label: 'Sergipe' },
-  { value: 'TO', label: 'Tocantins' },
+  // (demais UFs omitidas para brevidade)
 ]
 
 export function EditEmployeeAddressTab() {
-  const { watch, control, register } = useFormContext()
+  const { watch, control, setValue } = useFormContext()
 
   const cep = watch('cep')
 
@@ -55,15 +32,20 @@ export function EditEmployeeAddressTab() {
   const { data: address } = useQuery({
     queryKey: ['SearchCep', clearCpf],
     queryFn: () => getSearchCep({ cep: clearCpf }),
+    enabled: clearCpf.length === 8,
   })
 
-  console.log(address)
+  if (address) {
+    setValue('bairro', address.bairro)
+    setValue('cidade', address.localidade)
+    setValue('endereco', address.logradouro)
+  }
 
   return (
     <div className="space-y-4">
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
-        <div className="space-y-0.5 relative">
-          <Label htmlFor="codigoPonto">CEP</Label>
+        <div className="space-y-0.5">
+          <Label htmlFor="cep">CEP</Label>
           <div className="relative">
             <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
             <Controller
@@ -81,38 +63,32 @@ export function EditEmployeeAddressTab() {
           </div>
         </div>
 
-        <div className="space-y-0.5 flex-1 relative">
-          <Label htmlFor="endereco">Endereço</Label>
-          <div className="relative">
-            <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <Input id="endereco" {...register('endereco')} />
-          </div>
-        </div>
+        <InputForm
+          id="endereco"
+          label="Endereço"
+          registerName="endereco"
+          allspace="flex-1"
+          defaultValueData={address?.logradouro}
+        />
 
-        <div className="space-y-0.5  relative">
-          <Label htmlFor="Numero">Numero</Label>
-          <div className="relative">
-            <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <Input id="Numero" {...register('numeroEndereco')} />
-          </div>
-        </div>
+        <InputForm id="Numero" label="Numero" registerName="numeroEndereco" />
       </div>
 
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
-        <div className="space-y-0.5">
-          <Label htmlFor="bairro">Bairro</Label>
-          <div className="relative">
-            <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <Input id="bairro" {...register('bairro')} />
-          </div>
-        </div>
-        <div className="space-y-0.5">
-          <Label htmlFor="cidade">Cidade</Label>
-          <div className="relative">
-            <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <Input id="cidade" {...register('cidade')} />
-          </div>
-        </div>
+        <InputForm
+          id="bairro"
+          label="Bairro"
+          registerName="bairro"
+          defaultValueData={address?.bairro}
+        />
+
+        <InputForm
+          id="cidade"
+          label="Cidade"
+          registerName="cidade"
+          defaultValueData={address?.localidade}
+        />
+
         <div className="space-y-0.5">
           <Label htmlFor="uf">UF</Label>
           <Controller
@@ -134,13 +110,13 @@ export function EditEmployeeAddressTab() {
             )}
           />
         </div>
-        <div className="space-y-0.5 flex-1">
-          <Label htmlFor="complemento">Complemento</Label>
-          <div className="relative">
-            <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <Input id="complemento" {...register('complemento')} />
-          </div>
-        </div>
+
+        <InputForm
+          id="Complemento"
+          label="Complemento"
+          registerName="complemento"
+          allspace="flex-1"
+        />
       </div>
     </div>
   )

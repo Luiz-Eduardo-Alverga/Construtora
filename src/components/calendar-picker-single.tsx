@@ -1,4 +1,5 @@
 import { format as formatDate } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import { CalendarIcon } from 'lucide-react'
 
 import { Button } from '@/components/ui/button'
@@ -32,7 +33,7 @@ export function CalendarSingleDatePicker({
         >
           <CalendarIcon className="mr-2 h-4 w-4" />
           {date ? (
-            formatDate(date, 'dd/MM/yyyy')
+            formatDate(date, "dd 'de' MMMM 'de' yyyy", { locale: ptBR })
           ) : (
             <span>Selecione uma data</span>
           )}
