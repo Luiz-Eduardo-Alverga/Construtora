@@ -2,7 +2,8 @@ import { useQuery } from '@tanstack/react-query'
 import { SquarePen } from 'lucide-react'
 import { Controller, useFormContext } from 'react-hook-form'
 
-import { getSearchCep } from '@/api/search-cep'
+import { getSearchCep } from '@/api/utils/search-cep'
+import { getSearchStates } from '@/api/utils/searct-states'
 import { InputWithMask } from '@/components/ui/input-mask'
 import { Label } from '@/components/ui/label'
 import {
@@ -14,13 +15,6 @@ import {
 } from '@/components/ui/select'
 
 import { InputForm } from './Inputs/input-form'
-
-// Objeto com as UFs
-export const ufs = [
-  { value: 'AC', label: 'Acre' },
-  { value: 'AL', label: 'Alagoas' },
-  // (demais UFs omitidas para brevidade)
-]
 
 export function EditEmployeeAddressTab() {
   const { watch, control, setValue } = useFormContext()
@@ -35,10 +29,16 @@ export function EditEmployeeAddressTab() {
     enabled: clearCpf.length === 8,
   })
 
+  const { data: states } = useQuery({
+    queryKey: ['states'],
+    queryFn: getSearchStates,
+  })
+
   if (address) {
     setValue('bairro', address.bairro)
     setValue('cidade', address.localidade)
     setValue('endereco', address.logradouro)
+    setValue('uf', address.uf)
   }
 
   return (
@@ -100,11 +100,12 @@ export function EditEmployeeAddressTab() {
                   <SelectValue placeholder="Selecione a UF" />
                 </SelectTrigger>
                 <SelectContent>
-                  {ufs.map((uf) => (
-                    <SelectItem key={uf.value} value={uf.value}>
-                      {uf.label}
-                    </SelectItem>
-                  ))}
+                  {states &&
+                    states.map((uf) => (
+                      <SelectItem key={uf.id} value={uf.sigla}>
+                        {uf.nome}
+                      </SelectItem>
+                    ))}
                 </SelectContent>
               </Select>
             )}

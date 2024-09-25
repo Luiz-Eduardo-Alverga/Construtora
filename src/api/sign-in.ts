@@ -6,20 +6,13 @@ export interface SignInBody {
 }
 
 export async function signIn({ username, password }: SignInBody) {
-  const response = await api.post('/Login', { username, password })
+  const response = await api.post('/Login-dev', { username, password })
 
-  if (response.data.statusCode === 401) {
-    throw new Error()
-  }
+  const target = response.data.target
+  const token = response.data.token
 
-  const responseBody = JSON.parse(response.data.body)
-
-  const token = responseBody.token
-  const target = responseBody.target
-
-  document.cookie = `token=${token}; path=/; max-age=${60 * 60};`
   document.cookie = `crf=${target}`
-  localStorage.setItem('authToken', token)
+  document.cookie = `token=${token}`
 
   return response.data
 }

@@ -7,13 +7,15 @@ export interface Employeers {
 }
 
 export async function getEmplooyers(): Promise<Employeers[]> {
+  const target = getCookieValue('crf')
   const token = getCookieValue('token')
-  const crf = getCookieValue('crf')
 
-  const response = await api.get('/Funcionarios', {
+  const response = await api.get('/Funcionarios-dev', {
+    params: {
+      target,
+    },
     headers: {
       Authorization: token,
-      target: crf,
     },
   })
 

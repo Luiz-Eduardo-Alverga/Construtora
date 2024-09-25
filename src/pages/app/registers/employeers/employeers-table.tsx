@@ -36,7 +36,7 @@ export function EmployeersTable({
   return (
     <>
       {isLoadingEmployeers && <EmployeersTableSkeleton />}
-      {employeers.length > 0 ? (
+      {employeers.length > 0 && (
         <Table>
           <TableHeader>
             <TableRow>
@@ -87,8 +87,6 @@ export function EmployeersTable({
               ))}
           </TableBody>
         </Table>
-      ) : (
-        <span></span>
       )}
     </>
   )

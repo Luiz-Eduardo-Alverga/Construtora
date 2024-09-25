@@ -6,6 +6,8 @@ import { AppLayout } from '@/pages/layouts/app'
 
 import ProtectedRoute from '../protected-route'
 
+// import ProtectedRoute from '../protected-route'
+
 export const pointRoutes: RouteObject = {
   path: '/ponto',
   element: (
@@ -13,6 +15,7 @@ export const pointRoutes: RouteObject = {
       <AppLayout />
     </ProtectedRoute>
   ),
+
   children: [
     { path: '/ponto', element: <PointOptions /> },
     { path: '/ponto/usuarios', element: <EmployeePoints /> },
