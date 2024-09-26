@@ -1,15 +1,17 @@
 import { api } from '@/lib/axios'
 
-export interface Employeers {
-  id: number | null
-  Nome: string | null
+interface GetFunctionsResponse {
+  data: {
+    id: number
+    Nome: string
+  }[]
 }
 
-export async function getEmplooyers(): Promise<Employeers[]> {
+export async function getEmployeeFunctions(): Promise<GetFunctionsResponse> {
   const target = localStorage.getItem('authTarget')
   const token = localStorage.getItem('authToken')
 
-  const response = await api.get('/Funcionarios', {
+  const response = await api.get('Funcoes', {
     params: {
       target,
     },

@@ -1,5 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
-import { Eye, EyeOff } from 'lucide-react' // Ícones para mostrar/ocultar senha
+import { AxiosError } from 'axios'
+import { Eye, EyeOff } from 'lucide-react'
 import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
 import { useForm } from 'react-hook-form'
@@ -20,7 +21,7 @@ const signInForm = z.object({
 type SignInForm = z.infer<typeof signInForm>
 
 export function SignIn() {
-  const [showPassword, setShowPassword] = useState(false) // Estado para controlar a visibilidade da senha
+  const [showPassword, setShowPassword] = useState(false)
 
   const {
     register,
@@ -39,8 +40,20 @@ export function SignIn() {
       await authenticate({ username: data.username, password: data.password })
       toast.success('Usuário logado com sucesso')
       navigate('/app')
-    } catch {
-      toast.error('Credenciais Invalidas')
+    } catch (error: unknown) {
+      // Tipando e verificando o tipo do erro
+      if (error instanceof AxiosError) {
+        // Erro de requisição HTTP (AxiosError)
+        const errorMessage =
+          error.response?.data?.message || 'Erro de autenticação'
+        toast.error(errorMessage)
+      } else if (error instanceof Error) {
+        // Outros erros genéricos
+        toast.error(error.message || 'Erro desconhecido')
+      } else {
+        // Caso o erro não seja uma instância de Error
+        toast.error('Ocorreu um erro inesperado.')
+      }
     }
   }
 

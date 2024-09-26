@@ -1,5 +1,4 @@
 import { api } from '@/lib/axios'
-import { getCookieValue } from '@/utils/get-cookie.value'
 
 interface GetEmployeersListQuery {
   codigoFuncionario?: string | null
@@ -29,8 +28,8 @@ export async function getEmployeersList({
   limit,
   page,
 }: GetEmployeersListQuery): Promise<GetEmployeersListResponse> {
-  const token = getCookieValue('token')
-  const target = getCookieValue('crf')
+  const token = localStorage.getItem('authToken')
+  const target = localStorage.getItem('authTarget')
 
   const response = await api.get('Funcionarios/Listar', {
     params: {

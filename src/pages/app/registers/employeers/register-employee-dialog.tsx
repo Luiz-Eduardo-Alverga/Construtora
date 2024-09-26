@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
@@ -16,8 +16,11 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
+import { SelectEmployeeFunctions } from './employee-function'
+
 const registerNewEmployeeSchema = z.object({
   name: z.string(),
+  funcao: z.coerce.number(),
 })
 
 type RegisterNewEmployeeSchema = z.infer<typeof registerNewEmployeeSchema>
@@ -29,11 +32,7 @@ interface RegisterNewEmployeeProps {
 export function RegisterNewEmployeeDialog({
   onClose,
 }: RegisterNewEmployeeProps) {
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm<RegisterNewEmployeeSchema>({
+  const registerEmployeeForm = useForm<RegisterNewEmployeeSchema>({
     resolver: zodResolver(registerNewEmployeeSchema),
   })
 
@@ -41,14 +40,22 @@ export function RegisterNewEmployeeDialog({
     mutationFn: registerNewEmployee,
   })
 
-  function handleRegisterNewEmployee({ name }: RegisterNewEmployeeSchema) {
+  function handleRegisterNewEmployee({
+    name,
+    funcao,
+  }: RegisterNewEmployeeSchema) {
     if (name.length < 2) {
       toast.warning('Preencha o nome do funcionario', { closeButton: false })
       return
     }
 
+    if (funcao === 0) {
+      toast.warning('Informe a função do funcionário')
+      return
+    }
+
     try {
-      newEmployee({ nome: name })
+      newEmployee({ nome: name, funcao })
       toast.success('Funcionário cadastrado com sucesso!')
     } catch {
       toast.error('Erro ao cadastrar usuario')
@@ -62,27 +69,49 @@ export function RegisterNewEmployeeDialog({
         <DialogDescription>Cadastre um novo funcionário</DialogDescription>
       </DialogHeader>
 
-      <form
-        action=""
-        className="flex flex-col gap-4"
-        onSubmit={handleSubmit(handleRegisterNewEmployee)}
-      >
-        <div className="flex items-center gap-3">
-          <Label>Nome</Label>
-          <Input type="text" {...register('name')} />
-        </div>
+      <FormProvider {...registerEmployeeForm}>
+        <form
+          action=""
+          className="flex flex-col gap-4"
+          onSubmit={registerEmployeeForm.handleSubmit(
+            handleRegisterNewEmployee,
+          )}
+        >
+          <div className="grid grid-cols-4 items-center">
+            <Label>Nome</Label>
+            <Input
+              className="col-span-3"
+              type="text"
+              {...registerEmployeeForm.register('name')}
+            />
+          </div>
 
-        <div className="ml-auto space-x-2">
-          <DialogClose asChild onClick={onClose}>
-            <Button className="ml-auto" variant="outline">
-              Cancelar
+          <div className="grid grid-cols-4 items-center">
+            <Label>Função</Label>
+            <div className="col-span-3">
+              <SelectEmployeeFunctions
+                controlName="funcao"
+                isDefaultLabelHidden={true}
+              />
+            </div>
+          </div>
+
+          <div className="ml-auto space-x-2">
+            <DialogClose asChild onClick={onClose}>
+              <Button className="ml-auto" variant="outline">
+                Cancelar
+              </Button>
+            </DialogClose>
+            <Button
+              type="submit"
+              className="ml-auto"
+              disabled={registerEmployeeForm.formState.isSubmitting}
+            >
+              Cadastrar
             </Button>
-          </DialogClose>
-          <Button type="submit" className="ml-auto" disabled={isSubmitting}>
-            Cadastrar
-          </Button>
-        </div>
-      </form>
+          </div>
+        </form>
+      </FormProvider>
     </DialogContent>
   )
 }

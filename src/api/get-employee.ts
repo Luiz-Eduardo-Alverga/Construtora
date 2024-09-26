@@ -1,5 +1,4 @@
 import { api } from '@/lib/axios'
-import { getCookieValue } from '@/utils/get-cookie.value'
 
 interface GetEmployeeDetails {
   id: string | undefined
@@ -34,8 +33,8 @@ interface GetEmployeeResponse {
 export async function getEmployee({
   id,
 }: GetEmployeeDetails): Promise<GetEmployeeResponse[]> {
-  const token = getCookieValue('token')
-  const target = getCookieValue('crf')
+  const token = localStorage.getItem('authToken')
+  const target = localStorage.getItem('authTarget')
 
   const response = await api.get(`Funcionarios/${id}`, {
     params: {

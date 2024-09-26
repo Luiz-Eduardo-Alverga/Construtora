@@ -47,8 +47,10 @@ export function Employeers() {
       }),
   })
 
+  console.log(employeers)
+
   useEffect(() => {
-    if (!isLoadingEmployeers && employeers?.data.length === 0) {
+    if (employeers && !isLoadingEmployeers && employeers?.data.length === 0) {
       toast.info('Nenhum funcionário encontrado')
     }
   }, [isLoadingEmployeers, employeers])

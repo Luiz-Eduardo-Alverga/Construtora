@@ -3,9 +3,13 @@ import { getCookieValue } from '@/utils/get-cookie.value'
 
 interface RegisterNewEmployeeBody {
   nome: string
+  funcao: number
 }
 
-export async function registerNewEmployee({ nome }: RegisterNewEmployeeBody) {
+export async function registerNewEmployee({
+  nome,
+  funcao,
+}: RegisterNewEmployeeBody) {
   const token = getCookieValue('token')
   const crf = getCookieValue('crf')
 
@@ -13,6 +17,7 @@ export async function registerNewEmployee({ nome }: RegisterNewEmployeeBody) {
     '/Funcionarios/Cadastrar',
     {
       nome,
+      funcao,
       target: crf,
       Authorization: token,
     },

@@ -3,18 +3,11 @@ import { SquarePen } from 'lucide-react'
 import { Controller, useFormContext } from 'react-hook-form'
 
 import { getSearchCep } from '@/api/utils/search-cep'
-import { getSearchStates } from '@/api/utils/searct-states'
 import { InputWithMask } from '@/components/ui/input-mask'
 import { Label } from '@/components/ui/label'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
 
 import { InputForm } from './Inputs/input-form'
+import { SelectStatesForm } from './Inputs/select-states-form'
 
 export function EditEmployeeAddressTab() {
   const { watch, control, setValue } = useFormContext()
@@ -27,11 +20,6 @@ export function EditEmployeeAddressTab() {
     queryKey: ['SearchCep', clearCpf],
     queryFn: () => getSearchCep({ cep: clearCpf }),
     enabled: clearCpf.length === 8,
-  })
-
-  const { data: states } = useQuery({
-    queryKey: ['states'],
-    queryFn: getSearchStates,
   })
 
   if (address) {
@@ -89,28 +77,7 @@ export function EditEmployeeAddressTab() {
           defaultValueData={address?.localidade}
         />
 
-        <div className="space-y-0.5">
-          <Label htmlFor="uf">UF</Label>
-          <Controller
-            name="uf"
-            control={control}
-            render={({ field }) => (
-              <Select onValueChange={field.onChange} value={field.value}>
-                <SelectTrigger className="w-full sm:w-40">
-                  <SelectValue placeholder="Selecione a UF" />
-                </SelectTrigger>
-                <SelectContent>
-                  {states &&
-                    states.map((uf) => (
-                      <SelectItem key={uf.id} value={uf.sigla}>
-                        {uf.nome}
-                      </SelectItem>
-                    ))}
-                </SelectContent>
-              </Select>
-            )}
-          />
-        </div>
+        <SelectStatesForm label="UF" controlName="uf" space="sm:w-40" />
 
         <InputForm
           id="Complemento"

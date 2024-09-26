@@ -1,5 +1,4 @@
 import { api } from '@/lib/axios'
-import { getCookieValue } from '@/utils/get-cookie.value'
 
 export interface GetEmployeeQuery {
   employeeId?: number | null
@@ -27,8 +26,8 @@ export async function getEmployeePoints({
   page,
   limit,
 }: GetEmployeeQuery): Promise<EmployeePoints> {
-  const token = getCookieValue('token')
-  const crf = getCookieValue('crf')
+  const token = localStorage.getItem('authToken')
+  const crf = localStorage.getItem('authTarget')
 
   const response = await api.get('/buscaPonto', {
     params: {
