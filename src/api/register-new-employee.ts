@@ -1,5 +1,4 @@
 import { api } from '@/lib/axios'
-import { getCookieValue } from '@/utils/get-cookie.value'
 
 interface RegisterNewEmployeeBody {
   nome: string
@@ -10,8 +9,8 @@ export async function registerNewEmployee({
   nome,
   funcao,
 }: RegisterNewEmployeeBody) {
-  const token = getCookieValue('token')
-  const crf = getCookieValue('crf')
+  const token = localStorage.getItem('authToken')
+  const crf = localStorage.getItem('authTarget')
 
   const response = await api.post(
     '/Funcionarios/Cadastrar',
