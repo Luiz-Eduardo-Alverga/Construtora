@@ -3,15 +3,15 @@ import { api } from '@/lib/axios'
 interface GetFunctionsResponse {
   data: {
     id: number
-    Nome: string
+    nome: string
   }[]
 }
 
 export async function getEmployeeFunctions(): Promise<GetFunctionsResponse> {
-  const target = localStorage.getItem('authTarget')
+  const target = localStorage.getItem('target')
   const token = localStorage.getItem('authToken')
 
-  const response = await api.get('Funcoes', {
+  const response = await api.get('/Funcoes/Listar', {
     params: {
       target,
     },
@@ -20,5 +20,5 @@ export async function getEmployeeFunctions(): Promise<GetFunctionsResponse> {
     },
   })
 
-  return JSON.parse(response.data.body)
+  return response.data
 }

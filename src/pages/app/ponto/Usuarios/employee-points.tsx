@@ -1,60 +1,40 @@
 import { useQuery } from '@tanstack/react-query'
 import { FileClock } from 'lucide-react'
 import { useSearchParams } from 'react-router-dom'
-import { z } from 'zod'
 
 import { getEmplooyers } from '@/api/get-employeers'
 import { getEmployeePoints } from '@/api/getUserPoints'
+import searchInfo from '@/assets/searcrInfo.svg'
 import { HeaderPages } from '@/components/header-pages'
-import { Pagination } from '@/components/pagination'
+import { NoDataLayout } from '@/components/no-date-layout'
+import { columns } from '@/pages/app/ponto/Usuarios/EmployeePointsTable/colums'
 
+import { AdjustEmployeePoints } from './AdjustUserPoints/adjust-user-points-drawer'
 import { EmployeePontFilters } from './employee-point-filters'
-import { EmployeePointsTable } from './employee-points-table'
+import { DataTable } from './EmployeePointsTable/data-table'
 
 export function EmployeePoints() {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const [searchParams] = useSearchParams()
 
   const employeeId = searchParams.get('employeeId')
   const parsedEmployeeId = employeeId ? parseInt(employeeId, 10) : undefined
   const dateFom = searchParams.get('dataInicio')
   const dateTo = searchParams.get('dataFim')
 
-  const pageIndex = z.coerce
-    .number()
-    .transform((page) => page)
-    .parse(searchParams.get('page') ?? '1')
-
-  const { data: employeers } = useQuery({
+  const { data: employeers, isLoading } = useQuery({
     queryKey: ['Employeers'],
     queryFn: getEmplooyers,
   })
 
-  function handlePaginate(pageIndex: number) {
-    setSearchParams((prev) => {
-      prev.set('page', (pageIndex + 1).toString())
-
-      return prev
-    })
-  }
-  const limit = 10
-
   const { data: results } = useQuery({
-    queryKey: [
-      'employeePoints',
-      parsedEmployeeId,
-      dateFom,
-      dateTo,
-      pageIndex,
-      limit,
-    ],
+    queryKey: ['employeePoints', parsedEmployeeId, dateFom, dateTo],
     queryFn: () =>
       getEmployeePoints({
-        employeeId: parsedEmployeeId,
+        EmployeeId: parsedEmployeeId,
         DataInicio: dateFom,
         DataFim: dateTo,
-        page: pageIndex,
-        limit,
       }),
+    enabled: !!employeeId && !!dateFom,
   })
 
   return (
@@ -64,16 +44,20 @@ export function EmployeePoints() {
         description="Verifique os registros de pontos do seu funcionário"
         icon={FileClock}
       />
-      <EmployeePontFilters employeers={employeers ?? []} />
-      <EmployeePointsTable results={results?.data ?? []} />
-
-      {results?.pages && (
-        <Pagination
-          onPageChange={handlePaginate}
-          pageIndex={pageIndex}
-          pages={results.pages ?? 0}
+      <div className="flex flex-col sm:flex-row sm:justify-between">
+        <EmployeePontFilters
+          employeers={employeers?.data ?? []}
+          isLoadingEmployee={isLoading}
         />
-      )}
+        <AdjustEmployeePoints />
+      </div>
+      <div>
+        {results ? (
+          <DataTable columns={columns} data={results?.data ?? []} />
+        ) : (
+          <NoDataLayout image={searchInfo} />
+        )}
+      </div>
     </div>
   )
 }

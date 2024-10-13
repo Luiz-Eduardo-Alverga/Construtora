@@ -29,9 +29,9 @@ export async function getEmployeersList({
   page,
 }: GetEmployeersListQuery): Promise<GetEmployeersListResponse> {
   const token = localStorage.getItem('authToken')
-  const target = localStorage.getItem('authTarget')
+  const target = localStorage.getItem('target')
 
-  const response = await api.get('Funcionarios/Listar', {
+  const response = await api.get('Funcionarios/Filtrar', {
     params: {
       nome,
       codigoFuncionario,
@@ -45,5 +45,5 @@ export async function getEmployeersList({
     },
   })
 
-  return JSON.parse(response.data.body)
+  return response.data
 }

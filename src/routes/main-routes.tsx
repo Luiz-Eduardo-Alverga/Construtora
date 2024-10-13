@@ -7,8 +7,8 @@ import { Error } from '@/pages/error'
 import { AppLayout } from '@/pages/layouts/app'
 import { AuthLayout } from '@/pages/layouts/auth'
 
-import ProtectedRoute from './protected-route'
-import PublicRoute from './public-route'
+import ProtectedRoute from './protected-routes'
+import PublicRoute from './public.route'
 
 export const loginRoute: RouteObject = {
   path: '/',
@@ -28,6 +28,7 @@ export const homeRoute: RouteObject = {
       <AppLayout />
     </ProtectedRoute>
   ),
+
   children: [{ path: '/app', element: <Dashboard /> }],
 }
 

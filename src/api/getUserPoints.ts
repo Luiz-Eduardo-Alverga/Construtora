@@ -1,14 +1,12 @@
 import { api } from '@/lib/axios'
 
 export interface GetEmployeeQuery {
-  employeeId?: number | null
+  EmployeeId?: number | null
   DataInicio?: string | null
   DataFim?: string | null
-  page?: number | null
-  limit?: number | null
 }
 
-export interface EmployeePoints {
+export interface EmployeePointsResponse {
   data: {
     Data: string
     HoraInicio: string | null
@@ -16,32 +14,27 @@ export interface EmployeePoints {
     HoraRetorno: string | null
     HoraFim: string | null
   }[]
-  pages: number | null
 }
 
 export async function getEmployeePoints({
-  employeeId,
+  EmployeeId,
   DataInicio,
   DataFim,
-  page,
-  limit,
-}: GetEmployeeQuery): Promise<EmployeePoints> {
+}: GetEmployeeQuery): Promise<EmployeePointsResponse> {
   const token = localStorage.getItem('authToken')
-  const crf = localStorage.getItem('authTarget')
+  const target = localStorage.getItem('target')
 
-  const response = await api.get('/buscaPonto', {
+  const response = await api.get('/Ponto/Buscar', {
     params: {
       DataInicio,
       DataFim,
-      page,
-      target: crf,
-      limit,
-      employeeId,
+      target,
+      EmployeeId,
     },
     headers: {
       authorization: token,
     },
   })
 
-  return JSON.parse(response.data.body)
+  return response.data
 }

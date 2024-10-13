@@ -29,15 +29,12 @@ export async function getSearchCep({
     )
     const data = response.data
 
-    // Se o CEP não for encontrado, a API retorna um erro no formato:
-    // { "erro": true }
     if ('erro' in data) {
       throw new Error('CEP não encontrado')
     }
 
     return data
   } catch (error) {
-    console.error('Erro ao buscar CEP:', error)
-    return null // Retorna null em caso de erro
+    return null
   }
 }

@@ -69,3 +69,15 @@
     @apply bg-background text-foreground;
   }
 }
+
+@layer components {
+  .check-text {
+    @apply relative pl-4; /* Adiciona padding à esquerda para espaço do ícone */
+  }
+  .check-text::before {
+    content: "\2713"; /* Símbolo de check unicode */
+    @apply absolute left-0 top-0; /* Posiciona e estiliza o ícone */
+    font-size: 1rem; /* Ajusta o tamanho do ícone */
+    line-height: 1.2; /* Alinha verticalmente com o texto */
+  }
+}

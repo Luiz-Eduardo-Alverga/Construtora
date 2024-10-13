@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { addDays, formatDate } from 'date-fns'
-import { Check, ChevronsUpDown } from 'lucide-react'
+import { Check, ChevronsUpDown, Search } from 'lucide-react'
 import { useState } from 'react'
 import { DateRange } from 'react-day-picker'
 import { useForm } from 'react-hook-form'
@@ -37,9 +37,10 @@ interface EmployeersProps {
   employeers:
     | {
         id: number | null
-        Nome: string | null
+        nome: string | null
       }[]
     | undefined
+  isLoadingEmployee: boolean
 }
 
 const searchEmployeePointsSchema = z.object({
@@ -48,7 +49,10 @@ const searchEmployeePointsSchema = z.object({
 
 type SearchEmployeePointsForm = z.infer<typeof searchEmployeePointsSchema>
 
-export function EmployeePontFilters({ employeers }: EmployeersProps) {
+export function EmployeePontFilters({
+  employeers,
+  isLoadingEmployee,
+}: EmployeersProps) {
   const [date, setDate] = useState<DateRange | undefined>({
     from: new Date(),
     to: addDays(new Date(), 30),
@@ -105,7 +109,7 @@ export function EmployeePontFilters({ employeers }: EmployeersProps) {
           control={form.control}
           name="employeeName"
           render={({ field }) => (
-            <FormItem className="flex gap-3 pt-2 flex-col sm:flex-row">
+            <FormItem className="flex gap-3 flex-col sm:flex-row">
               <FormLabel className="sr-only">Funcionários</FormLabel>
               <Popover>
                 <PopoverTrigger asChild>
@@ -120,8 +124,8 @@ export function EmployeePontFilters({ employeers }: EmployeersProps) {
                     >
                       {field.value
                         ? employeers?.find(
-                            (employee) => employee.Nome === field.value,
-                          )?.Nome
+                            (employee) => employee.nome === field.value,
+                          )?.nome
                         : 'Selecione o Funcionario'}
                       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
@@ -135,15 +139,18 @@ export function EmployeePontFilters({ employeers }: EmployeersProps) {
                       <CommandEmpty>Funcionario não encontrado</CommandEmpty>
                       <ScrollArea className="w-full h-72 rounded-md border">
                         <CommandGroup>
-                          {employeers && employeers.length > 0 ? (
+                          {isLoadingEmployee && (
+                            <CommandItem>Carregando</CommandItem>
+                          )}
+                          {employeers &&
                             employeers.map((employee) => (
                               <CommandItem
-                                value={employee.Nome ?? ''}
+                                value={employee.nome ?? ''}
                                 key={employee.id}
                                 onSelect={() => {
                                   form.setValue(
                                     'employeeName',
-                                    employee.Nome ?? '',
+                                    employee.nome ?? '',
                                   )
                                   setEmployeeId(employee.id ?? 1)
                                 }}
@@ -151,19 +158,14 @@ export function EmployeePontFilters({ employeers }: EmployeersProps) {
                                 <Check
                                   className={cn(
                                     'mr-2 h-4 w-4',
-                                    employee.Nome === field.value
+                                    employee.nome === field.value
                                       ? 'opacity-100'
                                       : 'opacity-0',
                                   )}
                                 />
-                                {employee.Nome}
+                                {employee.nome}
                               </CommandItem>
-                            ))
-                          ) : (
-                            <CommandItem disabled>
-                              Nenhum funcionário disponível
-                            </CommandItem>
-                          )}
+                            ))}
                         </CommandGroup>
                       </ScrollArea>
                     </CommandList>
@@ -173,12 +175,9 @@ export function EmployeePontFilters({ employeers }: EmployeersProps) {
 
               <CalendarPicker date={date} setDate={setDate} />
 
-              <Button
-                disabled={form.formState.isSubmitting}
-                className="p-5 w-full sm:w-32"
-                type="submit"
-              >
-                Buscar
+              <Button type="submit">
+                <Search className="mr-2 h-5 sm:w-5" />
+                Buscar resultado
               </Button>
             </FormItem>
           )}

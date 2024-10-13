@@ -36,7 +36,7 @@ export async function getEmployee({
   const token = localStorage.getItem('authToken')
   const target = localStorage.getItem('authTarget')
 
-  const response = await api.get(`Funcionarios/${id}`, {
+  const response = await api.get(`Funcionarios/${id}/editar`, {
     params: {
       target,
     },
@@ -45,5 +45,5 @@ export async function getEmployee({
     },
   })
 
-  return JSON.parse(response.data.body)
+  return response.data
 }

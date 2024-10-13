@@ -14,7 +14,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
 const signInForm = z.object({
-  username: z.string(),
+  username: z.string().email({ message: 'E-mail Inválido' }),
   password: z.string(),
 })
 
@@ -37,21 +37,17 @@ export function SignIn() {
 
   async function handleSignIn(data: SignInForm) {
     try {
-      await authenticate({ username: data.username, password: data.password })
+      await authenticate({ user: data.username, pwd: data.password })
       toast.success('Usuário logado com sucesso')
       navigate('/app')
     } catch (error: unknown) {
-      // Tipando e verificando o tipo do erro
       if (error instanceof AxiosError) {
-        // Erro de requisição HTTP (AxiosError)
         const errorMessage =
           error.response?.data?.message || 'Erro de autenticação'
         toast.error(errorMessage)
       } else if (error instanceof Error) {
-        // Outros erros genéricos
         toast.error(error.message || 'Erro desconhecido')
       } else {
-        // Caso o erro não seja uma instância de Error
         toast.error('Ocorreu um erro inesperado.')
       }
     }
@@ -73,8 +69,9 @@ export function SignIn() {
 
         <form className="space-y-4" onSubmit={handleSubmit(handleSignIn)}>
           <div className="space-y-2">
-            <Label htmlFor="username">Seu usuário</Label>
+            <Label htmlFor="username">Seu E-mail</Label>
             <Input
+              type="email"
               className="h-12 text-base"
               id="username"
               {...register('username')}

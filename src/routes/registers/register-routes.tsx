@@ -5,7 +5,7 @@ import { Employeers } from '@/pages/app/registers/employeers/employeers'
 import { Error } from '@/pages/error'
 import { AppLayout } from '@/pages/layouts/app'
 
-import ProtectedRoute from '../protected-route'
+import ProtectedRoute from '../protected-routes'
 
 export const registersRoutes: RouteObject = {
   path: '/cadastros',

@@ -19,6 +19,7 @@ import { SelectEmployeeFunctions } from '../employee-function'
 import { EditEmployeeInformationTabs } from './edit-employee.-tab-informations'
 import { EditEmployeeAddressTab } from './edit-employee-tab-address'
 import { InputForm } from './Inputs/input-form'
+import { RegisterEmployeeFormSkeleton } from './skeleton/register-employee-form-skeleton'
 
 const editEmployeeSchema = z.object({
   nome: z.string().optional(),
@@ -64,7 +65,6 @@ export function RegisterEmployeeForm() {
     queryKey: ['EmployeeDetails', id],
     queryFn: () => getEmployee({ id }),
   })
-  console.log(employeers)
 
   function handleEditEmployee(data: EditEmployeeSchema) {
     const formatedDate = selectedDate
@@ -72,13 +72,11 @@ export function RegisterEmployeeForm() {
       : ''
 
     data.dataAdmissao = formatedDate
-
-    console.log(data)
   }
 
   return (
     <div className="bg-white dark:bg-gray-950 rounded-sm pb-10 m-3 shadow-lg">
-      {isLoading && <h1>Carregando...</h1>}
+      {isLoading && <RegisterEmployeeFormSkeleton />}
       {employeers &&
         employeers?.map((employee) => (
           <div key={employee.id}>
@@ -123,6 +121,7 @@ export function RegisterEmployeeForm() {
                       <Controller
                         name="dataAdmissao"
                         control={editEmployeeForm.control}
+                        defaultValue={employee.dataAdmissao || ''}
                         render={({ field }) => (
                           <CalendarSingleDatePicker
                             date={selectedDate}

@@ -53,7 +53,7 @@ export function SelectEmployeeFunctions({
                       key={employeeFunction.id}
                       value={String(employeeFunction.id)}
                     >
-                      {employeeFunction.Nome}
+                      {employeeFunction.nome}
                     </SelectItem>
                   ))
                 )}
