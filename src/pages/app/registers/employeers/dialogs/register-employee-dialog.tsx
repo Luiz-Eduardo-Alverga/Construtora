@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
-import { SelectEmployeeFunctions } from './employee-function'
+import { SelectEmployeeFunctions } from '../editEmployee/Inputs/employee-function'
 
 const registerNewEmployeeSchema = z.object({
   name: z.string(),
@@ -44,19 +44,32 @@ export function RegisterNewEmployeeDialog({
     name,
     funcao,
   }: RegisterNewEmployeeSchema) {
+    if (name === '') {
+      toast.warning('Preencha o nome do funcionário', {
+        closeButton: false,
+      })
+      return
+    }
+
     if (name.length < 2) {
-      toast.warning('Preencha o nome do funcionario', { closeButton: false })
+      toast.warning('Nome do Funcionário deve ter mai de 1 caracter', {
+        closeButton: false,
+      })
       return
     }
 
     if (funcao === 0) {
-      toast.warning('Informe a função do funcionário')
+      toast.warning('Informe a função do funcionário', {
+        closeButton: false,
+      })
       return
     }
 
     try {
-      newEmployee({ nome: name, funcao })
-      toast.success('Funcionário cadastrado com sucesso!')
+      newEmployee({ nome: name, Funcao: funcao })
+      toast.success('Funcionário cadastrado com sucesso!', {
+        closeButton: true,
+      })
     } catch {
       toast.error('Erro ao cadastrar usuario')
     }

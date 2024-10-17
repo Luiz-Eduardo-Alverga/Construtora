@@ -11,9 +11,9 @@ import { Pagination } from '@/components/pagination'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 
+import { RegisterNewEmployeeDialog } from './dialogs/register-employee-dialog'
 import { EmployeersFilters } from './employeers-filters'
 import { EmployeersTable } from './employeers-table'
-import { RegisterNewEmployeeDialog } from './register-employee-dialog'
 
 export function Employeers() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -46,8 +46,6 @@ export function Employeers() {
         page: pageIndex,
       }),
   })
-
-  console.log(employeers)
 
   useEffect(() => {
     if (employeers && !isLoadingEmployeers && employeers?.data.length === 0) {

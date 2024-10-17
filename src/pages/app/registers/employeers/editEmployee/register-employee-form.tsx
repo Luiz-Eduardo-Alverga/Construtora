@@ -15,9 +15,9 @@ import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-import { SelectEmployeeFunctions } from '../employee-function'
 import { EditEmployeeInformationTabs } from './edit-employee.-tab-informations'
 import { EditEmployeeAddressTab } from './edit-employee-tab-address'
+import { SelectEmployeeFunctions } from './Inputs/employee-function'
 import { InputForm } from './Inputs/input-form'
 import { RegisterEmployeeFormSkeleton } from './skeleton/register-employee-form-skeleton'
 
@@ -74,11 +74,13 @@ export function RegisterEmployeeForm() {
     data.dataAdmissao = formatedDate
   }
 
+  console.log(employeers)
+
   return (
     <div className="bg-white dark:bg-gray-950 rounded-sm pb-10 m-3 shadow-lg">
       {isLoading && <RegisterEmployeeFormSkeleton />}
       {employeers &&
-        employeers?.map((employee) => (
+        employeers?.data.map((employee) => (
           <div key={employee.id}>
             <div className="m-4 text-base space-y-2">
               <h1>Funcionário - {employee.nome}</h1>
@@ -106,7 +108,7 @@ export function RegisterEmployeeForm() {
                       registerName="codigoPonto"
                       id="codigoPonto"
                       allspace="flex-1"
-                      defaultValueData={employee.Codigo ?? ''}
+                      defaultValueData={employee.codigo ?? ''}
                     />
                   </div>
 
@@ -137,7 +139,7 @@ export function RegisterEmployeeForm() {
                       registerName="pis"
                       id="pis"
                       allspace="flex-1"
-                      defaultValueData={employee.pis ?? ''}
+                      defaultValueData={employee.pisPasep ?? ''}
                     />
 
                     <div className="space-y-0.5">
