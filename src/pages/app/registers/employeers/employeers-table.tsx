@@ -40,7 +40,7 @@ export function EmployeersTable({
     <>
       {isLoadingEmployeers && <EmployeersTableSkeleton />}
       {employeers.length > 0 && (
-        <div className="rounded-md border">
+        <div className="">
           <Table>
             <TableHeader>
               <TableRow>
