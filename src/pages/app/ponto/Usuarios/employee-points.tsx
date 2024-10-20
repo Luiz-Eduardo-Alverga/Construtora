@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { FileClock } from 'lucide-react'
+import { FileClock, Loader } from 'lucide-react'
 import { useSearchParams } from 'react-router-dom'
 
 import { getEmplooyers } from '@/api/get-employeers'
@@ -26,7 +26,7 @@ export function EmployeePoints() {
     queryFn: getEmplooyers,
   })
 
-  const { data: results } = useQuery({
+  const { data: results, isLoading: isLoadingResults } = useQuery({
     queryKey: ['employeePoints', parsedEmployeeId, dateFom, dateTo],
     queryFn: () =>
       getEmployeePoints({
@@ -34,6 +34,7 @@ export function EmployeePoints() {
         DataInicio: dateFom,
         DataFim: dateTo,
       }),
+
     enabled: !!employeeId && !!dateFom,
   })
 
@@ -52,8 +53,12 @@ export function EmployeePoints() {
         <AdjustEmployeePoints />
       </div>
       <div>
-        {results ? (
-          <DataTable columns={columns} data={results?.data ?? []} />
+        {isLoadingResults ? (
+          <div className="absolute inset-0 flex items-center justify-center bg-zinc-500 bg-opacity-50 z-50">
+            <Loader className="w-10 h-10 text-violet-500 animate-spin" />
+          </div>
+        ) : results ? (
+          <DataTable columns={columns} data={results.data} />
         ) : (
           <NoDataLayout image={searchInfo} />
         )}
