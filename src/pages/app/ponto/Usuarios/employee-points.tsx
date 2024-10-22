@@ -1,12 +1,14 @@
 import { useQuery } from '@tanstack/react-query'
-import { FileClock, Loader } from 'lucide-react'
-import { useSearchParams } from 'react-router-dom'
+import { FileClock } from 'lucide-react'
+import { Link, useSearchParams } from 'react-router-dom'
 
 import { getEmplooyers } from '@/api/get-employeers'
 import { getEmployeePoints } from '@/api/getUserPoints'
 import searchInfo from '@/assets/searcrInfo.svg'
 import { HeaderPages } from '@/components/header-pages'
+import { LoadingRequests } from '@/components/loading/loading'
 import { NoDataLayout } from '@/components/no-date-layout'
+import { Button } from '@/components/ui/button'
 import { columns } from '@/pages/app/ponto/Usuarios/EmployeePointsTable/colums'
 
 import { AdjustEmployeePoints } from './AdjustUserPoints/adjust-user-points-drawer'
@@ -54,15 +56,19 @@ export function EmployeePoints() {
       </div>
       <div>
         {isLoadingResults ? (
-          <div className="absolute inset-0 flex items-center justify-center bg-zinc-500 bg-opacity-50 z-50">
-            <Loader className="w-10 h-10 text-violet-500 animate-spin" />
-          </div>
+          <LoadingRequests />
         ) : results ? (
           <DataTable columns={columns} data={results.data} />
         ) : (
           <NoDataLayout image={searchInfo} />
         )}
       </div>
+
+      {results && (
+        <Link to={`${parsedEmployeeId}/${dateFom}/${dateTo}/imprimir`}>
+          <Button>Imprimir</Button>
+        </Link>
+      )}
     </div>
   )
 }

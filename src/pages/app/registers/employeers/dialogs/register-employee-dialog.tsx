@@ -26,7 +26,7 @@ const registerNewEmployeeSchema = z.object({
 type RegisterNewEmployeeSchema = z.infer<typeof registerNewEmployeeSchema>
 
 interface RegisterNewEmployeeProps {
-  onClose?: () => void
+  onClose: () => void
 }
 
 export function RegisterNewEmployeeDialog({
@@ -40,7 +40,7 @@ export function RegisterNewEmployeeDialog({
     mutationFn: registerNewEmployee,
   })
 
-  function handleRegisterNewEmployee({
+  async function handleRegisterNewEmployee({
     name,
     funcao,
   }: RegisterNewEmployeeSchema) {
@@ -52,24 +52,23 @@ export function RegisterNewEmployeeDialog({
     }
 
     if (name.length < 2) {
-      toast.warning('Nome do Funcionário deve ter mai de 1 caracter', {
+      toast.warning('Nome do Funcionário deve ter mais de 1 caracter', {
         closeButton: false,
       })
       return
     }
 
     if (funcao === 0) {
-      toast.warning('Informe a função do funcionário', {
-        closeButton: false,
-      })
+      toast.warning('Informe a função do funcionário')
       return
     }
 
     try {
-      newEmployee({ nome: name, Funcao: funcao })
+      await newEmployee({ nome: name, Funcao: funcao })
       toast.success('Funcionário cadastrado com sucesso!', {
         closeButton: true,
       })
+      onClose()
     } catch {
       toast.error('Erro ao cadastrar usuario')
     }

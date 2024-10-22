@@ -31,7 +31,7 @@ export function PointOptions() {
               to="/ponto/usuarios"
               bgColor="bg-white"
               textColor="text-primary"
-              hoverBg="bg-"
+              hoverBg="bg-slate-100"
             />
 
             <PointOptionButton

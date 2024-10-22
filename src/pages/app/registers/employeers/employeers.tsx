@@ -1,6 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { PlusCircle, Users } from 'lucide-react'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -16,6 +16,8 @@ import { EmployeersFilters } from './employeers-filters'
 import { EmployeersTable } from './employeers-table'
 
 export function Employeers() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+
   const [searchParams, setSearchParams] = useSearchParams()
   const name = searchParams.get('nome')
   const employeeCpf = searchParams.get('cpf')
@@ -63,15 +65,19 @@ export function Employeers() {
 
       <div className="flex gap-2 flex-col sm:flex-row justify-between ">
         <EmployeersFilters />
-        <Dialog>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
-            <Button type="button" className="w-full sm:w-44 p-5 space-x-2">
+            <Button
+              type="button"
+              className="w-full sm:w-44 p-5 space-x-2"
+              onClick={() => setIsDialogOpen(true)}
+            >
               <PlusCircle className="h-5 w-5" />
               <span>Novo Cadastro</span>
             </Button>
           </DialogTrigger>
 
-          <RegisterNewEmployeeDialog />
+          <RegisterNewEmployeeDialog onClose={() => setIsDialogOpen(false)} />
         </Dialog>
       </div>
 

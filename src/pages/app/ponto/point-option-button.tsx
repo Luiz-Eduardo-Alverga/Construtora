@@ -23,7 +23,7 @@ export function PointOptionButton({
   return (
     <NavLink to={to} className="block">
       <Button
-        className={`w-full h-full p-16 ${bgColor} ${textColor} hover:${hoverBg} `}
+        className={`w-full h-full p-16 ${bgColor} ${textColor} hover:${hoverBg}/90 `}
       >
         <Icon className="hidden sm:block sm:w-10 sm:h-10" />
 
