@@ -77,7 +77,7 @@ export function RegisterEmployeeForm() {
   console.log(employeers)
 
   return (
-    <div className="bg-white dark:bg-gray-950 rounded-sm pb-10 m-3 shadow-lg">
+    <div className="bg-white dark:bg-zinc-950 rounded-sm pb-10 m-3 shadow-lg">
       {isLoading && <RegisterEmployeeFormSkeleton />}
       {employeers &&
         employeers?.data.map((employee) => (
