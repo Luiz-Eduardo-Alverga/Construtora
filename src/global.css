@@ -81,3 +81,18 @@
     line-height: 1.2; /* Alinha verticalmente com o texto */
   }
 }
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+}
+
+.animate-fadeOut {
+  animation: fadeOut 0.3s forwards;
+}

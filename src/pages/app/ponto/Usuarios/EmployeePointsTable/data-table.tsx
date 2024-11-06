@@ -7,7 +7,6 @@ import {
 } from '@tanstack/react-table'
 import { useState } from 'react'
 
-import { ScrollArea, ScrollBar } from '@/components/ui/scroll-area'
 import {
   Table,
   TableBody,
@@ -41,7 +40,6 @@ export function DataTable<TData, TValue>({
   const table = useReactTable({
     data,
     columns,
-
     getCoreRowModel: getCoreRowModel(),
     onRowSelectionChange: setRowSelection,
     getPaginationRowModel: getPaginationRowModel(),
@@ -64,10 +62,10 @@ export function DataTable<TData, TValue>({
   console.log(getSelectedDates())
 
   return (
-    <div className="flex flex-col">
-      <div className="overflow-auto">
-        <ScrollArea className="w-[360px] sm:w-full whitespace-nowrap rounded-md border">
-          <Table className="w-full">
+    <div className="relative">
+      <div className=" w-full overflow-x-scroll sm:overflow-x-hidden scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
+        <div className="rounded-md border">
+          <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (
                 <TableRow key={headerGroup.id}>
@@ -115,11 +113,11 @@ export function DataTable<TData, TValue>({
               )}
             </TableBody>
           </Table>
-          <ScrollBar orientation="horizontal" />
-        </ScrollArea>
+        </div>
+        <div className="pb-1">
+          <DataTablePagination table={table} />
+        </div>
       </div>
-
-      <DataTablePagination table={table} />
     </div>
   )
 }

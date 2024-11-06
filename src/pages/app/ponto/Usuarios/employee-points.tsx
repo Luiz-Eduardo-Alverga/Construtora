@@ -41,34 +41,36 @@ export function EmployeePoints() {
   })
 
   return (
-    <div className="m-2 pt-4 space-y-6">
-      <HeaderPages
-        title="Listagem de Pontos"
-        description="Verifique os registros de pontos do seu funcionário"
-        icon={FileClock}
-      />
-      <div className="flex flex-col sm:flex-row sm:justify-between">
-        <EmployeePontFilters
-          employeers={employeers?.data ?? []}
-          isLoadingEmployee={isLoading}
+    <div className="m-2 pt-4">
+      <main className="space-y-6">
+        <HeaderPages
+          title="Listagem de Pontos"
+          description="Verifique os registros de pontos do seu funcionário"
+          icon={FileClock}
         />
-        <AdjustEmployeePoints />
-      </div>
-      <div>
-        {isLoadingResults ? (
-          <LoadingRequests />
-        ) : results ? (
-          <DataTable columns={columns} data={results.data} />
-        ) : (
-          <NoDataLayout image={searchInfo} />
-        )}
-      </div>
+        <div className="flex flex-col sm:flex-row sm:justify-between">
+          <EmployeePontFilters
+            employeers={employeers?.data ?? []}
+            isLoadingEmployee={isLoading}
+          />
+          <AdjustEmployeePoints />
+        </div>
+        <div>
+          {isLoadingResults ? (
+            <LoadingRequests />
+          ) : results ? (
+            <DataTable columns={columns} data={results.data} />
+          ) : (
+            <NoDataLayout image={searchInfo} />
+          )}
+        </div>
 
-      {results && (
-        <Link to={`${parsedEmployeeId}/${dateFom}/${dateTo}/imprimir`}>
-          <Button>Imprimir</Button>
-        </Link>
-      )}
+        {results && (
+          <Link to={`${parsedEmployeeId}/${dateFom}/${dateTo}/imprimir`}>
+            <Button>Imprimir</Button>
+          </Link>
+        )}
+      </main>
     </div>
   )
 }

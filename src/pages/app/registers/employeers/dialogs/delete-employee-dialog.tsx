@@ -1,4 +1,4 @@
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
 import { deleteEmployee } from '@/api/delete-employee'
@@ -16,20 +16,34 @@ import { Button } from '@/components/ui/button'
 interface DeleteEmployeeProps {
   id: string | null
   name: string | null
+  onDelete?: (id: string | null) => void // Novo prop para callback de exclusão
 }
 
-export function DeleteEmployeeDialog({ id, name }: DeleteEmployeeProps) {
+export function DeleteEmployeeDialog({
+  id,
+  name,
+  onDelete,
+}: DeleteEmployeeProps) {
+  const queryClient = useQueryClient()
   const { mutateAsync: deleteSelectedEmployee } = useMutation({
     mutationFn: () => deleteEmployee({ id: id || '' }),
+    onSuccess: () => {
+      if (onDelete) onDelete(id)
+      queryClient.invalidateQueries({
+        queryKey: ['Employeers'],
+        refetchType: 'active',
+      })
+      toast.success(`Funcionário ${name} deletado com sucesso`, {
+        position: 'top-center',
+      })
+    },
+    onError: () => {
+      toast.error('Erro ao deletar o funcionário')
+    },
   })
 
   async function handleDeleteEmployee() {
-    try {
-      await deleteSelectedEmployee()
-      toast.success(`Funcionário ${name} deletado com sucesso`)
-    } catch {
-      console.log('deu erro')
-    }
+    await deleteSelectedEmployee()
   }
 
   return (

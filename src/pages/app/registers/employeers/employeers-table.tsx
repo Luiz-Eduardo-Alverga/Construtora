@@ -1,5 +1,6 @@
 import { AlertDialog } from '@radix-ui/react-alert-dialog'
 import { MoreHorizontal, SquarePen, Trash2 } from 'lucide-react'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 
 import { AlertDialogTrigger } from '@/components/ui/alert-dialog'
@@ -36,6 +37,10 @@ export function EmployeersTable({
   employeers,
   isLoadingEmployeers,
 }: EmployeersProps) {
+  const [removingEmployeeId, setRemovingEmployeeId] = useState<string | null>(
+    null,
+  )
+
   return (
     <>
       {isLoadingEmployeers && <EmployeersTableSkeleton />}
@@ -54,7 +59,14 @@ export function EmployeersTable({
             <TableBody>
               {employeers &&
                 employeers.map((employee) => (
-                  <TableRow key={employee.cod}>
+                  <TableRow
+                    key={employee.cod}
+                    className={`employee-row ${
+                      removingEmployeeId === employee.cod
+                        ? 'animate-fadeOut'
+                        : ''
+                    }`}
+                  >
                     <TableCell>{employee.cod}</TableCell>
                     <TableCell>{employee.nome}</TableCell>
                     <TableCell className="hidden sm:table-cell">
@@ -94,6 +106,7 @@ export function EmployeersTable({
                         <DeleteEmployeeDialog
                           id={employee.cod}
                           name={employee.nome}
+                          onDelete={(id) => setRemovingEmployeeId(id)} // Definindo o ID do funcionário
                         />
                       </AlertDialog>
                     </TableCell>
