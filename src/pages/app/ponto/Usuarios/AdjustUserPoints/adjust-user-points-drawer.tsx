@@ -19,27 +19,27 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 
-interface MoreOptionsProps {
+interface OptionsToEmployeePointsProps {
   parsedEmployeeId?: number | undefined
   dateTo?: string | null
   dateFrom?: string | null
 }
 
-export function AdjustEmployeePoints({
+export function OptionsToEmployeePoints({
   parsedEmployeeId,
   dateFrom,
   dateTo,
-}: MoreOptionsProps) {
+}: OptionsToEmployeePointsProps) {
   return (
     <Drawer>
       <DropdownMenu>
         <DropdownMenuTrigger className="mt-2">
-          <Button variant={'outline'} className="space-x-2">
+          <Button variant={'outline'} className="space-x-2 w-full">
             <ListPlus />
             <span> Mais Opções</span>
           </Button>
         </DropdownMenuTrigger>
-        <DropdownMenuContent align="end">
+        <DropdownMenuContent align="start">
           <DropdownMenuItem asChild>
             <DrawerTrigger className="space-x-2">
               <ClipboardPen />

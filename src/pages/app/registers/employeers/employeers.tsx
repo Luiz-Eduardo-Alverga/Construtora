@@ -56,7 +56,7 @@ export function Employeers() {
   }, [isLoadingEmployeers, employeers])
 
   return (
-    <div className="m-2 pt-4 space-y-6">
+    <div className="m-2 space-y-6">
       <HeaderPages
         title="Listagem de Funcionários"
         description="Cadastre ou pesquise por seus funcionários"

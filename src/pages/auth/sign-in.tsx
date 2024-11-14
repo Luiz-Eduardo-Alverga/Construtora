@@ -38,7 +38,7 @@ export function SignIn() {
   async function handleSignIn(data: SignInForm) {
     try {
       await authenticate({ user: data.username, pwd: data.password })
-      toast.success('Usuário logado com sucesso')
+
       navigate('/app')
     } catch (error: unknown) {
       if (error instanceof AxiosError) {

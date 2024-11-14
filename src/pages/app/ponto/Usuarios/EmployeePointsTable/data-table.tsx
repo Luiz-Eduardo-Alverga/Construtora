@@ -64,7 +64,7 @@ export function DataTable<TData, TValue>({
   return (
     <div className="relative">
       <div className=" w-full overflow-x-scroll sm:overflow-x-hidden scrollbar-thin scrollbar-track-zinc-950 scrollbar-thumb-zinc-800">
-        <div className="rounded-md border">
+        <div className="">
           <Table>
             <TableHeader>
               {table.getHeaderGroups().map((headerGroup) => (

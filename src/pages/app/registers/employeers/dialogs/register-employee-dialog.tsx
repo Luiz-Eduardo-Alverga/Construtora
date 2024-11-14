@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
@@ -32,12 +32,19 @@ interface RegisterNewEmployeeProps {
 export function RegisterNewEmployeeDialog({
   onClose,
 }: RegisterNewEmployeeProps) {
+  const queryClient = useQueryClient()
   const registerEmployeeForm = useForm<RegisterNewEmployeeSchema>({
     resolver: zodResolver(registerNewEmployeeSchema),
   })
 
   const { mutateAsync: newEmployee } = useMutation({
     mutationFn: registerNewEmployee,
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ['Employeers'],
+        refetchType: 'active',
+      })
+    },
   })
 
   async function handleRegisterNewEmployee({

@@ -10,7 +10,7 @@ import { LoadingRequests } from '@/components/loading/loading'
 import { NoDataLayout } from '@/components/no-date-layout'
 import { columns } from '@/pages/app/ponto/Usuarios/EmployeePointsTable/colums'
 
-import { AdjustEmployeePoints } from './AdjustUserPoints/adjust-user-points-drawer'
+import { OptionsToEmployeePoints } from './AdjustUserPoints/adjust-user-points-drawer'
 import { EmployeePontFilters } from './employee-point-filters'
 import { DataTable } from './EmployeePointsTable/data-table'
 
@@ -40,34 +40,34 @@ export function EmployeePoints() {
   })
 
   return (
-    <div className="m-2 pt-4">
-      <main className="space-y-6">
-        <HeaderPages
-          title="Listagem de Pontos"
-          description="Verifique os registros de pontos do seu funcionário"
-          icon={FileClock}
+    <main className="m-2 space-y-4">
+      <HeaderPages
+        title="Listagem de Pontos"
+        description="Verifique os registros de pontos do seu funcionário"
+        icon={FileClock}
+      />
+      <div className="flex flex-col sm:flex-row sm:justify-between">
+        <EmployeePontFilters
+          employeers={employeers?.data ?? []}
+          isLoadingEmployee={isLoading}
         />
-        <div className="flex flex-col sm:flex-row sm:justify-between">
-          <EmployeePontFilters
-            employeers={employeers?.data ?? []}
-            isLoadingEmployee={isLoading}
-          />
-          <AdjustEmployeePoints
+        {results && (
+          <OptionsToEmployeePoints
             parsedEmployeeId={parsedEmployeeId}
             dateFrom={dateFrom}
             dateTo={dateTo}
           />
-        </div>
-        <div>
-          {isLoadingResults ? (
-            <LoadingRequests />
-          ) : results ? (
-            <DataTable columns={columns} data={results.data} />
-          ) : (
-            <NoDataLayout image={searchInfo} />
-          )}
-        </div>
-      </main>
-    </div>
+        )}
+      </div>
+      <div className="pt-2">
+        {isLoadingResults ? (
+          <LoadingRequests />
+        ) : results ? (
+          <DataTable columns={columns} data={results.data} />
+        ) : (
+          <NoDataLayout image={searchInfo} />
+        )}
+      </div>
+    </main>
   )
 }
