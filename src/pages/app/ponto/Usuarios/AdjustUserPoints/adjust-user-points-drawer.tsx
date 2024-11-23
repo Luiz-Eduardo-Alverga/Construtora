@@ -1,5 +1,5 @@
 import { ClipboardPen, ListPlus, Printer } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -47,12 +47,13 @@ export function OptionsToEmployeePoints({
             </DrawerTrigger>
           </DropdownMenuItem>
 
-          <DropdownMenuItem className="space-x-2">
-            <Printer />
-            <Link to={`${parsedEmployeeId}/${dateFrom}/${dateTo}/imprimir`}>
+          <NavLink to={`${parsedEmployeeId}/${dateFrom}/${dateTo}/imprimir`}>
+            <DropdownMenuItem className="space-x-2">
+              <Printer />
+
               <span>Imprimir</span>
-            </Link>
-          </DropdownMenuItem>
+            </DropdownMenuItem>
+          </NavLink>
         </DropdownMenuContent>
       </DropdownMenu>
 

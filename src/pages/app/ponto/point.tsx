@@ -29,9 +29,9 @@ export function PointOptions() {
               icon={Users}
               label="Usuários"
               to="/ponto/usuarios"
-              bgColor="bg-white"
+              bgColor="bg-primary-foreground"
               textColor="text-primary"
-              hoverBg="bg-slate-100"
+              hoverBg="bg-zinc-500"
             />
 
             <PointOptionButton
@@ -45,7 +45,7 @@ export function PointOptions() {
               icon={Files}
               label="Documentos"
               to="/ponto/documentos"
-              bgColor="bg-white"
+              bgColor="bg-primary-foreground"
               textColor="text-primary"
               hoverBg="bg-slate-100"
             />
@@ -61,7 +61,7 @@ export function PointOptions() {
               icon={Hourglass}
               label="Banco de Horas"
               to="/ponto/banco-de-horas"
-              bgColor="bg-white"
+              bgColor="bg-primary-foreground"
               textColor="text-primary"
               hoverBg="bg-slate-100"
             />

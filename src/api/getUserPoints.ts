@@ -23,6 +23,7 @@ export async function getEmployeePoints({
 }: GetEmployeeQuery): Promise<EmployeePointsResponse> {
   const token = localStorage.getItem('authToken')
   const target = localStorage.getItem('target')
+  const user = localStorage.getItem('user')
 
   const response = await api.get('/Ponto/Buscar', {
     params: {
@@ -30,6 +31,7 @@ export async function getEmployeePoints({
       DataFim,
       target,
       EmployeeId,
+      user,
     },
     headers: {
       authorization: token,

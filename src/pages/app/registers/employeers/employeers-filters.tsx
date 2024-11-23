@@ -10,7 +10,7 @@ import { InputWithMask } from '@/components/ui/input-mask'
 import { Label } from '@/components/ui/label'
 
 export const employeersFiltersSchema = z.object({
-  employeeId: z.string().optional(), // Permitindo valor opcional
+  employeeId: z.string().optional(),
   employeeName: z.string().optional(),
   employeeCpf: z.string().optional(),
 })
@@ -18,7 +18,7 @@ export const employeersFiltersSchema = z.object({
 type EmployeersFilterSchema = z.infer<typeof employeersFiltersSchema>
 
 export function EmployeersFilters() {
-  const setSearchParams = useSearchParams()[1] // Mantendo apenas o setSearchParams
+  const setSearchParams = useSearchParams()[1]
   const {
     register,
     reset,

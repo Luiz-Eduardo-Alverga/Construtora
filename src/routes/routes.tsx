@@ -1,6 +1,11 @@
 import { createBrowserRouter } from 'react-router-dom'
 
-import { homeRoute, loginRoute, notFoundRoute } from './main-routes'
+import {
+  enterpriseRoute,
+  homeRoute,
+  loginRoute,
+  notFoundRoute,
+} from './main-routes'
 import { pdfPointsRoute } from './points/pdf-points'
 import { pointRoutes } from './points/point-routes'
 import { employeeJourneyRoutes } from './registers/employee-journey'
@@ -14,4 +19,5 @@ export const router = createBrowserRouter([
   registersRoutes,
   pdfPointsRoute,
   employeeJourneyRoutes,
+  enterpriseRoute,
 ])

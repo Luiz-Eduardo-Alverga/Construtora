@@ -12,10 +12,8 @@ export async function signIn({ user, pwd }: SignInBody) {
     const response = await api.post('/User/Login', { user, pwd })
 
     const token = response.data.idtoken
-    const target = response.data.target
 
     localStorage.setItem('authToken', token)
-    localStorage.setItem('target', target)
 
     document.cookie = `token=${token}; max-age=${60 * 60}`
 

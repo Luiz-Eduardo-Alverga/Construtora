@@ -2,6 +2,7 @@ import { RouteObject } from 'react-router-dom'
 
 import { NotFound } from '@/pages/404'
 import { Dashboard } from '@/pages/app/Dashboard/dashboard'
+import { UsersEnterprises } from '@/pages/auth/enterprise'
 import { SignIn } from '@/pages/auth/sign-in'
 import { Error } from '@/pages/error'
 import { AppLayout } from '@/pages/layouts/app'
@@ -19,6 +20,11 @@ export const loginRoute: RouteObject = {
   ),
   errorElement: <Error />,
   children: [{ path: '/', element: <SignIn /> }],
+}
+
+export const enterpriseRoute: RouteObject = {
+  path: '/empresas',
+  element: <UsersEnterprises />,
 }
 
 export const homeRoute: RouteObject = {

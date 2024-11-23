@@ -2,7 +2,7 @@ import { ComponentType } from 'react'
 
 interface HeaderPageProps {
   title: string
-  description: string
+  description?: string
   icon: ComponentType<{ className?: string }>
 }
 

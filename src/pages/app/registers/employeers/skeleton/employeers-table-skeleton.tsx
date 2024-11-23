@@ -27,7 +27,7 @@ export function EmployeersTableSkeleton() {
               <Skeleton className="w-4 h-4 sm:w-[126px]" />
             </TableCell>
             <TableCell>
-              <Skeleton className="w-[40px] h-4 sm:w-[536px]" />
+              <Skeleton className="w-[40px] h-4 sm:w-[400px]" />
             </TableCell>
             <TableCell>
               <Skeleton className="hidden sm:table-cell sm:h-4 sm:w-[134px]" />

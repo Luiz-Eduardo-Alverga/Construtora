@@ -10,6 +10,7 @@ import { HeaderPages } from '@/components/header-pages'
 import { Pagination } from '@/components/pagination'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
+import { Separator } from '@/components/ui/separator'
 
 import { RegisterNewEmployeeDialog } from './dialogs/register-employee-dialog'
 import { EmployeersFilters } from './employeers-filters'
@@ -56,20 +57,19 @@ export function Employeers() {
   }, [isLoadingEmployeers, employeers])
 
   return (
-    <div className="m-2 space-y-6">
-      <HeaderPages
-        title="Listagem de Funcionários"
-        description="Cadastre ou pesquise por seus funcionários"
-        icon={Users}
-      />
+    <>
+      <div className="flex items-center">
+        <HeaderPages
+          title="Listagem de Funcionários"
+          description="Cadastre ou pesquise por seus funcionários"
+          icon={Users}
+        />
 
-      <div className="flex gap-2 flex-col sm:flex-row justify-between ">
-        <EmployeersFilters />
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button
               type="button"
-              className="w-full sm:w-44 p-5 space-x-2"
+              className="w-full sm:w-44 h-9 space-x-2 ml-auto"
               onClick={() => setIsDialogOpen(true)}
             >
               <PlusCircle className="h-5 w-5" />
@@ -81,18 +81,26 @@ export function Employeers() {
         </Dialog>
       </div>
 
-      <EmployeersTable
-        isLoadingEmployeers={isLoadingEmployeers}
-        employeers={employeers?.data ?? []}
-      />
+      <Separator />
 
-      {employeers && employeers?.data && (
-        <Pagination
-          onPageChange={handlePaginate}
-          pageIndex={pageIndex}
-          pages={employeers.totalPages ?? 0}
+      <div className="space-y-6">
+        <div className="flex gap-2 flex-col sm:flex-row justify-between ">
+          <EmployeersFilters />
+        </div>
+
+        <EmployeersTable
+          isLoadingEmployeers={isLoadingEmployeers}
+          employeers={employeers?.data ?? []}
         />
-      )}
-    </div>
+
+        {employeers && employeers?.data && (
+          <Pagination
+            onPageChange={handlePaginate}
+            pageIndex={pageIndex}
+            pages={employeers.totalPages ?? 0}
+          />
+        )}
+      </div>
+    </>
   )
 }

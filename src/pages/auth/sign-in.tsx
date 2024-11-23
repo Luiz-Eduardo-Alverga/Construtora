@@ -39,7 +39,7 @@ export function SignIn() {
     try {
       await authenticate({ user: data.username, pwd: data.password })
 
-      navigate('/app')
+      navigate('/empresas', { state: { email: data.username } })
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         const errorMessage =

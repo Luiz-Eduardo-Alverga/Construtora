@@ -11,6 +11,7 @@ export async function registerNewEmployee({
 }: RegisterNewEmployeeBody) {
   const token = localStorage.getItem('authToken')
   const target = localStorage.getItem('target')
+  const user = localStorage.getItem('user')
 
   const response = await api.post(
     '/Funcionarios/Cadastrar',
@@ -18,6 +19,7 @@ export async function registerNewEmployee({
       nome,
       Funcao,
       target,
+      user,
     },
     {
       headers: {

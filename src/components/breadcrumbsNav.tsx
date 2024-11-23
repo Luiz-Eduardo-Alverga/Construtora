@@ -1,10 +1,9 @@
 import { House } from 'lucide-react'
-import { useLocation } from 'react-router-dom'
+import { NavLink, useLocation } from 'react-router-dom'
 
 import {
   Breadcrumb,
   BreadcrumbItem,
-  BreadcrumbLink,
   BreadcrumbList,
   BreadcrumbPage,
   BreadcrumbSeparator,
@@ -18,10 +17,10 @@ export function BreadcrumbNav() {
     <Breadcrumb className="sr-only sm:not-sr-only">
       <BreadcrumbList>
         <BreadcrumbItem>
-          <BreadcrumbLink href="/" className="flex gap-1 items-center">
+          <NavLink to="/app" className="flex gap-1 items-center">
             <House className="w-4 h-4" />
             <span>Inicio</span>
-          </BreadcrumbLink>
+          </NavLink>
         </BreadcrumbItem>
         {pathSegments.map((segment, index) => {
           const path = `/${pathSegments.slice(0, index + 1).join('/')}`
@@ -33,7 +32,7 @@ export function BreadcrumbNav() {
                 {isLast ? (
                   <BreadcrumbPage>{segment}</BreadcrumbPage>
                 ) : (
-                  <BreadcrumbLink href={path}>{segment}</BreadcrumbLink>
+                  <NavLink to={path}>{segment}</NavLink>
                 )}
               </BreadcrumbItem>
             </span>

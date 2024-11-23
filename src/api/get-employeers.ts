@@ -13,10 +13,12 @@ export async function getEmplooyers(): Promise<Employeers> {
   try {
     const target = localStorage.getItem('target')
     const token = localStorage.getItem('authToken')
+    const user = localStorage.getItem('user')
 
     const response = await api.get('/Funcionarios/Listar', {
       params: {
         target,
+        user,
       },
       headers: {
         Authorization: token,

@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router-dom'
 
-import { EmployeeJourney } from '@/pages/app/registers/journey'
+import { EmployeeJourney } from '@/pages/app/registers/Functions/functions'
 import { Error } from '@/pages/error'
 import { AppLayout } from '@/pages/layouts/app'
 

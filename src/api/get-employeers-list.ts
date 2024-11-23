@@ -30,6 +30,7 @@ export async function getEmployeersList({
 }: GetEmployeersListQuery): Promise<GetEmployeersListResponse> {
   const token = localStorage.getItem('authToken')
   const target = localStorage.getItem('target')
+  const user = localStorage.getItem('user')
 
   const response = await api.get('Funcionarios/Filtrar', {
     params: {
@@ -39,6 +40,7 @@ export async function getEmployeersList({
       page,
       limit,
       target,
+      user,
     },
     headers: {
       Authorization: token,

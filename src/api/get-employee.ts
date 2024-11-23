@@ -40,10 +40,12 @@ export async function getEmployee({
 }: GetEmployeeDetails): Promise<GetEmployeeResponse> {
   const token = localStorage.getItem('authToken')
   const target = localStorage.getItem('target')
+  const user = localStorage.getItem('user')
 
   const response = await api.get(`Funcionarios/${id}/editar`, {
     params: {
       target,
+      user,
     },
     headers: {
       Authorization: token,
