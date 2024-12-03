@@ -9,10 +9,11 @@ import { Separator } from '@/components/ui/separator'
 
 import { FilterFunctions } from './filter-functions'
 import { FunctionsCard } from './functions-card'
-import { RegisterNewFunctionDialog } from './register-new-functions-dialog'
+import { RegisterNewFunctionDialog } from './register/register-new-functions-dialog'
+import { CardSkeleton } from './skeleton/function-card-skeleton'
 
 export function EmployeeJourney() {
-  const { data: employeeFunctions } = useQuery({
+  const { data: employeeFunctions, isLoading: isLoadingFunctions } = useQuery({
     queryKey: ['getEmployeeFunctions'],
     queryFn: getEmployeeFunctions,
   })
@@ -41,6 +42,7 @@ export function EmployeeJourney() {
         <FilterFunctions />
 
         <div className="mt-24 grid grid-cols-3 gap-4">
+          {isLoadingFunctions && <CardSkeleton />}
           {employeeFunctions &&
             employeeFunctions.data.map((employeeFunction) => (
               <FunctionsCard

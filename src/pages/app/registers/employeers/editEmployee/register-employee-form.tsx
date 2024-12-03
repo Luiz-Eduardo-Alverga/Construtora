@@ -72,9 +72,9 @@ export function RegisterEmployeeForm() {
       : ''
 
     data.dataAdmissao = formatedDate
-  }
 
-  console.log(employeers)
+    console.log(data)
+  }
 
   return (
     <div className="bg-white dark:bg-black rounded-lg pb-10 m-3 shadow-xl">
