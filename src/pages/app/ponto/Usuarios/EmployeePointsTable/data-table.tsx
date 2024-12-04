@@ -20,10 +20,12 @@ import { DataTablePagination } from './pagination'
 
 interface EmployeePoints {
   Data: string
-  HoraInicio: string
-  HoraAlmoco: string
-  HoraRetorno: string
-  HoraFim: string
+  HoraInicio: string | null
+  HoraAlmoco: string | null
+  HoraRetorno: string | null
+  HoraFim: string | null
+  horasTrabalhadas: string | null
+  tempoAlmoco: string | null
 }
 
 interface DataTableProps<TData, TValue> {
@@ -48,7 +50,6 @@ export function DataTable<TData, TValue>({
     },
   })
 
-  // Função para pegar as datas selecionadas
   const getSelectedDates = () => {
     const selectedRows = table.getSelectedRowModel().rows
 

@@ -8,6 +8,8 @@ export type EmployeePoints = {
   HoraAlmoco: string | null
   HoraRetorno: string | null
   HoraFim: string | null
+  horasTrabalhadas: string
+  tempoAlmoco: string
 }
 
 export const columns: ColumnDef<EmployeePoints>[] = [
@@ -68,6 +70,23 @@ export const columns: ColumnDef<EmployeePoints>[] = [
     cell: ({ row }) => {
       const horaFim = row.original.HoraFim
       return horaFim || 'N/I'
+    },
+  },
+  {
+    accessorKey: 'horasTrabalhadas',
+    header: 'Horas Trabalhadas',
+    cell: ({ row }) => {
+      const horasTrabalhadas = row.original.horasTrabalhadas
+      return horasTrabalhadas
+    },
+  },
+
+  {
+    accessorKey: 'tempoAlmoco',
+    header: 'Tempo de Almoco',
+    cell: ({ row }) => {
+      const horasTrabalhadas = row.original.tempoAlmoco
+      return horasTrabalhadas
     },
   },
 ]

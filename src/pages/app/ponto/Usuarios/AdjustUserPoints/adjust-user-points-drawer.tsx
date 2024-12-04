@@ -47,7 +47,10 @@ export function OptionsToEmployeePoints({
             </DrawerTrigger>
           </DropdownMenuItem>
 
-          <NavLink to={`${parsedEmployeeId}/${dateFrom}/${dateTo}/imprimir`}>
+          <NavLink
+            target="_blank"
+            to={`${parsedEmployeeId}/${dateFrom}/${dateTo}/imprimir`}
+          >
             <DropdownMenuItem className="space-x-2">
               <Printer />
 

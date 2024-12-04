@@ -3,11 +3,8 @@ import { Skeleton } from '@/components/ui/skeleton'
 export function CardSkeleton() {
   return (
     <>
-      {Array.from({ length: 10 }).map((_, i) => (
-        <div
-          key={i}
-          className="flex flex-col p-4 border rounded-md hover:bg-secondary hover:cursor-pointer"
-        >
+      {Array.from({ length: 9 }).map((_, i) => (
+        <div key={i} className="flex flex-col p-4 border rounded-md ">
           <div className="w-full flex justify-between">
             <Skeleton className="w-20 h-4" />
             <Skeleton className="w-14 h-4" />

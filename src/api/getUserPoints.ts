@@ -13,6 +13,8 @@ export interface EmployeePointsResponse {
     HoraAlmoco: string | null
     HoraRetorno: string | null
     HoraFim: string | null
+    horasTrabalhadas: string
+    tempoAlmoco: string
   }[]
 }
 

@@ -7,11 +7,10 @@ import {
   View,
 } from '@react-pdf/renderer'
 import { useQuery } from '@tanstack/react-query'
-import { X } from 'lucide-react'
-import { Link, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 
+import { getEnterprise } from '@/api/get-enterprise'
 import { getEmployeePoints } from '@/api/getUserPoints'
-import { Button } from '@/components/ui/button'
 
 interface EmployeePointsData {
   data: {
@@ -20,14 +19,34 @@ interface EmployeePointsData {
     HoraAlmoco: string | null
     HoraRetorno: string | null
     HoraFim: string | null
+    horasTrabalhadas: string
+    tempoAlmoco: string
   }[]
+}
+
+interface EnterpriseData {
+  id: 'number'
+  razaoSocial: 'string'
+  nomeFantasia: 'string'
+  cep: 'string'
+  cnpj: 'string'
+  inscricaoEstadual: 'null | string'
+  telefone1: 'string'
+  telefone2: 'string'
+  cidade: 'string'
+  endereco: 'string'
+  uf: 'string'
+  numero: 'number'
+  bairro: 'string'
+  email: 'null | string'
+  desativada: 'number'
 }
 
 const styles = StyleSheet.create({
   // Estilo geral da página
   page: {
     flexDirection: 'column',
-    backgroundColor: '#E4E4E4',
+    backgroundColor: '#ffffff',
     padding: 20,
   },
   // Estilo da tabela
@@ -35,13 +54,14 @@ const styles = StyleSheet.create({
     display: 'flex',
     borderWidth: 1,
     width: 'auto',
-    borderRadius: 10,
+    borderColor: '#d1d5db',
     backgroundColor: '#f2f2f2',
   },
   tableRow: {
     flexDirection: 'row',
-    padding: 3,
+    padding: 1,
     borderBottomWidth: 1,
+    borderColor: '#d1d5db',
   },
   tableColHeader: {
     width: '20%',
@@ -51,52 +71,85 @@ const styles = StyleSheet.create({
   },
   tableCellHeader: {
     margin: 5,
-    fontSize: 10,
+    fontSize: 8,
     fontWeight: 'bold',
   },
   tableCell: {
     margin: 5,
-    fontSize: 10,
+    fontSize: 7,
+  },
+  tableRowEven: {
+    flexDirection: 'row',
+    padding: 1,
+    borderBottomWidth: 1,
+    borderColor: '#d1d5db',
+    backgroundColor: '#f3f4f6', // Cor para linhas pares
+  },
+  tableRowOdd: {
+    flexDirection: 'row',
+    padding: 1,
+    borderBottomWidth: 1,
+    borderColor: '#d1d5db',
+    backgroundColor: '#ffffff', // Cor para linhas ímpares
   },
   // Estilo do cabeçalho da primeira página
   companyHeader: {
+    display: 'flex',
+    gap: 2,
     marginBottom: 20,
+    border: 1,
+    borderColor: '#d1d5db',
+    padding: 10,
   },
   companyHeaderTitle: {
-    fontSize: 16,
+    fontSize: 12,
     fontWeight: 'bold',
-    textAlign: 'center',
   },
   companyHeaderSubtitle: {
-    fontSize: 12,
-    textAlign: 'center',
+    fontSize: 8,
   },
-  companyHeaderSeparator: {
-    marginTop: 10,
-    fontSize: 12,
-    textAlign: 'center',
-  },
+
   // Estilo do rodapé
   footer: {
     marginTop: 20,
     paddingTop: 10,
-    textAlign: 'center',
-    borderTopWidth: 1,
-    borderTopColor: '#000',
+  },
+  footerAssignature: {
+    fontSize: 8,
+    marginTop: 5,
+    alignItems: 'flex-start', // Alinha tudo no lado esquerdo
+    justifyContent: 'flex-start',
+    width: '50%', // Define largura específica para controlar o alinhamento
+  },
+  footerLine: {
+    fontSize: 8,
+    marginTop: 15,
+    marginBottom: 2,
+    textAlign: 'center', // Centraliza o texto relativo à linha
+    width: '100%',
+    borderBottomWidth: 1, // Adiciona uma linha abaixo para assinatura
+    borderBottomColor: '#000',
   },
   footerText: {
-    fontSize: 12,
-    marginTop: 5,
+    fontSize: 8,
+    textAlign: 'center', // Centraliza o texto relativo à linha
+    marginTop: 2,
   },
 })
 
-const MyDocument = ({ data }: EmployeePointsData) => {
+const MyDocument = ({
+  data,
+  enterprise,
+}: {
+  data: EmployeePointsData['data']
+  enterprise: EnterpriseData
+}) => {
   const HEADER_HEIGHT = 40 // Altura do cabeçalho da tabela
   const ROW_HEIGHT = 20 // Altura de cada linha da tabela
 
   // Função para calcular a altura máxima por página
   const calculatePageHeight = (pageIndex: number) =>
-    pageIndex === 0 ? 500 : 580
+    pageIndex === 0 ? 600 : 700
 
   // Dividir os dados em blocos para cada página
   const pages = []
@@ -120,19 +173,23 @@ const MyDocument = ({ data }: EmployeePointsData) => {
           {/* Cabeçalho personalizado na primeira página */}
           {pageIndex === 0 && (
             <View style={styles.companyHeader}>
-              <Text style={styles.companyHeaderTitle}>Empresa XYZ Ltda</Text>
-              <Text style={styles.companyHeaderSubtitle}>
-                Funcionário: João Silva
+              <Text style={styles.companyHeaderTitle}>
+                {enterprise?.razaoSocial || 'Razão Social Não Informada'}
               </Text>
               <Text style={styles.companyHeaderSubtitle}>
-                Período: 01/01/2023 a 31/12/2023
+                {enterprise?.nomeFantasia || 'Nome Fantasia Não Informado'}
               </Text>
-              <Text style={styles.companyHeaderSeparator}>
-                ----------------------------------------
+              <Text style={styles.companyHeaderSubtitle}>
+                Endereço: {enterprise?.endereco}, {enterprise?.numero},{' '}
+                {enterprise?.bairro}, {enterprise?.cidade} - {enterprise?.uf}
+              </Text>
+              <Text style={styles.companyHeaderSubtitle}>
+                CEP: {enterprise?.cep} | CNPJ: {enterprise?.cnpj}
               </Text>
             </View>
           )}
 
+          {/* Restante do conteúdo */}
           <View style={styles.table}>
             {/* Cabeçalho da Tabela */}
             <View style={styles.tableRow}>
@@ -151,11 +208,22 @@ const MyDocument = ({ data }: EmployeePointsData) => {
               <View style={styles.tableColHeader}>
                 <Text style={styles.tableCellHeader}>Hora Fim</Text>
               </View>
+              <View style={styles.tableColHeader}>
+                <Text style={styles.tableCellHeader}>Horas Trabalhadas</Text>
+              </View>
+              <View style={styles.tableColHeader}>
+                <Text style={styles.tableCellHeader}>Tempo de Almoço</Text>
+              </View>
             </View>
 
             {/* Linhas da Tabela */}
             {pageData.map((item, index) => (
-              <View style={styles.tableRow} key={index}>
+              <View
+                style={
+                  index % 2 === 0 ? styles.tableRowEven : styles.tableRowOdd
+                }
+                key={index}
+              >
                 <View style={styles.tableCol}>
                   <Text style={styles.tableCell}>{item.Data}</Text>
                 </View>
@@ -177,17 +245,33 @@ const MyDocument = ({ data }: EmployeePointsData) => {
                 <View style={styles.tableCol}>
                   <Text style={styles.tableCell}>{item.HoraFim || 'N/A'}</Text>
                 </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>
+                    {item.horasTrabalhadas || 'N/A'}
+                  </Text>
+                </View>
+                <View style={styles.tableCol}>
+                  <Text style={styles.tableCell}>
+                    {item.tempoAlmoco || 'N/A'}
+                  </Text>
+                </View>
               </View>
             ))}
           </View>
 
-          {/* Rodapé diretamente abaixo do último conteúdo na última página */}
           {pageIndex === pages.length - 1 && (
             <View style={styles.footer}>
-              <Text style={styles.footerText}>
-                Este é o rodapé da última página.
-              </Text>
-              <Text style={styles.footerText}>Assinatura: _______________</Text>
+              <View style={styles.footerAssignature}>
+                <View style={{ width: '80%' }}>
+                  <Text style={styles.footerLine}></Text>
+                  <Text style={styles.footerText}>Assinatura</Text>
+                </View>
+
+                <View style={{ width: '80%', marginTop: 10 }}>
+                  <Text style={styles.footerLine}></Text>
+                  <Text style={styles.footerText}>Assinatura Gestor</Text>
+                </View>
+              </View>
             </View>
           )}
         </Page>
@@ -201,6 +285,11 @@ export function EmploeePDF() {
 
   const parsedEmployeeId = id ? parseInt(id, 10) : undefined
 
+  const { data: enterpriseData } = useQuery({
+    queryKey: ['getEnterprise'],
+    queryFn: getEnterprise,
+  })
+
   const { data: results } = useQuery({
     queryKey: ['employeePoints', parsedEmployeeId, dateFrom, dateTo],
     queryFn: () =>
@@ -213,19 +302,9 @@ export function EmploeePDF() {
 
   return (
     <div>
-      <div className="flex m-0.5  items-center ml-2">
-        <h1 className="font-semibold">Relatorio Listagem de pontos</h1>
-        <div className="ml-auto">
-          <Link to={'/ponto/usuarios'}>
-            <Button variant={'outline'} size={'sm'}>
-              <X /> Fechar
-            </Button>
-          </Link>
-        </div>
-      </div>
-      {results && (
-        <PDFViewer width="100%" height="900">
-          <MyDocument data={results.data} />
+      {results && enterpriseData && (
+        <PDFViewer width="100%" height="952">
+          <MyDocument data={results.data} enterprise={enterpriseData} />
         </PDFViewer>
       )}
     </div>

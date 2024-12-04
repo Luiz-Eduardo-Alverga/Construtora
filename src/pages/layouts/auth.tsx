@@ -15,7 +15,7 @@ export function AuthLayout() {
         </footer>
       </div>
 
-      <div className="bg-secondary dark:bg-slate-950 sm:bg-white sm:flex flex-col items-center justify-center">
+      <div className="bg-secondary dark:bg-black sm:bg-white sm:flex flex-col items-center justify-center">
         <Outlet />
       </div>
     </div>

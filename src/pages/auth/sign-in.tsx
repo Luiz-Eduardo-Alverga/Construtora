@@ -57,7 +57,7 @@ export function SignIn() {
     <>
       <Helmet title="Login" />
 
-      <div className="min-h-screen dark:bg-slate-950 p-8 sm:p-0 sm:w-[350px] flex flex-col sm:justify-center gap-10 sm:gap-6">
+      <div className="min-h-screen p-8 sm:p-0 sm:w-[350px] flex flex-col sm:justify-center gap-10 sm:gap-6">
         <div className="flex flex-col gap-8 sm:gap-2 sm:text-center">
           <h1 className="text-3xl sm:text-2xl font-semibold tracking-tight">
             Controltek
