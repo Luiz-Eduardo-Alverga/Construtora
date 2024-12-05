@@ -7,6 +7,7 @@ import {
   View,
 } from '@react-pdf/renderer'
 import { useQuery } from '@tanstack/react-query'
+import { Helmet } from 'react-helmet-async'
 import { useParams } from 'react-router-dom'
 
 import { getEmployee } from '@/api/get-employee'
@@ -310,6 +311,7 @@ export function EmploeePDF() {
 
   return (
     <div>
+      <Helmet title="Cartao de ponto" />
       {results && enterpriseData && (
         <PDFViewer width="100%" height="952">
           <MyDocument data={results.data} enterprise={enterpriseData} />
