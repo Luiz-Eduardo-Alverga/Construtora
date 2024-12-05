@@ -1,5 +1,9 @@
+// Importação do módulo Tailwind CSS
+import scrollbar from 'tailwind-scrollbar'
+import tailwindcssAnimate from 'tailwindcss-animate'
+
 /** @type {import('tailwindcss').Config} */
-module.exports = {
+export default {
   darkMode: ['class'],
   content: [
     './pages/**/*.{ts,tsx}',
@@ -91,5 +95,5 @@ module.exports = {
       },
     },
   },
-  plugins: [require('tailwind-scrollbar', 'tailwindcss-animate')],
+  plugins: [scrollbar, tailwindcssAnimate],
 }
