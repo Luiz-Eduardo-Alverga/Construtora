@@ -8,7 +8,7 @@ export function FilterFunctions() {
     <div className="flex justify-center">
       <form className="flex gap-2">
         <Input
-          className="w-80 rounded-3xl"
+          className="w-64 sm:w-80 rounded-3xl"
           placeholder="Pesquise pelo nome da função"
         />
         <Button className="rounded-full">

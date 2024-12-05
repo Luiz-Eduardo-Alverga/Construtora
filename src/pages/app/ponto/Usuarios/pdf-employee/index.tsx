@@ -9,6 +9,7 @@ import {
 import { useQuery } from '@tanstack/react-query'
 import { useParams } from 'react-router-dom'
 
+import { getEmployee } from '@/api/get-employee'
 import { getEnterprise } from '@/api/get-enterprise'
 import { getEmployeePoints } from '@/api/getUserPoints'
 
@@ -289,6 +290,13 @@ export function EmploeePDF() {
     queryKey: ['getEnterprise'],
     queryFn: getEnterprise,
   })
+
+  const { data: employee } = useQuery({
+    queryKey: ['EmployeeDetails', id],
+    queryFn: () => getEmployee({ id }),
+  })
+
+  console.log(employee)
 
   const { data: results } = useQuery({
     queryKey: ['employeePoints', parsedEmployeeId, dateFrom, dateTo],

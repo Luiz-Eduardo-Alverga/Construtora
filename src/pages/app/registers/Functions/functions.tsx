@@ -1,5 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
-import { Watch } from 'lucide-react'
+import { PlusCircle, Watch } from 'lucide-react'
 
 import { getEmployeeFunctions } from '@/api/get-functions'
 import { HeaderPages } from '@/components/header-pages'
@@ -20,7 +20,7 @@ export function EmployeeJourney() {
 
   return (
     <>
-      <div className="flex items-center">
+      <div className="flex flex-col gap-4 sm:flex-row items-center">
         <HeaderPages
           title="Jornadas de Trabalho"
           description="Cadastre ou visualize as suas jornadas de trabalho"
@@ -29,7 +29,10 @@ export function EmployeeJourney() {
 
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="ml-auto">Nova Função</Button>
+            <Button className="w-full sm:w-44 h-9 space-x-2 ml-auto">
+              <PlusCircle className="h-5 w-5" />
+              <span> Nova Função</span>
+            </Button>
           </DialogTrigger>
 
           <RegisterNewFunctionDialog />
@@ -41,7 +44,7 @@ export function EmployeeJourney() {
       <div className="space-y-6">
         <FilterFunctions />
 
-        <div className="mt-24 grid grid-cols-3 gap-4">
+        <div className="mt-24 grid grid-cols-1 sm:grid-cols-3 gap-4">
           {isLoadingFunctions && <CardSkeleton />}
           {employeeFunctions &&
             employeeFunctions.data.map((employeeFunction) => (
