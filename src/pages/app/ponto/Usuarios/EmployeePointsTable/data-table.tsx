@@ -15,6 +15,7 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table'
+import { useSelectedDatesStore } from '@/zustand/useSelectedDatesStore'
 
 import { DataTablePagination } from './pagination'
 
@@ -37,6 +38,9 @@ export function DataTable<TData, TValue>({
   columns,
   data,
 }: DataTableProps<TData, TValue>) {
+  const setSelectedDates = useSelectedDatesStore(
+    (state) => state.setSelectedDates,
+  )
   const [rowSelection, setRowSelection] = useState({})
 
   const table = useReactTable({
@@ -60,7 +64,8 @@ export function DataTable<TData, TValue>({
     return selectedDates
   }
 
-  console.log(getSelectedDates())
+  const dates = getSelectedDates()
+  setSelectedDates(dates)
 
   return (
     <div className="relative">
