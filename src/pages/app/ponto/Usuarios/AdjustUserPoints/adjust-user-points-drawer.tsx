@@ -26,13 +26,12 @@ export function OptionsToEmployeePoints({
   dateTo,
 }: OptionsToEmployeePointsProps) {
   const selectedDates = useSelectedDatesStore((state) => state.selectedDates)
-  // Função para exibir Toast
 
   const handleAdjustPointsClick = (
     event: React.MouseEvent<HTMLButtonElement>,
   ) => {
     if (selectedDates.length === 0) {
-      event.preventDefault() // Impede a abertura do Drawer
+      event.preventDefault()
       toast.info('Selecione pelo menos uma data')
     }
   }

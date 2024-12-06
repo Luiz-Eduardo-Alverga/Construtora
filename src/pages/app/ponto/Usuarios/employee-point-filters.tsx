@@ -1,7 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { addDays, formatDate } from 'date-fns'
+import { addDays, format as formatDate } from 'date-fns'
 import { Check, ChevronsUpDown, Search } from 'lucide-react'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { DateRange } from 'react-day-picker'
 import { useForm } from 'react-hook-form'
 import { useSearchParams } from 'react-router-dom'
@@ -58,32 +58,46 @@ export function EmployeePontFilters({
     to: addDays(new Date(), 30),
   })
 
-  const [employeeId, setEmployeeId] = useState(0)
+  const [employeeId, setEmployeeId] = useState<number | null>(null)
 
   const [searchParams, setSearchParams] = useSearchParams()
-  const employeeName = searchParams.get('employeeId') || ''
+  const initialEmployeeId = searchParams.get('employeeId') || ''
 
   const form = useForm<SearchEmployeePointsForm>({
     resolver: zodResolver(searchEmployeePointsSchema),
     defaultValues: {
-      employeeName,
+      employeeName: '',
     },
   })
 
-  function handleFilter({ employeeName }: SearchEmployeePointsForm) {
-    if (employeeName === '') {
-      toast.warning('Preencha o funcionário')
+  useEffect(() => {
+    if (initialEmployeeId) {
+      const employee = employeers?.find(
+        (emp) => emp.id?.toString() === initialEmployeeId,
+      )
+      if (employee) {
+        form.setValue('employeeName', employee.nome ?? '')
+        setEmployeeId(employee.id)
+      }
     }
+  }, [initialEmployeeId, employeers, form])
+
+  function handleFilter({ employeeName }: SearchEmployeePointsForm) {
+    if (!employeeName) {
+      toast.warning('Preencha o funcionário')
+      return
+    }
+
     const formattedFromDate = date?.from
       ? formatDate(date.from, 'yyyy-MM-dd')
       : ''
     const formattedToDate = date?.to ? formatDate(date.to, 'yyyy-MM-dd') : ''
 
     setSearchParams((state) => {
-      if (employeeName) {
+      if (employeeId) {
         state.set('employeeId', employeeId.toString())
       } else {
-        state.delete('employeeName')
+        state.delete('employeeId')
       }
 
       if (formattedFromDate) {
@@ -126,7 +140,7 @@ export function EmployeePontFilters({
                         ? employeers?.find(
                             (employee) => employee.nome === field.value,
                           )?.nome
-                        : 'Selecione o Funcionario'}
+                        : 'Selecione o Funcionário'}
                       <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
                     </Button>
                   </FormControl>
@@ -134,9 +148,9 @@ export function EmployeePontFilters({
 
                 <PopoverContent className="w-full sm:w-[300px] p-0">
                   <Command>
-                    <CommandInput placeholder="Informe o funcionario" />
+                    <CommandInput placeholder="Informe o funcionário" />
                     <CommandList>
-                      <CommandEmpty>Funcionario não encontrado</CommandEmpty>
+                      <CommandEmpty>Funcionário não encontrado</CommandEmpty>
                       <ScrollArea className="w-full h-72 rounded-md border">
                         <CommandGroup>
                           {isLoadingEmployee && (
@@ -152,7 +166,7 @@ export function EmployeePontFilters({
                                     'employeeName',
                                     employee.nome ?? '',
                                   )
-                                  setEmployeeId(employee.id ?? 1)
+                                  setEmployeeId(employee.id ?? null)
                                 }}
                               >
                                 <Check

@@ -10,8 +10,7 @@ import { useQuery } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
 import { useParams } from 'react-router-dom'
 
-import { getEmployee } from '@/api/get-employee'
-import { getEnterprise } from '@/api/get-enterprise'
+import { getEmployeePointsPdf } from '@/api/get-employee-data-pdf'
 import { getEmployeePoints } from '@/api/getUserPoints'
 
 interface EmployeePointsData {
@@ -27,21 +26,21 @@ interface EmployeePointsData {
 }
 
 interface EnterpriseData {
-  id: 'number'
-  razaoSocial: 'string'
-  nomeFantasia: 'string'
-  cep: 'string'
-  cnpj: 'string'
-  inscricaoEstadual: 'null | string'
-  telefone1: 'string'
-  telefone2: 'string'
-  cidade: 'string'
-  endereco: 'string'
-  uf: 'string'
-  numero: 'number'
-  bairro: 'string'
-  email: 'null | string'
-  desativada: 'number'
+  razao: string
+  fantasia: string
+  cep: string
+  cnpj: string
+  cidade: string
+  endereco: string
+  numero: string
+  bairro: string
+  uf: string
+}
+
+interface EmployeeData {
+  nome: string
+  funcao: string
+  cpf: string
 }
 
 const styles = StyleSheet.create({
@@ -142,9 +141,11 @@ const styles = StyleSheet.create({
 const MyDocument = ({
   data,
   enterprise,
+  employee,
 }: {
   data: EmployeePointsData['data']
   enterprise: EnterpriseData
+  employee: EmployeeData
 }) => {
   const HEADER_HEIGHT = 40 // Altura do cabeçalho da tabela
   const ROW_HEIGHT = 20 // Altura de cada linha da tabela
@@ -176,10 +177,10 @@ const MyDocument = ({
           {pageIndex === 0 && (
             <View style={styles.companyHeader}>
               <Text style={styles.companyHeaderTitle}>
-                {enterprise?.razaoSocial || 'Razão Social Não Informada'}
+                {enterprise?.razao || 'Razão Social Não Informada'}
               </Text>
               <Text style={styles.companyHeaderSubtitle}>
-                {enterprise?.nomeFantasia || 'Nome Fantasia Não Informado'}
+                {enterprise?.fantasia || 'Nome Fantasia Não Informado'}
               </Text>
               <Text style={styles.companyHeaderSubtitle}>
                 Endereço: {enterprise?.endereco}, {enterprise?.numero},{' '}
@@ -187,6 +188,11 @@ const MyDocument = ({
               </Text>
               <Text style={styles.companyHeaderSubtitle}>
                 CEP: {enterprise?.cep} | CNPJ: {enterprise?.cnpj}
+              </Text>
+
+              <Text style={styles.companyHeaderSubtitle}>
+                Funcionario: {employee?.nome} | Funcao: {employee?.funcao} |
+                CPF: {employee?.cpf}
               </Text>
             </View>
           )}
@@ -287,17 +293,13 @@ export function EmploeePDF() {
 
   const parsedEmployeeId = id ? parseInt(id, 10) : undefined
 
-  const { data: enterpriseData } = useQuery({
-    queryKey: ['getEnterprise'],
-    queryFn: getEnterprise,
+  const { data } = useQuery({
+    queryKey: ['pdfPointsData'],
+    queryFn: () => getEmployeePointsPdf({ id: parsedEmployeeId }),
   })
 
-  const { data: employee } = useQuery({
-    queryKey: ['EmployeeDetails', id],
-    queryFn: () => getEmployee({ id }),
-  })
-
-  console.log(employee)
+  const enterpriseData = data?.empresa.data
+  const employeeData = data?.funcionario.data
 
   const { data: results } = useQuery({
     queryKey: ['employeePoints', parsedEmployeeId, dateFrom, dateTo],
@@ -312,9 +314,13 @@ export function EmploeePDF() {
   return (
     <div>
       <Helmet title="Cartao de ponto" />
-      {results && enterpriseData && (
+      {results && enterpriseData && employeeData && (
         <PDFViewer width="100%" height="952">
-          <MyDocument data={results.data} enterprise={enterpriseData} />
+          <MyDocument
+            data={results.data}
+            enterprise={enterpriseData}
+            employee={employeeData}
+          />
         </PDFViewer>
       )}
     </div>
