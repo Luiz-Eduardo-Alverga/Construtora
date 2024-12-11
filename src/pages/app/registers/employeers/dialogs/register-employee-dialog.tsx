@@ -97,8 +97,9 @@ export function RegisterNewEmployeeDialog({
           )}
         >
           <div className="grid grid-cols-4 items-center">
-            <Label>Nome</Label>
+            <Label htmlFor="username">Nome</Label>
             <Input
+              id="username"
               className="col-span-3"
               type="text"
               {...registerEmployeeForm.register('name')}

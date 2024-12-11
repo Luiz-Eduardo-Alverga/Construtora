@@ -32,38 +32,41 @@ export function SelectEmployeeFunctions({
   return (
     <div className="space-y-0.5">
       <Label className={isDefaultLabelHidden ? 'hidden' : ''}>Função</Label>
-      <div className="flex">
-        <Controller
-          name={controlName}
-          control={control}
-          defaultValue=""
-          render={({ field }) => (
-            <Select onValueChange={field.onChange} value={field.value}>
-              <SelectTrigger className={`w-full ${space} `}>
-                <SelectValue placeholder="Seleciona a Função" />
-              </SelectTrigger>
-              <SelectContent>
-                <SelectGroup>
-                  {isLoading ? (
-                    <SelectItem value="Carregando...">Carregando...</SelectItem>
-                  ) : (
-                    employeeFunctions?.data &&
-                    employeeFunctions?.data.length > 0 &&
-                    employeeFunctions.data.map((employeeFunction) => (
-                      <SelectItem
-                        key={employeeFunction.id}
-                        value={String(employeeFunction.id)}
-                      >
-                        {employeeFunction.nome}
-                      </SelectItem>
-                    ))
-                  )}
-                </SelectGroup>
-              </SelectContent>
-            </Select>
-          )}
-        />
-      </div>
+
+      <Controller
+        name={controlName}
+        control={control}
+        defaultValue=""
+        render={({ field }) => (
+          <Select
+            name="employeeFunction"
+            onValueChange={field.onChange}
+            value={field.value}
+          >
+            <SelectTrigger className={`w-full ${space} `}>
+              <SelectValue placeholder="Seleciona a Função" />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {isLoading ? (
+                  <SelectItem value="Carregando...">Carregando...</SelectItem>
+                ) : (
+                  employeeFunctions?.data &&
+                  employeeFunctions?.data.length > 0 &&
+                  employeeFunctions.data.map((employeeFunction) => (
+                    <SelectItem
+                      key={employeeFunction.id}
+                      value={String(employeeFunction.id)}
+                    >
+                      {employeeFunction.nome}
+                    </SelectItem>
+                  ))
+                )}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+        )}
+      />
     </div>
   )
 }
