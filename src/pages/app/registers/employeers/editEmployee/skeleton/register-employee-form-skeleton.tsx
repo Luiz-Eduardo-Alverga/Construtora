@@ -1,5 +1,6 @@
 import { Separator } from '@/components/ui/separator'
 import { Skeleton } from '@/components/ui/skeleton'
+import { FormContainer } from '../Form/form-container'
 
 export function RegisterEmployeeFormSkeleton() {
   return (
@@ -12,28 +13,28 @@ export function RegisterEmployeeFormSkeleton() {
 
         <div className="mx-4 mt-12">
           <div className="space-y-12">
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
+            <FormContainer>
               <Skeleton className="h-8 w-[850px]" />
 
               <Skeleton className="h-8 flex-1" />
-            </div>
+            </FormContainer>
 
-            <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
+            <FormContainer>
               <Skeleton className="h-8 flex-1" />
               <Skeleton className="h-8 flex-1" />
               <Skeleton className="h-8 flex-1" />
               <Skeleton className="h-8 flex-1" />
-            </div>
+            </FormContainer>
 
             <div>
               <Skeleton className="h-10 w-full" />
             </div>
 
-            <div className="grid grid-cols-4 gap-2 items-center">
+            <FormContainer>
               <Skeleton className="h-8 col-span-1" />
               <Skeleton className="h-8 col-span-2" />
               <Skeleton className="h-8 col-span-1" />
-            </div>
+            </FormContainer>
 
             <div className="grid grid-cols-5 gap-2 items-center">
               <Skeleton className="h-8 col-span-1" />

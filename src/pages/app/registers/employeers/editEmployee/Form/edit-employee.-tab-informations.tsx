@@ -5,8 +5,9 @@ import { CalendarSingleDatePicker } from '@/components/calendar-picker-single' /
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 
-import { InputForm } from './Inputs/input-form'
-import { SelectStatesForm } from './Inputs/select-states-form'
+import { InputForm } from './input-form'
+import { SelectStatesForm } from './select-states-form'
+import { FormContainer } from './form-container'
 
 export function EditEmployeeInformationTabs() {
   const [selectedDateBirth, setSelectedDateBirth] = useState<Date | undefined>(
@@ -19,23 +20,27 @@ export function EditEmployeeInformationTabs() {
   const { control } = useFormContext()
 
   return (
-    <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
-        <InputForm
-          id="cidadeNascimento"
-          registerName="cidadeNascimento"
-          label="Cidade de Nascimento"
-          allspace="flex-1"
-        />
+    <div className="space-y-2">
+      <div className='py-4'>
+        <FormContainer>
+          <InputForm
+            id="cidadeNascimento"
+            registerName="cidadeNascimento"
+            label="Cidade de Nascimento"
+            allspace="flex-1"
+          />
 
-        <SelectStatesForm
-          label="UF Nascimento"
-          controlName="ufNascimento"
-          space="sm:w-56"
-        />
+          <SelectStatesForm
+            label="UF Nascimento"
+            controlName="ufNascimento"
+            space="sm:w-56"
+          />
+        </FormContainer>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 pb-2 sm:pb-6">
+      <Separator />
+
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 pb-2 pb-4">
         <InputForm
           id="Nome do Pai"
           registerName="nomePai"
@@ -63,12 +68,11 @@ export function EditEmployeeInformationTabs() {
           />
         </div>
       </div>
+
       <Separator />
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 pb-2 sm:pt-6">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 pb-2 ">
         <InputForm id="RG" registerName="rg" label="RG" />
-
-        <InputForm id="EmissaoRG" registerName="emissaoRg" label="EmissaoRG" />
 
         <InputForm id="Serie" registerName="serie" label="Serie" />
 

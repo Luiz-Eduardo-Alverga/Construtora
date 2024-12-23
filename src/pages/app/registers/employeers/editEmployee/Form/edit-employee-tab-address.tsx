@@ -7,8 +7,9 @@ import { InputWithMask } from '@/components/ui/input-mask'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 
-import { InputForm } from './Inputs/input-form'
-import { SelectStatesForm } from './Inputs/select-states-form'
+import { InputForm } from './input-form'
+import { SelectStatesForm } from './select-states-form'
+import { FormContainer } from './form-container'
 
 export function EditEmployeeAddressTab() {
   const { watch, control, setValue } = useFormContext()
@@ -32,40 +33,42 @@ export function EditEmployeeAddressTab() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 py-4">
-        <div className="space-y-0.5">
-          <Label htmlFor="cep">CEP</Label>
-          <div className="relative">
-            <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
-            <Controller
-              name="cep"
-              control={control}
-              render={({ field }) => (
-                <InputWithMask
-                  mask="99999-999"
-                  placeholder="CEP"
-                  className="w-full sm:w-60"
-                  {...field}
-                />
-              )}
-            />
+      <div className='py-2'>
+        <FormContainer>
+          <div className="space-y-0.5">
+            <Label htmlFor="cep">CEP</Label>
+            <div className="relative">
+              <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
+              <Controller
+                name="cep"
+                control={control}
+                render={({ field }) => (
+                  <InputWithMask
+                    mask="99999-999"
+                    placeholder="CEP"
+                    className="w-full sm:w-60"
+                    {...field}
+                  />
+                )}
+              />
+            </div>
           </div>
-        </div>
 
-        <InputForm
-          id="endereco"
-          label="Endereço"
-          registerName="endereco"
-          allspace="flex-1"
-          defaultValueData={address?.logradouro}
-        />
+          <InputForm
+            id="endereco"
+            label="Endereço"
+            registerName="endereco"
+            allspace="flex-1"
+            defaultValueData={address?.logradouro}
+          />
 
-        <InputForm id="Numero" label="Numero" registerName="numeroEndereco" />
+          <InputForm id="Numero" label="Numero" registerName="numeroEndereco" />
+        </FormContainer>
       </div>
 
       <Separator />
 
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
+      <FormContainer>
         <InputForm
           id="bairro"
           label="Bairro"
@@ -88,7 +91,7 @@ export function EditEmployeeAddressTab() {
           registerName="complemento"
           allspace="flex-1"
         />
-      </div>
+      </FormContainer>
     </div>
   )
 }
