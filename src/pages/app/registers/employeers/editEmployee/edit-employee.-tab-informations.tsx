@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Controller, useFormContext } from 'react-hook-form'
 
 import { CalendarSingleDatePicker } from '@/components/calendar-picker-single' // Certifique-se de que o nome do componente é `SingleDatePicker`
 import { Label } from '@/components/ui/label'
@@ -14,6 +15,8 @@ export function EditEmployeeInformationTabs() {
   const [selectedDateResignation, setSelectedDateResignation] = useState<
     Date | undefined
   >(undefined)
+
+  const { control } = useFormContext()
 
   return (
     <div className="space-y-4">
@@ -47,9 +50,16 @@ export function EditEmployeeInformationTabs() {
 
         <div>
           <Label>Data de Nascimento</Label>
-          <CalendarSingleDatePicker
-            date={selectedDateBirth}
-            setDate={setSelectedDateBirth}
+          <Controller
+            name="dataNascimento"
+            control={control}
+            render={({ field }) => (
+              <CalendarSingleDatePicker
+                date={selectedDateBirth}
+                setDate={setSelectedDateBirth}
+                {...field}
+              />
+            )}
           />
         </div>
       </div>

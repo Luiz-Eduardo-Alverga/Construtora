@@ -5,6 +5,7 @@ import { Controller, useFormContext } from 'react-hook-form'
 import { getSearchCep } from '@/api/utils/search-cep'
 import { InputWithMask } from '@/components/ui/input-mask'
 import { Label } from '@/components/ui/label'
+import { Separator } from '@/components/ui/separator'
 
 import { InputForm } from './Inputs/input-form'
 import { SelectStatesForm } from './Inputs/select-states-form'
@@ -31,7 +32,7 @@ export function EditEmployeeAddressTab() {
 
   return (
     <div className="space-y-4">
-      <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
+      <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 py-4">
         <div className="space-y-0.5">
           <Label htmlFor="cep">CEP</Label>
           <div className="relative">
@@ -61,6 +62,8 @@ export function EditEmployeeAddressTab() {
 
         <InputForm id="Numero" label="Numero" registerName="numeroEndereco" />
       </div>
+
+      <Separator />
 
       <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
         <InputForm

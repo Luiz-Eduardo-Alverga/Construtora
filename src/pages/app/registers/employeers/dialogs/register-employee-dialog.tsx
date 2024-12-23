@@ -16,7 +16,7 @@ import {
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
-import { SelectEmployeeFunctions } from '../editEmployee/Inputs/employee-function'
+import { SelectEmployeeFunctions } from '../../../../../components/employee-function'
 
 const registerNewEmployeeSchema = z.object({
   name: z.string(),

@@ -47,7 +47,7 @@ export function FirstStep({ setProgress, setStep }: FirstStepProps) {
             <Button variant={'outline'}>Cancelar</Button>
           </DialogClose>
           <Button
-            className="space-x-1"
+            className="space-x-1 "
             onClick={() => {
               setStep(2)
               setProgress(100)

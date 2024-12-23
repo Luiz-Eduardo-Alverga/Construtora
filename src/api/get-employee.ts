@@ -4,18 +4,20 @@ interface GetEmployeeDetails {
   id: string | undefined
 }
 
-interface GetEmployeeResponse {
+export interface GetEmployeeResponse {
   data: {
     id: string | null
     nome: string | null
     codigo: string | null
     dataAdmissao: string | null
     dataDemissao: string | null
+    endereco: string | null
     cep: string | null
     bairro: string | null
     numeroEndereco: string | null
     cidade: string | null
     uf: string | null
+    emissaoRG: string | null
     complemento: string | null
     cpf: string | null
     esocial: string | null

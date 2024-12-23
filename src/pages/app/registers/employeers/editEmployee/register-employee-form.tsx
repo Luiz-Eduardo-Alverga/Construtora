@@ -1,9 +1,8 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useQuery } from '@tanstack/react-query'
-import { formatDate } from 'date-fns'
-import { useState } from 'react'
+import { addMinutes, formatDate, parseISO } from 'date-fns'
+import { useEffect, useState } from 'react'
 import { Controller, FormProvider, useForm } from 'react-hook-form'
-// Importando o ícone de usuário
 import { useParams } from 'react-router-dom'
 import { z } from 'zod'
 
@@ -11,15 +10,46 @@ import { getEmployee } from '@/api/get-employee'
 import { CalendarSingleDatePicker } from '@/components/calendar-picker-single'
 import { Button } from '@/components/ui/button'
 import { Label } from '@/components/ui/label'
-import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
+// import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group'
 import { Separator } from '@/components/ui/separator'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
+import { SelectEmployeeFunctions } from '../../../../../components/employee-function'
 import { EditEmployeeInformationTabs } from './edit-employee.-tab-informations'
 import { EditEmployeeAddressTab } from './edit-employee-tab-address'
-import { SelectEmployeeFunctions } from './Inputs/employee-function'
 import { InputForm } from './Inputs/input-form'
 import { RegisterEmployeeFormSkeleton } from './skeleton/register-employee-form-skeleton'
+
+interface Employee {
+  id: string | null
+  nome: string | null
+  codigo: string | null
+  dataAdmissao: string | null
+  dataDemissao: string | null
+  endereco: string | null
+  cep: string | null
+  bairro: string | null
+  numeroEndereco: string | null
+  cidade: string | null
+  uf: string | null
+  emissaoRG: string | null
+  complemento: string | null
+  cpf: string | null
+  esocial: string | null
+  rg: string | null
+  orgaoEmissor: string | null
+  ufRg: string | null
+  dataEmissaoRg: string | null
+  pisPasep: string | null
+  ctps: string | null
+  serieCtps: string | null
+  nomePai: string | null
+  nomeMae: string | null
+  ufNasc: string | null
+  nascimentoMunicipio: string | null
+  funcao: number | null
+  dataNascimento: string | null
+}
 
 const editEmployeeSchema = z.object({
   nome: z.string().optional(),
@@ -76,23 +106,84 @@ export function RegisterEmployeeForm() {
     console.log(data)
   }
 
+  useEffect(() => {
+    const { setValue } = editEmployeeForm
+
+    const fieldsMapping: {
+      formField: keyof EditEmployeeSchema
+      employeeField: keyof Employee
+    }[] = [
+      { formField: 'cep', employeeField: 'cep' },
+      { formField: 'nome', employeeField: 'nome' },
+      { formField: 'codigoPonto', employeeField: 'codigo' },
+      { formField: 'endereco', employeeField: 'endereco' },
+      { formField: 'bairro', employeeField: 'bairro' },
+      { formField: 'cidade', employeeField: 'cidade' },
+      { formField: 'complemento', employeeField: 'complemento' },
+      { formField: 'numeroEndereco', employeeField: 'numeroEndereco' },
+      { formField: 'uf', employeeField: 'uf' },
+      { formField: 'cidadeNascimento', employeeField: 'nascimentoMunicipio' },
+      { formField: 'ufNascimento', employeeField: 'ufNasc' },
+      { formField: 'nomePai', employeeField: 'nomePai' },
+      { formField: 'nomeMae', employeeField: 'nomeMae' },
+      { formField: 'rg', employeeField: 'rg' },
+      { formField: 'serie', employeeField: 'serieCtps' },
+      { formField: 'esocial', employeeField: 'esocial' },
+      { formField: 'orgaoEmissor', employeeField: 'orgaoEmissor' },
+      { formField: 'emissaoRg', employeeField: 'emissaoRG' },
+      { formField: 'ufRg', employeeField: 'ufRg' },
+      { formField: 'ctps', employeeField: 'ctps' },
+      { formField: 'cpf', employeeField: 'cpf' },
+      { formField: 'pis', employeeField: 'pisPasep' },
+    ]
+
+    employeers?.data.forEach((employee) => {
+      fieldsMapping.forEach(({ formField, employeeField }) => {
+        const value = employee[employeeField] ?? ''
+        setValue(formField, value)
+      })
+    })
+
+    if (employeers) {
+      const employee = employeers.data[0]
+      if (employee.dataAdmissao) {
+        const localDate = addMinutes(
+          parseISO(employee.dataAdmissao),
+          new Date().getTimezoneOffset(),
+        )
+        setSelectedDate(localDate)
+      }
+    }
+  }, [editEmployeeForm, employeers, employeers?.data])
+
   return (
-    <div className="bg-white dark:bg-black rounded-lg pb-10 m-3 shadow-xl">
+    <div>
       {isLoading && <RegisterEmployeeFormSkeleton />}
       {employeers &&
         employeers?.data.map((employee) => (
           <div key={employee.id}>
             <div className="m-4 text-base space-y-2">
-              <h1>Funcionário - {employee.nome}</h1>
-              <Separator className="" />
+              <div className="flex justify-between">
+                <h1>
+                  <span className="font-bold text-lg">Funcionário</span> -{' '}
+                  {employee.nome}
+                </h1>
+
+                <div className="flex gap-4">
+                  <Button variant={'outline'}>Cancelar</Button>
+                  <Button>Salvar</Button>
+                </div>
+              </div>
+
+              <Separator />
             </div>
 
-            <div className="mx-4 mt-12">
+            <div className="mx-4">
               <FormProvider {...editEmployeeForm}>
                 <form
                   onSubmit={editEmployeeForm.handleSubmit(handleEditEmployee)}
                   action=""
-                  className="space-y-4"
+                  className="space-y-8"
                 >
                   <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
                     <InputForm
@@ -100,7 +191,6 @@ export function RegisterEmployeeForm() {
                       registerName="nome"
                       id="name"
                       allspace="sm:w-[850px]"
-                      defaultValueData={employee.nome ?? ''}
                     />
 
                     <InputForm
@@ -108,14 +198,16 @@ export function RegisterEmployeeForm() {
                       registerName="codigoPonto"
                       id="codigoPonto"
                       allspace="flex-1"
-                      defaultValueData={employee.codigo ?? ''}
                     />
                   </div>
 
-                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-6">
+                  <Separator />
+
+                  <div className="flex flex-col sm:flex-row gap-3 sm:gap-6 ">
                     <SelectEmployeeFunctions
                       controlName="funcao"
                       space="sm:w-64"
+                      defaultValue={employee.funcao}
                     />
 
                     <div className="space-y-0.5 flex-1 relative">
@@ -123,7 +215,6 @@ export function RegisterEmployeeForm() {
                       <Controller
                         name="dataAdmissao"
                         control={editEmployeeForm.control}
-                        defaultValue={employee.dataAdmissao || ''}
                         render={({ field }) => (
                           <CalendarSingleDatePicker
                             date={selectedDate}
@@ -139,10 +230,9 @@ export function RegisterEmployeeForm() {
                       registerName="pis"
                       id="pis"
                       allspace="flex-1"
-                      defaultValueData={employee.pisPasep ?? ''}
                     />
 
-                    <div className="space-y-0.5">
+                    {/* <div className="space-y-0.5">
                       <Label>Status:</Label>
                       <RadioGroup
                         defaultValue="ativado"
@@ -158,32 +248,31 @@ export function RegisterEmployeeForm() {
                           <Label htmlFor="desativado">Desativado</Label>
                         </div>
                       </RadioGroup>
-                    </div>
+                    </div> */}
                   </div>
 
-                  <div>
-                    <Tabs defaultValue="endereco" className="w-full mb-10">
-                      <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="endereco">Endereço</TabsTrigger>
-                        <TabsTrigger value="dados pessoais">
-                          Dados Pessoais
-                        </TabsTrigger>
-                      </TabsList>
-                      <TabsContent value="endereco" className="mt-6">
-                        <EditEmployeeAddressTab />
-                      </TabsContent>
-                      <TabsContent value="dados pessoais" className="mt-6">
-                        <EditEmployeeInformationTabs />
-                      </TabsContent>
-                    </Tabs>
-                  </div>
+                  <Separator />
+
+                  <Tabs defaultValue="endereco" className="w-full">
+                    <TabsList className="grid w-full grid-cols-2 ">
+                      <TabsTrigger value="endereco">Endereço</TabsTrigger>
+                      <TabsTrigger value="dados pessoais">
+                        Dados Pessoais
+                      </TabsTrigger>
+                    </TabsList>
+                    <TabsContent value="endereco" className="mt-6">
+                      <EditEmployeeAddressTab />
+                    </TabsContent>
+                    <TabsContent value="dados pessoais" className="mt-6">
+                      <EditEmployeeInformationTabs />
+                    </TabsContent>
+                  </Tabs>
+
                   <Separator />
 
                   <div className="flex gap-4">
-                    <Button size={'lg'}>Salvar</Button>
-                    <Button size={'lg'} variant={'outline'}>
-                      Cancelar
-                    </Button>
+                    <Button variant={'outline'}>Cancelar</Button>
+                    <Button>Salvar</Button>
                   </div>
                 </form>
               </FormProvider>
