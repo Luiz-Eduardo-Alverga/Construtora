@@ -1,27 +1,27 @@
-import { useState } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 
 import { CalendarSingleDatePicker } from '@/components/calendar-picker-single' // Certifique-se de que o nome do componente é `SingleDatePicker`
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
+import { useDateStore } from '@/zustand/useSelectedDatesStore'
 
-import { InputForm } from './input-form'
-import { SelectStatesForm } from './select-states-form'
-import { FormContainer } from './form-container'
+import { FormContainer } from '../FormLayout/form-container'
+import { InputForm } from '../input-form'
+import { SelectStatesForm } from '../select-states-form'
 
 export function EditEmployeeInformationTabs() {
-  const [selectedDateBirth, setSelectedDateBirth] = useState<Date | undefined>(
-    undefined,
-  )
-  const [selectedDateResignation, setSelectedDateResignation] = useState<
-    Date | undefined
-  >(undefined)
-
   const { control } = useFormContext()
+
+  const {
+    selectedDateBirth,
+    setSelectedDateBirth,
+    selectedDateResignation,
+    setSelectedDateResignation,
+  } = useDateStore()
 
   return (
     <div className="space-y-2">
-      <div className='py-4'>
+      <div className="py-4">
         <FormContainer>
           <InputForm
             id="cidadeNascimento"
@@ -40,7 +40,7 @@ export function EditEmployeeInformationTabs() {
 
       <Separator />
 
-      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 pb-2 pb-4">
+      <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-6 pb-4">
         <InputForm
           id="Nome do Pai"
           registerName="nomePai"

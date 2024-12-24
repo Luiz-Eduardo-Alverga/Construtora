@@ -118,7 +118,10 @@ export function EmployeePontFilters({
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(handleFilter)}>
+      <form
+        className="flex flex-col sm:flex-row sm:items-end gap-2"
+        onSubmit={form.handleSubmit(handleFilter)}
+      >
         <FormField
           control={form.control}
           name="employeeName"
@@ -151,7 +154,7 @@ export function EmployeePontFilters({
                     <CommandInput placeholder="Informe o funcionário" />
                     <CommandList>
                       <CommandEmpty>Funcionário não encontrado</CommandEmpty>
-                      <ScrollArea className="w-full h-72 rounded-md border">
+                      <ScrollArea className="w-full  rounded-md border">
                         <CommandGroup>
                           {isLoadingEmployee && (
                             <CommandItem>Carregando</CommandItem>
@@ -186,16 +189,16 @@ export function EmployeePontFilters({
                   </Command>
                 </PopoverContent>
               </Popover>
-
-              <CalendarPicker date={date} setDate={setDate} />
-
-              <Button type="submit">
-                <Search className="mr-2 h-5 sm:w-5" />
-                Buscar resultado
-              </Button>
             </FormItem>
           )}
         />
+
+        <CalendarPicker date={date} setDate={setDate} />
+
+        <Button type="submit">
+          <Search className="mr-2 h-5 sm:w-5" />
+          Buscar resultado
+        </Button>
       </form>
     </Form>
   )

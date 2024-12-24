@@ -1,11 +1,11 @@
-import { Button } from "@/components/ui/button";
+import { Button } from '@/components/ui/button'
 
 interface FormActionsProps {
-  onCancel?: () => void;
-  onSubmit?: () => void;
-  cancelLabel?: string;
-  submitLabel?: string;
-  isSubmitting?: boolean;
+  onCancel?: () => void
+  onSubmit?: () => void
+  cancelLabel?: string
+  submitLabel?: string
+  isSubmitting?: boolean
 }
 
 export function FormActions({
@@ -24,5 +24,5 @@ export function FormActions({
         {isSubmitting ? 'Enviando...' : submitLabel}
       </Button>
     </div>
-  );
+  )
 }

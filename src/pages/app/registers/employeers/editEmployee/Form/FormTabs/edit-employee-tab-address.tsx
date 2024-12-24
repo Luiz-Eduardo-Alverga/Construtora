@@ -7,9 +7,9 @@ import { InputWithMask } from '@/components/ui/input-mask'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 
-import { InputForm } from './input-form'
-import { SelectStatesForm } from './select-states-form'
-import { FormContainer } from './form-container'
+import { FormContainer } from '../FormLayout/form-container'
+import { InputForm } from '../input-form'
+import { SelectStatesForm } from '../select-states-form'
 
 export function EditEmployeeAddressTab() {
   const { watch, control, setValue } = useFormContext()
@@ -33,7 +33,7 @@ export function EditEmployeeAddressTab() {
 
   return (
     <div className="space-y-4">
-      <div className='py-2'>
+      <div className="py-2">
         <FormContainer>
           <div className="space-y-0.5">
             <Label htmlFor="cep">CEP</Label>
