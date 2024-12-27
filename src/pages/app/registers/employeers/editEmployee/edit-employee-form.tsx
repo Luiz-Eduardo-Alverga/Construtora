@@ -1,14 +1,12 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation, useQuery } from '@tanstack/react-query'
-import { addMinutes, formatDate, parseISO } from 'date-fns'
-import { useEffect } from 'react'
+import { useMutation } from '@tanstack/react-query'
+import { formatDate } from 'date-fns'
 import { FormProvider, useForm } from 'react-hook-form'
-import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { editEmployee, EditEmployeeBody } from '@/api/employee/edit-employee'
-import { getEmployee } from '@/api/employee/get-employee'
 import { Separator } from '@/components/ui/separator'
 import { useDateStore } from '@/zustand/useSelectedDatesStore'
 
@@ -22,13 +20,13 @@ import { FormHeader } from './Form/FormLayout/form-header'
 import { FormSecondLine } from './Form/FormLayout/Form-second-line'
 import { FormTabs } from './Form/FormTabs/form-tabs'
 import { RegisterEmployeeFormSkeleton } from './skeleton/register-employee-form-skeleton'
+import { useEditEmployeeForm } from './Form/hooks/useEditEmployeeEffect'
 
 export type EditEmployeeSchema = z.infer<typeof editEmployeeSchema>
 
 export function RegisterEmployeeForm() {
   const { id } = useParams()
   const navigate = useNavigate()
-  const location = useLocation()
 
   const editEmployeeForm = useForm<EditEmployeeSchema>({
     resolver: zodResolver(editEmployeeSchema),
@@ -37,17 +35,10 @@ export function RegisterEmployeeForm() {
   const {
     selectedDateBirth,
     selectedDateResignation,
-    setSelectedDateBirth,
-    setSelectedDateResignation,
-    clearDates,
     selectedDateAdmission,
-    setSelectedDateAdmission,
   } = useDateStore()
 
-  const { data: employeers, isLoading } = useQuery({
-    queryKey: ['EmployeeDetails', id],
-    queryFn: () => getEmployee({ id }),
-  })
+  const { employeers, isLoading } = useEditEmployeeForm(editEmployeeForm)
 
   const { mutateAsync: editEmployeeSelected } = useMutation({
     mutationFn: (data: EditEmployeeBody) => editEmployee(data),
@@ -104,7 +95,6 @@ export function RegisterEmployeeForm() {
       }
 
       try {
-        console.log('dados formulario', changedFields)
         await editEmployeeSelected({
           id,
           dadosFuncionario: changedFields,
@@ -116,60 +106,6 @@ export function RegisterEmployeeForm() {
       }
     }
   }
-
-  useEffect(() => {
-    const isEditEmployeeRoute = /^\/cadastros\/funcionarios\/\d+\/editar$/.test(
-      location.pathname,
-    )
-
-    if (isEditEmployeeRoute) {
-      clearDates()
-    }
-    const { setValue } = editEmployeeForm
-
-    employeers?.data.forEach((employee) => {
-      fieldsMapping.forEach(({ formField, employeeField }) => {
-        const value = employee[employeeField] ?? ''
-        setValue(formField, value)
-      })
-    })
-
-    if (employeers) {
-      const employee = employeers.data[0]
-      if (employee.dataAdmissao) {
-        const localDate = addMinutes(
-          parseISO(employee.dataAdmissao),
-          new Date().getTimezoneOffset(),
-        )
-        setSelectedDateAdmission(localDate)
-      }
-
-      if (employee.dataNascimento) {
-        const localDate = addMinutes(
-          parseISO(employee.dataNascimento),
-          new Date().getTimezoneOffset(),
-        )
-        setSelectedDateBirth(localDate)
-      }
-
-      if (employee.dataDemissao) {
-        const localDate = addMinutes(
-          parseISO(employee.dataDemissao),
-          new Date().getTimezoneOffset(),
-        )
-        setSelectedDateResignation(localDate)
-      }
-    }
-  }, [
-    editEmployeeForm,
-    employeers,
-    employeers?.data,
-    location,
-    clearDates,
-    setSelectedDateResignation,
-    setSelectedDateBirth,
-    setSelectedDateAdmission,
-  ])
 
   return (
     <div>
