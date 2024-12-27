@@ -69,7 +69,7 @@ export const editEmployeeSchema = z.object({
   status: z.string().optional(),
   cep: z.string().optional(),
   endereco: z.string().optional(),
-  numeroEndereco: z.number().optional(),
+  numeroEndereco: z.string().optional(),
   bairro: z.string().optional(),
   cidade: z.string().optional(),
   uf: z.string().optional(),

@@ -44,7 +44,25 @@ export function RegisterEmployeeForm() {
     mutationFn: (data: EditEmployeeBody) => editEmployee(data),
   })
 
+  console.log(employeers)
+
   async function handleEditEmployee(data: EditEmployeeSchema) {
+
+    if(data.nome === "") {
+      toast.info("Preencha o nome do funcionário")
+      return
+    }
+
+    if (data?.nome && data.nome.length < 3) {
+      toast.info("Nome do funcionário deve ter mais que 2 caracteres")
+      return
+    }
+
+    if(data.funcao === 0) {
+      toast.info("Preencha a Função do Funcionário")
+      return
+    }
+
     const formatedDateAdmission = selectedDateAdmission
       ? formatDate(selectedDateAdmission, 'yyyy-MM-dd')
       : ''
@@ -95,11 +113,12 @@ export function RegisterEmployeeForm() {
       }
 
       try {
+        console.log(changedFields)
         await editEmployeeSelected({
           id,
           dadosFuncionario: changedFields,
         })
-        navigate(-1)
+        // navigate(-1)
         toast.success('Funcionário atualizado com sucesso!')
       } catch (error) {
         toast.error('Erro ao atualizar funcionário')
@@ -129,12 +148,13 @@ export function RegisterEmployeeForm() {
                   <FormTabs />
 
                   <Separator />
-
-                  <FormActions
-                    onCancel={() => navigate(-1)}
-                    cancelLabel="Cancelar"
-                    submitLabel="Salvar"
-                  />
+                          
+                    <FormActions
+                      onCancel={() => navigate(-1)}
+                      cancelLabel="Cancelar"
+                      submitLabel="Salvar"
+                    />
+       
                 </div>
               </div>
             ))}

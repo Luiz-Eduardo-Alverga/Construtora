@@ -11,7 +11,6 @@ interface AddressInputProps {
   allspace?: string
   defaultValueData?: string
   type?: string
-  valueAsNumber?: boolean
 }
 
 export function InputForm({
@@ -21,7 +20,6 @@ export function InputForm({
   allspace,
   defaultValueData,
   type,
-  valueAsNumber = false,
 }: AddressInputProps) {
   const { register } = useFormContext()
 
@@ -33,7 +31,7 @@ export function InputForm({
         <Input
           type={type}
           id={id}
-          {...register(registerName, { valueAsNumber })}
+          {...register(registerName)}
           defaultValue={defaultValueData}
         />
       </div>

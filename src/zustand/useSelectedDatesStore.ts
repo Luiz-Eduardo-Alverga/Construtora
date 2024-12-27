@@ -15,6 +15,7 @@ interface DateState {
   clearDates: () => void
 }
 
+
 export const useSelectedDatesStore = create<SelectedDatesState>((set) => ({
   selectedDates: [],
   setSelectedDates: (dates) => set({ selectedDates: dates }),
@@ -34,3 +35,6 @@ export const useDateStore = create<DateState>((set) => ({
       selectedDateAdmission: undefined,
     }),
 }))
+
+
+

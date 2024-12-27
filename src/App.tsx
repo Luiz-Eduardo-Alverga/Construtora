@@ -14,7 +14,7 @@ function App() {
   return (
     <HelmetProvider>
       <ThemeProvider defaultTheme="light" storageKey="point-theme">
-        <Toaster richColors />
+        <Toaster position='top-center' closeButton={true} richColors />
         <QueryClientProvider client={queryClient}>
           <RouterProvider router={router} />
         </QueryClientProvider>
