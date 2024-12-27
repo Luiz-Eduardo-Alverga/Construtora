@@ -10,6 +10,8 @@ interface AddressInputProps {
   registerName: string
   allspace?: string
   defaultValueData?: string
+  type?: string
+  valueAsNumber?: boolean
 }
 
 export function InputForm({
@@ -18,6 +20,8 @@ export function InputForm({
   registerName,
   allspace,
   defaultValueData,
+  type,
+  valueAsNumber = false,
 }: AddressInputProps) {
   const { register } = useFormContext()
 
@@ -27,8 +31,9 @@ export function InputForm({
       <div className="relative">
         <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
         <Input
+          type={type}
           id={id}
-          {...register(registerName)}
+          {...register(registerName, { valueAsNumber })}
           defaultValue={defaultValueData}
         />
       </div>

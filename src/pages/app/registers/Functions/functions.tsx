@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { PlusCircle, Watch } from 'lucide-react'
 
-import { getEmployeeFunctions } from '@/api/get-functions'
+import { getEmployeeFunctions } from '@/api/employeeFunctions/get-functions'
 import { HeaderPages } from '@/components/header-pages'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'

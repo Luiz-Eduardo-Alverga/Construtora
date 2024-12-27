@@ -22,7 +22,8 @@ export function AppLayout() {
       (response) => response,
       (error) => {
         if (isAxiosError(error)) {
-          const status = error.response?.status
+          const status = error.response?.data
+          console.log(status)
 
           if (status === 401) {
             localStorage.removeItem('authToken')

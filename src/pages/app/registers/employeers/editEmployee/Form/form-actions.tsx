@@ -1,3 +1,5 @@
+import { useFormContext } from 'react-hook-form'
+
 import { Button } from '@/components/ui/button'
 
 interface FormActionsProps {
@@ -13,15 +15,17 @@ export function FormActions({
   onSubmit,
   cancelLabel = 'Cancelar',
   submitLabel = 'Enviar',
-  isSubmitting = false,
 }: FormActionsProps) {
+  const {
+    formState: { isSubmitting },
+  } = useFormContext()
   return (
     <div className="flex gap-4">
-      <Button variant="outline" onClick={onCancel}>
+      <Button type="button" variant="outline" onClick={onCancel}>
         {cancelLabel}
       </Button>
       <Button onClick={onSubmit} disabled={isSubmitting}>
-        {isSubmitting ? 'Enviando...' : submitLabel}
+        {submitLabel}
       </Button>
     </div>
   )

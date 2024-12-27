@@ -1,6 +1,6 @@
 import { Controller, useFormContext } from 'react-hook-form'
 
-import { CalendarSingleDatePicker } from '@/components/calendar-picker-single' // Certifique-se de que o nome do componente é `SingleDatePicker`
+import { CalendarSingleDatePicker } from '@/components/Calendar/calendar-picker-single' // Certifique-se de que o nome do componente é `SingleDatePicker`
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { useDateStore } from '@/zustand/useSelectedDatesStore'
@@ -24,15 +24,15 @@ export function EditEmployeeInformationTabs() {
       <div className="py-4">
         <FormContainer>
           <InputForm
-            id="cidadeNascimento"
-            registerName="cidadeNascimento"
+            id="cidadeNasc"
+            registerName="cidadeNasc"
             label="Cidade de Nascimento"
             allspace="flex-1"
           />
 
           <SelectStatesForm
             label="UF Nascimento"
-            controlName="ufNascimento"
+            controlName="ufNasc"
             space="sm:w-56"
           />
         </FormContainer>
@@ -82,7 +82,7 @@ export function EditEmployeeInformationTabs() {
           label="Orgao Emissor"
         />
 
-        <SelectStatesForm controlName="ufRg" label="UF RG" />
+        <SelectStatesForm controlName="ufRG" label="UF RG" />
 
         <InputForm id="Esocial" registerName="esocial" label="Esocial" />
 

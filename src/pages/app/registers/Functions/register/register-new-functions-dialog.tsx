@@ -5,7 +5,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
-import { registerNewFunction } from '@/api/register-new-function'
+import { registerNewFunction } from '@/api/employeeFunctions/register-new-function'
 import {
   DialogContent,
   DialogDescription,

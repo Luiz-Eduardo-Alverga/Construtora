@@ -3,7 +3,7 @@ import { Building2 } from 'lucide-react'
 import { useEffect } from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 
-import { getUserEnterprises } from '@/api/get-enterprises'
+import { getUserEnterprises } from '@/api/auth/get-enterprises'
 import { LoadingRequests } from '@/components/loading/loading'
 
 interface SelectEnterpriseProps {

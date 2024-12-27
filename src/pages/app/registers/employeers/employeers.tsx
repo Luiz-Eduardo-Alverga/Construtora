@@ -5,7 +5,7 @@ import { useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
-import { getEmployeersList } from '@/api/get-employeers-list'
+import { getEmployeersList } from '@/api/employee/get-employeers-list'
 import { HeaderPages } from '@/components/header-pages'
 import { Pagination } from '@/components/pagination'
 import { Button } from '@/components/ui/button'

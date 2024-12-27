@@ -1,7 +1,7 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { deleteEmployee } from '@/api/delete-employee'
+import { deleteEmployee } from '@/api/employee/delete-employee'
 import {
   AlertDialogAction,
   AlertDialogCancel,

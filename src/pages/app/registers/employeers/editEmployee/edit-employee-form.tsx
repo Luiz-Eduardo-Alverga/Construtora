@@ -1,12 +1,14 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { addMinutes, formatDate, parseISO } from 'date-fns'
 import { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'sonner'
 import { z } from 'zod'
 
-import { getEmployee } from '@/api/get-employee'
+import { editEmployee, EditEmployeeBody } from '@/api/employee/edit-employee'
+import { getEmployee } from '@/api/employee/get-employee'
 import { Separator } from '@/components/ui/separator'
 import { useDateStore } from '@/zustand/useSelectedDatesStore'
 
@@ -47,7 +49,11 @@ export function RegisterEmployeeForm() {
     queryFn: () => getEmployee({ id }),
   })
 
-  function handleEditEmployee(data: EditEmployeeSchema) {
+  const { mutateAsync: editEmployeeSelected } = useMutation({
+    mutationFn: (data: EditEmployeeBody) => editEmployee(data),
+  })
+
+  async function handleEditEmployee(data: EditEmployeeSchema) {
     const formatedDateAdmission = selectedDateAdmission
       ? formatDate(selectedDateAdmission, 'yyyy-MM-dd')
       : ''
@@ -97,7 +103,17 @@ export function RegisterEmployeeForm() {
         changedFields.funcao = data.funcao
       }
 
-      console.log('Campos alterados:', changedFields)
+      try {
+        console.log('dados formulario', changedFields)
+        await editEmployeeSelected({
+          id,
+          dadosFuncionario: changedFields,
+        })
+        navigate(-1)
+        toast.success('Funcionário atualizado com sucesso!')
+      } catch (error) {
+        toast.error('Erro ao atualizar funcionário')
+      }
     }
   }
 

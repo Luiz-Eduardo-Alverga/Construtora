@@ -1,6 +1,6 @@
 import { z } from 'zod'
 
-import { EditEmployeeSchema } from '../../register-employee-form'
+import { EditEmployeeSchema } from '../../edit-employee-form'
 
 interface Employee {
   id: string | null
@@ -46,15 +46,15 @@ export const fieldsMapping: {
   { formField: 'complemento', employeeField: 'complemento' },
   { formField: 'numeroEndereco', employeeField: 'numeroEndereco' },
   { formField: 'uf', employeeField: 'uf' },
-  { formField: 'cidadeNascimento', employeeField: 'nascimentoMunicipio' },
-  { formField: 'ufNascimento', employeeField: 'ufNasc' },
+  { formField: 'cidadeNasc', employeeField: 'nascimentoMunicipio' },
+  { formField: 'ufNasc', employeeField: 'ufNasc' },
   { formField: 'nomePai', employeeField: 'nomePai' },
   { formField: 'nomeMae', employeeField: 'nomeMae' },
   { formField: 'rg', employeeField: 'rg' },
   { formField: 'serie', employeeField: 'serieCtps' },
   { formField: 'esocial', employeeField: 'esocial' },
   { formField: 'orgaoEmissor', employeeField: 'orgaoEmissor' },
-  { formField: 'ufRg', employeeField: 'ufRg' },
+  { formField: 'ufRG', employeeField: 'ufRg' },
   { formField: 'ctps', employeeField: 'ctps' },
   { formField: 'cpf', employeeField: 'cpf' },
   { formField: 'pis', employeeField: 'pisPasep' },
@@ -74,15 +74,15 @@ export const editEmployeeSchema = z.object({
   cidade: z.string().optional(),
   uf: z.string().optional(),
   complemento: z.string().optional(),
-  cidadeNascimento: z.string().optional(),
-  ufNascimento: z.string().optional(),
+  cidadeNasc: z.string().optional(),
+  ufNasc: z.string().optional(),
   nomePai: z.string().optional(),
   nomeMae: z.string().optional(),
   dataNascimento: z.string().optional(),
   rg: z.string().optional(),
   serie: z.string().optional(),
   orgaoEmissor: z.string().optional(),
-  ufRg: z.string().optional(),
+  ufRG: z.string().optional(),
   esocial: z.string().optional(),
   ctps: z.string().optional(),
   dataDemissao: z.string().optional(),

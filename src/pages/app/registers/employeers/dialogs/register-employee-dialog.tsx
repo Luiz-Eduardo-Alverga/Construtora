@@ -4,7 +4,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
-import { registerNewEmployee } from '@/api/register-new-employee'
+import { registerNewEmployee } from '@/api/employee/register-new-employee'
 import { Button } from '@/components/ui/button'
 import {
   DialogClose,
