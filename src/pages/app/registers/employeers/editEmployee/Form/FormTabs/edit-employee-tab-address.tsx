@@ -11,9 +11,11 @@ import { FormContainer } from '../FormLayout/form-container'
 import { InputForm } from '../input-form'
 import { SelectStatesForm } from '../select-states-form'
 import { SelectCityForm } from '../select-city-form'
+import { toast } from 'sonner'
+import { useEffect } from 'react'
 
 export function EditEmployeeAddressTab() {
-  const { watch, control, setValue } = useFormContext()
+  const { watch, control, setValue} = useFormContext()
 
   const cep = watch('cep')
 
@@ -25,13 +27,25 @@ export function EditEmployeeAddressTab() {
     enabled: clearCpf.length === 8,
   })
 
+  function isCepFilled () {
+    if(address) return true
+    return false
+  }
+
+ useEffect(() => {
+  if(address === null) {
+    toast.info(`Nenhum endereço encontrado para o CEP ${cep} informado`)
+    setValue("cep", "")
+  }
+
   if (address) {
     setValue('bairro', address.bairro)
     setValue('cidade', address.localidade)
     setValue('endereco', address.logradouro)
     setValue('uf', address.uf)
   }
-
+ })
+  
   return (
     <div className="space-y-4">
       <div className="py-2">
@@ -61,6 +75,7 @@ export function EditEmployeeAddressTab() {
             registerName="endereco"
             allspace="flex-1"
             defaultValueData={address?.logradouro}
+            disabled={isCepFilled()}
           />
 
           <InputForm id="Numero" label="Numero" registerName="numeroEndereco" />
@@ -75,19 +90,12 @@ export function EditEmployeeAddressTab() {
           label="Bairro"
           registerName="bairro"
           defaultValueData={address?.bairro}
+          disabled={isCepFilled()}
         />
 
-        <SelectStatesForm label="UF" controlName="uf" space="sm:w-40" />
+        <SelectStatesForm disabled={isCepFilled()} label="UF" controlName="uf" space="sm:w-40" />
 
-        <SelectCityForm label='Cidade' controlName='cidade' />
-
-        {/* <InputForm
-          id="cidade"
-          label="Cidade"
-          registerName="cidade"
-          defaultValueData={address?.localidade}
-        /> */}
-
+        <SelectCityForm disabled={isCepFilled()} label='Cidade' controlName='cidade' />
 
         <InputForm
           id="Complemento"

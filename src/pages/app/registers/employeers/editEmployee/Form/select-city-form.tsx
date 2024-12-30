@@ -16,17 +16,19 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 interface SelectStatesFormProps {
   label: string
   controlName: string
+  disabled?: boolean
 }
 
 export function SelectCityForm({
   label,
   controlName,
+  disabled
 }: SelectStatesFormProps) {
   const { control, setValue, getValues } = useFormContext()
 
   const uf = getValues('uf')
 
-  const { data: citys = [], isLoading } = useQuery({
+  const { data: citys, isLoading } = useQuery({
     queryKey: ["citys"],
     queryFn: () => getSearchCity({ uf: uf }),
     enabled: !!uf
@@ -40,7 +42,7 @@ export function SelectCityForm({
             <FormItem className="flex flex-col mt-auto">
               <FormLabel>{label}</FormLabel>
               <Popover>
-                <PopoverTrigger asChild>
+                <PopoverTrigger disabled={disabled} asChild>
                   <FormControl>
                     <Button
                       variant={'outline'}

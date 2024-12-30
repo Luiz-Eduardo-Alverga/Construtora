@@ -41,8 +41,6 @@ export function RegisterEmployeeForm() {
     mutationFn: (data: EditEmployeeBody) => editEmployee(data),
   })
 
-  console.log(employeers)
-
   async function handleEditEmployee(data: EditEmployeeSchema) {
     if (data.nome === '') {
       toast.info('Preencha o nome do funcionário')

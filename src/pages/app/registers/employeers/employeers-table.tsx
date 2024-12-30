@@ -1,7 +1,7 @@
 import { AlertDialog } from '@radix-ui/react-alert-dialog'
 import { MoreHorizontal, SquarePen, Trash2 } from 'lucide-react'
 import { useState } from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import { AlertDialogTrigger } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
@@ -41,6 +41,8 @@ export function EmployeersTable({
     null,
   )
 
+  const navigate = useNavigate()
+
   return (
     <>
       {isLoadingEmployeers && <EmployeersTableSkeleton />}
@@ -60,6 +62,7 @@ export function EmployeersTable({
               {employeers &&
                 employeers.map((employee) => (
                   <TableRow
+                  onDoubleClick={() => navigate(`${employee.cod}/editar`)}
                     key={employee.cod}
                     className={`employee-row ${
                       removingEmployeeId === employee.cod
