@@ -10,6 +10,7 @@ import { Separator } from '@/components/ui/separator'
 import { FormContainer } from '../FormLayout/form-container'
 import { InputForm } from '../input-form'
 import { SelectStatesForm } from '../select-states-form'
+import { SelectCityForm } from '../select-city-form'
 
 export function EditEmployeeAddressTab() {
   const { watch, control, setValue } = useFormContext()
@@ -76,14 +77,17 @@ export function EditEmployeeAddressTab() {
           defaultValueData={address?.bairro}
         />
 
-        <InputForm
+        <SelectStatesForm label="UF" controlName="uf" space="sm:w-40" />
+
+        <SelectCityForm label='Cidade' controlName='cidade' />
+
+        {/* <InputForm
           id="cidade"
           label="Cidade"
           registerName="cidade"
           defaultValueData={address?.localidade}
-        />
+        /> */}
 
-        <SelectStatesForm label="UF" controlName="uf" space="sm:w-40" />
 
         <InputForm
           id="Complemento"
@@ -91,6 +95,7 @@ export function EditEmployeeAddressTab() {
           registerName="complemento"
           allspace="flex-1"
         />
+        
       </FormContainer>
     </div>
   )

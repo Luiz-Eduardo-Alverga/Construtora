@@ -13,7 +13,7 @@ export function FormHeader({ employeeName }: FormHeaderProps) {
 
   return (
     <div className="m-4 text-base space-y-2">
-      <div className="flex justify-between">
+      <div className="flex flex-col gap-4 sm:flex-row justify-between">
         <h1>
           <span className="font-bold text-lg">Funcionário</span> -{' '}
           {employeeName}

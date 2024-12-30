@@ -114,7 +114,7 @@ export function RegisterEmployeeForm() {
           id,
           dadosFuncionario: changedFields,
         })
-        // navigate(-1)
+        navigate(-1)
         toast.success('Funcionário atualizado com sucesso!')
       } catch (error) {
         toast.error('Erro ao atualizar funcionário')

@@ -39,11 +39,12 @@ export function FormActions({
     setValue('cep', '')
     setValue('ufNasc', '')
     setValue('ufRG', '')
+    setValue('cidade', '')
 
     toast.info('Todos os campos do formulário foram limpados')
   }
   return (
-    <div className="flex gap-4">
+    <div className="flex flex-col sm:flex-row gap-4">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           <Button
@@ -57,10 +58,9 @@ export function FormActions({
 
         <DropdownMenuContent
           align="center"
-          className="--radix-dropdown-menu-content-available-width"
         >
           <DropdownMenuItem className=" gap-2" onClick={clearInputs}>
-            <Eraser className="h-4 w-4 text-blue-500" />
+            <Eraser className="h-4 w-4" />
             <span>Limpar Campos</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
