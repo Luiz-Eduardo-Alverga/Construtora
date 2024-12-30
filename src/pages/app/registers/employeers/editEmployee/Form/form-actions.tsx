@@ -1,9 +1,15 @@
+import { Eraser, ListPlus, SquareCheckBig, X } from 'lucide-react'
 import { useFormContext } from 'react-hook-form'
+import { toast } from 'sonner'
 
 import { Button } from '@/components/ui/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu'
 import { useDateStore } from '@/zustand/useSelectedDatesStore'
-import { toast } from 'sonner'
 
 interface FormActionsProps {
   onCancel?: () => void
@@ -20,41 +26,58 @@ export function FormActions({
   submitLabel = 'Enviar',
 }: FormActionsProps) {
   const {
-    formState: { isSubmitting }, reset, setValue
+    formState: { isSubmitting },
+    reset,
+    setValue,
   } = useFormContext()
-  const {clearDates} = useDateStore()
+  const { clearDates } = useDateStore()
 
-  function clearInputs () {
+  function clearInputs() {
     reset()
     clearDates()
     setValue('funcao', 0)
-    setValue('cep', "") 
-    setValue("ufNasc", "")
-    setValue("ufRG", "")
+    setValue('cep', '')
+    setValue('ufNasc', '')
+    setValue('ufRG', '')
 
-    toast.info("Todos os campos do formulário foram limpados")
-
-    
+    toast.info('Todos os campos do formulário foram limpados')
   }
   return (
     <div className="flex gap-4">
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant={'outline'} className='bg-blue-500 text-white hover:bg-blue-400 hover:text-white'>Mais opçoes</Button>
+          <Button
+            variant={'outline'}
+            className="bg-blue-500 gap-2 text-white hover:bg-blue-500/90 hover:text-white"
+          >
+            <ListPlus className="w-4 h-4" />
+            <span> Mais opçoes</span>
+          </Button>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent align='center' className='--radix-dropdown-menu-content-available-width'>
-          <DropdownMenuItem className='disabled:cursor-not-allowed' onClick={clearInputs}>
-            Limpar Campos
+        <DropdownMenuContent
+          align="center"
+          className="--radix-dropdown-menu-content-available-width"
+        >
+          <DropdownMenuItem className=" gap-2" onClick={clearInputs}>
+            <Eraser className="h-4 w-4 text-blue-500" />
+            <span>Limpar Campos</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <Button  type="button" variant="outline" onClick={onCancel}>
-        {cancelLabel}
+      <Button
+        className="gap-2"
+        type="button"
+        variant="secondary"
+        onClick={onCancel}
+      >
+        <X className="w-4 h-4" />
+        <span>{cancelLabel}</span>
       </Button>
-      <Button  onClick={onSubmit} disabled={isSubmitting}>
-        {submitLabel}
+      <Button className="gap-2" onClick={onSubmit} disabled={isSubmitting}>
+        <SquareCheckBig className="w-4 h-4" />
+        <span>{submitLabel}</span>
       </Button>
     </div>
   )

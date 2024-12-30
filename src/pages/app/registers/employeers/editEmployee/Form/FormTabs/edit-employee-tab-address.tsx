@@ -62,11 +62,7 @@ export function EditEmployeeAddressTab() {
             defaultValueData={address?.logradouro}
           />
 
-          <InputForm        
-            id="Numero"
-            label="Numero"
-            registerName="numeroEndereco"        
-          />
+          <InputForm id="Numero" label="Numero" registerName="numeroEndereco" />
         </FormContainer>
       </div>
 

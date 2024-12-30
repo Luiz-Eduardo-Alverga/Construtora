@@ -19,8 +19,8 @@ import { FormHeaderFirstLine } from './Form/FormLayout/form-first-line'
 import { FormHeader } from './Form/FormLayout/form-header'
 import { FormSecondLine } from './Form/FormLayout/Form-second-line'
 import { FormTabs } from './Form/FormTabs/form-tabs'
-import { RegisterEmployeeFormSkeleton } from './skeleton/register-employee-form-skeleton'
 import { useEditEmployeeForm } from './Form/hooks/useEditEmployeeEffect'
+import { RegisterEmployeeFormSkeleton } from './skeleton/register-employee-form-skeleton'
 
 export type EditEmployeeSchema = z.infer<typeof editEmployeeSchema>
 
@@ -32,11 +32,8 @@ export function RegisterEmployeeForm() {
     resolver: zodResolver(editEmployeeSchema),
   })
 
-  const {
-    selectedDateBirth,
-    selectedDateResignation,
-    selectedDateAdmission,
-  } = useDateStore()
+  const { selectedDateBirth, selectedDateResignation, selectedDateAdmission } =
+    useDateStore()
 
   const { employeers, isLoading } = useEditEmployeeForm(editEmployeeForm)
 
@@ -47,19 +44,18 @@ export function RegisterEmployeeForm() {
   console.log(employeers)
 
   async function handleEditEmployee(data: EditEmployeeSchema) {
-
-    if(data.nome === "") {
-      toast.info("Preencha o nome do funcionário")
+    if (data.nome === '') {
+      toast.info('Preencha o nome do funcionário')
       return
     }
 
     if (data?.nome && data.nome.length < 3) {
-      toast.info("Nome do funcionário deve ter mais que 2 caracteres")
+      toast.info('Nome do funcionário deve ter mais que 2 caracteres')
       return
     }
 
-    if(data.funcao === 0) {
-      toast.info("Preencha a Função do Funcionário")
+    if (data.funcao === 0) {
+      toast.info('Preencha a Função do Funcionário')
       return
     }
 
@@ -148,13 +144,12 @@ export function RegisterEmployeeForm() {
                   <FormTabs />
 
                   <Separator />
-                          
-                    <FormActions
-                      onCancel={() => navigate(-1)}
-                      cancelLabel="Cancelar"
-                      submitLabel="Salvar"
-                    />
-       
+
+                  <FormActions
+                    onCancel={() => navigate(-1)}
+                    cancelLabel="Cancelar"
+                    submitLabel="Salvar"
+                  />
                 </div>
               </div>
             ))}
