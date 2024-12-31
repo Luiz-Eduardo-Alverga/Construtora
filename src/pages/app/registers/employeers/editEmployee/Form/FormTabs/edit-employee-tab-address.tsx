@@ -1,6 +1,8 @@
 import { useQuery } from '@tanstack/react-query'
 import { SquarePen } from 'lucide-react'
+import { useEffect } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
+import { toast } from 'sonner'
 
 import { getSearchCep } from '@/api/utils/search-cep'
 import { InputWithMask } from '@/components/ui/input-mask'
@@ -9,13 +11,11 @@ import { Separator } from '@/components/ui/separator'
 
 import { FormContainer } from '../FormLayout/form-container'
 import { InputForm } from '../input-form'
-import { SelectStatesForm } from '../select-states-form'
 import { SelectCityForm } from '../select-city-form'
-import { toast } from 'sonner'
-import { useEffect } from 'react'
+import { SelectStatesForm } from '../select-states-form'
 
 export function EditEmployeeAddressTab() {
-  const { watch, control, setValue} = useFormContext()
+  const { watch, control, setValue } = useFormContext()
 
   const cep = watch('cep')
 
@@ -27,25 +27,25 @@ export function EditEmployeeAddressTab() {
     enabled: clearCpf.length === 8,
   })
 
-  function isCepFilled () {
-    if(address) return true
+  function isCepFilled() {
+    if (address) return true
     return false
   }
 
- useEffect(() => {
-  if(address === null) {
-    toast.info(`Nenhum endereço encontrado para o CEP ${cep} informado`)
-    setValue("cep", "")
-  }
+  useEffect(() => {
+    if (address === null) {
+      toast.info(`Nenhum endereço encontrado para o CEP ${cep} informado`)
+      setValue('cep', '')
+    }
 
-  if (address) {
-    setValue('bairro', address.bairro)
-    setValue('cidade', address.localidade)
-    setValue('endereco', address.logradouro)
-    setValue('uf', address.uf)
-  }
- })
-  
+    if (address) {
+      setValue('bairro', address.bairro)
+      setValue('cidade', address.localidade)
+      setValue('endereco', address.logradouro)
+      setValue('uf', address.uf)
+    }
+  })
+
   return (
     <div className="space-y-4">
       <div className="py-2">
@@ -56,6 +56,7 @@ export function EditEmployeeAddressTab() {
               <SquarePen className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400" />
               <Controller
                 name="cep"
+                defaultValue=""
                 control={control}
                 render={({ field }) => (
                   <InputWithMask
@@ -93,9 +94,18 @@ export function EditEmployeeAddressTab() {
           disabled={isCepFilled()}
         />
 
-        <SelectStatesForm disabled={isCepFilled()} label="UF" controlName="uf" space="sm:w-40" />
+        <SelectStatesForm
+          disabled={isCepFilled()}
+          label="UF"
+          controlName="uf"
+          space="sm:w-40"
+        />
 
-        <SelectCityForm disabled={isCepFilled()} label='Cidade' controlName='cidade' />
+        <SelectCityForm
+          disabled={isCepFilled()}
+          label="Cidade"
+          controlName="cidade"
+        />
 
         <InputForm
           id="Complemento"
@@ -103,7 +113,6 @@ export function EditEmployeeAddressTab() {
           registerName="complemento"
           allspace="flex-1"
         />
-        
       </FormContainer>
     </div>
   )

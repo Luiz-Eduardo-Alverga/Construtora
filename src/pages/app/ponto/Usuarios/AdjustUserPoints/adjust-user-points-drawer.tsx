@@ -42,7 +42,7 @@ export function OptionsToEmployeePoints({
         <DropdownMenuTrigger className="mt-2">
           <Button
             variant={'outline'}
-            className="bg-blue-500 gap-2  text-white hover:bg-blue-500/90 hover:text-white"
+            className="bg-blue-500 gap-2 w-full text-white hover:bg-blue-500/90 hover:text-white"
           >
             <ListPlus />
             <span> Mais Opções</span>

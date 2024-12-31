@@ -1,6 +1,9 @@
+import { useNavigate } from 'react-router-dom'
+
 import { Badge } from '@/components/ui/badge'
 
 interface FunctionsCardsProps {
+  id?: number
   title?: string
   description?: string
   diasJornada?: {
@@ -15,17 +18,23 @@ interface FunctionsCardsProps {
 }
 
 export function FunctionsCard({
+  id,
   title,
   description,
   diasJornada,
 }: FunctionsCardsProps) {
+  const navigate = useNavigate()
+
   const qtdDiasTrabalhado = diasJornada
     ? Object.values(diasJornada).filter((dia) => dia).length
     : 0
 
   return (
     <>
-      <div className="flex flex-col p-4 border rounded-md hover:bg-secondary hover:cursor-pointer">
+      <div
+        onDoubleClick={() => navigate(`${id}/editar`)}
+        className="flex flex-col p-4 border rounded-md hover:bg-secondary hover:cursor-pointer"
+      >
         <div className="w-full flex justify-between">
           <span className="text-base">{title}</span>
 
@@ -36,7 +45,7 @@ export function FunctionsCard({
           {description}
         </span>
 
-        <div className="mt-auto space-x-1 ml-auto">
+        <div className="mt-auto space-x-1 ml-auto pt-2">
           {diasJornada?.segunda && <Badge>SEG</Badge>}
           {diasJornada?.terca && <Badge>TER</Badge>}
           {diasJornada?.quarta && <Badge>QUA</Badge>}

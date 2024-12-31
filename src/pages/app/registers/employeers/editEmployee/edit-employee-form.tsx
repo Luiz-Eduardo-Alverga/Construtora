@@ -128,7 +128,7 @@ export function RegisterEmployeeForm() {
           {employeers &&
             employeers?.data.map((employee) => (
               <div key={employee.id}>
-                <FormHeader employeeName={employee.nome} />
+                <FormHeader label={'Funcionário'} name={employee.nome} />
 
                 <div className="mx-4 space-y-6 ">
                   <FormHeaderFirstLine />

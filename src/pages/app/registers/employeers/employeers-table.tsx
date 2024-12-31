@@ -62,7 +62,7 @@ export function EmployeersTable({
               {employeers &&
                 employeers.map((employee) => (
                   <TableRow
-                  onDoubleClick={() => navigate(`${employee.cod}/editar`)}
+                    onDoubleClick={() => navigate(`${employee.cod}/editar`)}
                     key={employee.cod}
                     className={`employee-row ${
                       removingEmployeeId === employee.cod

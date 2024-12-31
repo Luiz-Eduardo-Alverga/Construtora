@@ -17,7 +17,13 @@ interface GetFunctionsResponse {
   }[]
 }
 
-export async function getEmployeeFunctions(): Promise<GetFunctionsResponse> {
+interface GetFunctionsParams {
+  funcao?: string
+}
+
+export async function getEmployeeFunctions({
+  funcao,
+}: GetFunctionsParams): Promise<GetFunctionsResponse> {
   const target = localStorage.getItem('target')
   const token = localStorage.getItem('authToken')
   const user = localStorage.getItem('user')
@@ -26,6 +32,7 @@ export async function getEmployeeFunctions(): Promise<GetFunctionsResponse> {
     params: {
       target,
       user,
+      funcao,
     },
     headers: {
       Authorization: token,

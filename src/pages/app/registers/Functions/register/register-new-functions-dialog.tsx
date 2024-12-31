@@ -3,7 +3,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import { z } from 'zod'
 
 import { registerNewFunction } from '@/api/employeeFunctions/register-new-function'
 import {
@@ -13,6 +12,10 @@ import {
 } from '@/components/ui/dialog'
 import { Progress } from '@/components/ui/progress'
 
+import {
+  RegisterNewFunctionsSchema,
+  registerNewFunctionsSchema,
+} from '../form/form-fields'
 import { FirstStep } from './first-step'
 import { SecondStep } from './second-step'
 
@@ -25,19 +28,6 @@ const diasDaSemana = [
   'sabado',
   'domingo',
 ]
-
-const registerNewFunctionsSchema = z.object({
-  nome: z.string(),
-  descricao: z.string(),
-  horasSemanais: z.string(),
-  daysOfWeek: z
-    .array(z.string())
-    .refine((value) => value.some((item) => item), {
-      message: 'Selecione pelo menos um dia da semana',
-    }),
-})
-
-type RegisterNewFunctionsSchema = z.infer<typeof registerNewFunctionsSchema>
 
 export function RegisterNewFunctionDialog() {
   const [step, setStep] = useState(1)
@@ -146,7 +136,6 @@ export function RegisterNewFunctionDialog() {
 
               {progress === 100 && (
                 <SecondStep
-                  controlName="daysOfWeek"
                   setProgress={() => setProgress(50)}
                   setStep={() => setStep(1)}
                 />

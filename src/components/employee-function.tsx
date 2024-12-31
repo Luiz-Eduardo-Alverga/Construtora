@@ -28,7 +28,7 @@ export function SelectEmployeeFunctions({
   const { control } = useFormContext()
   const { data: employeeFunctions, isLoading } = useQuery({
     queryKey: ['getEmployeeFunctions'],
-    queryFn: getEmployeeFunctions,
+    queryFn: () => getEmployeeFunctions({ funcao: '' }),
   })
 
   function identifyFunction(idFuction: number) {
@@ -50,7 +50,7 @@ export function SelectEmployeeFunctions({
       <Controller
         name={controlName}
         control={control}
-        defaultValue={defaultValue || ''}
+        defaultValue={defaultValue || 0}
         render={({ field }) => (
           <Select onValueChange={field.onChange} value={field.value}>
             <SelectTrigger className={`w-full ${space}`}>

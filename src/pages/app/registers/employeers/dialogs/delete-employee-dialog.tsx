@@ -2,21 +2,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
 import { deleteEmployee } from '@/api/employee/delete-employee'
-import {
-  AlertDialogAction,
-  AlertDialogCancel,
-  AlertDialogContent,
-  AlertDialogDescription,
-  AlertDialogFooter,
-  AlertDialogHeader,
-  AlertDialogTitle,
-} from '@/components/ui/alert-dialog'
-import { Button } from '@/components/ui/button'
+import { DeleteModal } from '@/components/delete/delete-modal'
 
 interface DeleteEmployeeProps {
   id: string | null
   name: string | null
-  onDelete?: (id: string | null) => void // Novo prop para callback de exclusão
+  onDelete?: (id: string | null) => void
 }
 
 export function DeleteEmployeeDialog({
@@ -47,23 +38,11 @@ export function DeleteEmployeeDialog({
   }
 
   return (
-    <AlertDialogContent>
-      <AlertDialogHeader>
-        <AlertDialogTitle>Você tem certeza?</AlertDialogTitle>
-        <AlertDialogDescription>
-          Essa ação não pode ser desfeita. Isso irá deletar permanentemente o
-          usuário <span className="font-extrabold">{name}</span>
-        </AlertDialogDescription>
-      </AlertDialogHeader>
-      <AlertDialogFooter>
-        <Button asChild variant={'ghost'}>
-          <AlertDialogCancel>Cancelar</AlertDialogCancel>
-        </Button>
-
-        <Button asChild variant={'destructive'} onClick={handleDeleteEmployee}>
-          <AlertDialogAction>Continuar</AlertDialogAction>
-        </Button>
-      </AlertDialogFooter>
-    </AlertDialogContent>
+    <DeleteModal
+      prefixLabel="o"
+      label="usuário"
+      deleteEmployee={handleDeleteEmployee}
+      register={name || ''}
+    />
   )
 }

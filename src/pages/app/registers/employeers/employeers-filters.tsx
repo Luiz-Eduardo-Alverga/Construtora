@@ -107,7 +107,7 @@ export function EmployeersFilters() {
               <InputWithMask
                 mask="999.999.999-99"
                 placeholder="CPF"
-                {...field} // Usando o field para passar as props corretamente
+                {...field}
               />
             )}
           />
@@ -119,7 +119,11 @@ export function EmployeersFilters() {
             Filtrar resultado
           </Button>
 
-          <Button variant={'outline'} onClick={handleClearFilters}>
+          <Button
+            type="button"
+            variant={'secondary'}
+            onClick={handleClearFilters}
+          >
             <X className="w-full mr-2 h-5 sm:w-5" /> Remover Filtros
           </Button>
         </div>

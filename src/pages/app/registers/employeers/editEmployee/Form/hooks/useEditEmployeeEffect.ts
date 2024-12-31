@@ -1,13 +1,17 @@
-import { useEffect } from 'react'
-import { useLocation, useParams } from 'react-router-dom'
-import { useDateStore } from '@/zustand/useSelectedDatesStore'
-import { useForm } from 'react-hook-form'
-import { addMinutes, parseISO } from 'date-fns'
-import { fieldsMapping } from '../FieldsForm/fields-mapping'
 import { useQuery } from '@tanstack/react-query'
-import { getEmployee } from '@/api/employee/get-employee'
+import { addMinutes, parseISO } from 'date-fns'
+import { useEffect } from 'react'
+import { useForm } from 'react-hook-form'
+import { useLocation, useParams } from 'react-router-dom'
 
-export function useEditEmployeeForm(editEmployeeForm: ReturnType<typeof useForm>) {
+import { getEmployee } from '@/api/employee/get-employee'
+import { useDateStore } from '@/zustand/useSelectedDatesStore'
+
+import { fieldsMapping } from '../FieldsForm/fields-mapping'
+
+export function useEditEmployeeForm(
+  editEmployeeForm: ReturnType<typeof useForm>,
+) {
   const { id } = useParams()
   const location = useLocation()
 
@@ -35,11 +39,11 @@ export function useEditEmployeeForm(editEmployeeForm: ReturnType<typeof useForm>
     const { setValue } = editEmployeeForm
 
     employeers?.data.forEach((employee) => {
-        fieldsMapping.forEach(({ formField, employeeField }) => {
-          const value = employee[employeeField] ?? ''
-          setValue(formField, value)
-        })
+      fieldsMapping.forEach(({ formField, employeeField }) => {
+        const value = employee[employeeField] ?? ''
+        setValue(formField, value)
       })
+    })
 
     if (employeers) {
       const employee = employeers.data[0]

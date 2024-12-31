@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { PlusCircle, Watch } from 'lucide-react'
+import { useSearchParams } from 'react-router-dom'
 
 import { getEmployeeFunctions } from '@/api/employeeFunctions/get-functions'
 import { HeaderPages } from '@/components/header-pages'
@@ -13,10 +14,18 @@ import { RegisterNewFunctionDialog } from './register/register-new-functions-dia
 import { CardSkeleton } from './skeleton/function-card-skeleton'
 
 export function EmployeeJourney() {
+  const searchParams = useSearchParams()[0]
+
+  const nome = searchParams.get('nome')
+
+  console.log(nome)
+
   const { data: employeeFunctions, isLoading: isLoadingFunctions } = useQuery({
-    queryKey: ['getEmployeeFunctions'],
-    queryFn: getEmployeeFunctions,
+    queryKey: ['getEmployeeFunctions', nome],
+    queryFn: () => getEmployeeFunctions({ funcao: nome || '' }),
   })
+
+  console.log(employeeFunctions)
 
   return (
     <>
@@ -50,6 +59,7 @@ export function EmployeeJourney() {
             employeeFunctions.data.map((employeeFunction) => (
               <FunctionsCard
                 key={employeeFunction.id}
+                id={employeeFunction.id}
                 title={employeeFunction.nome}
                 description={
                   employeeFunction.descricao || 'Aqui fica a descricao'

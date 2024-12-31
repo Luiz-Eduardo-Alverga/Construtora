@@ -1,7 +1,12 @@
-import { Eraser, ListPlus, SquareCheckBig, X } from 'lucide-react'
+import { useMutation } from '@tanstack/react-query'
+import { Eraser, ListPlus, SquareCheckBig, Trash2, X } from 'lucide-react'
 import { useFormContext } from 'react-hook-form'
+import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
+import { deleteFunction } from '@/api/employeeFunctions/delete-function'
+import { DeleteModal } from '@/components/delete/delete-modal'
+import { AlertDialog, AlertDialogTrigger } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
 import {
   DropdownMenu,
@@ -16,7 +21,10 @@ interface FormActionsProps {
   onSubmit?: () => void
   cancelLabel?: string
   submitLabel?: string
+  registerId?: number
   isSubmitting?: boolean
+  isDeleteButtonVisible?: boolean
+  registrationName?: string
 }
 
 export function FormActions({
@@ -24,6 +32,9 @@ export function FormActions({
   onSubmit,
   cancelLabel = 'Cancelar',
   submitLabel = 'Enviar',
+  isDeleteButtonVisible = false,
+  registerId,
+  registrationName,
 }: FormActionsProps) {
   const {
     formState: { isSubmitting },
@@ -32,17 +43,27 @@ export function FormActions({
   } = useFormContext()
   const { clearDates } = useDateStore()
 
+  const navigate = useNavigate()
+
   function clearInputs() {
     reset()
     clearDates()
     setValue('funcao', 0)
-    setValue('cep', '')
     setValue('ufNasc', '')
     setValue('ufRG', '')
-    setValue('cidade', '')
 
     toast.info('Todos os campos do formulário foram limpados')
   }
+  const { mutateAsync: deleteSelectedFunction } = useMutation({
+    mutationFn: () => deleteFunction({ id: registerId }),
+  })
+
+  async function handleDeleteRegistration() {
+    await deleteSelectedFunction()
+    navigate(-1)
+    toast.success('Função deletada com sucesso')
+  }
+
   return (
     <div className="flex flex-col sm:flex-row gap-4">
       <DropdownMenu>
@@ -56,15 +77,33 @@ export function FormActions({
           </Button>
         </DropdownMenuTrigger>
 
-        <DropdownMenuContent
-          align="center"
-        >
+        <DropdownMenuContent align="center">
           <DropdownMenuItem className=" gap-2" onClick={clearInputs}>
             <Eraser className="h-4 w-4" />
             <span>Limpar Campos</span>
           </DropdownMenuItem>
         </DropdownMenuContent>
       </DropdownMenu>
+
+      <AlertDialog>
+        <AlertDialogTrigger asChild>
+          <Button
+            className={isDeleteButtonVisible ? 'gap-2' : 'sr-only'}
+            variant={'destructive'}
+            type="button"
+          >
+            <Trash2 className="h-4 w-4" />
+            <span>Excluir</span>
+          </Button>
+        </AlertDialogTrigger>
+
+        <DeleteModal
+          prefixLabel="a"
+          deleteEmployee={handleDeleteRegistration}
+          label="função"
+          register={registrationName || ''}
+        />
+      </AlertDialog>
 
       <Button
         className="gap-2"

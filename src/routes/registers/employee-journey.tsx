@@ -1,5 +1,6 @@
 import { RouteObject } from 'react-router-dom'
 
+import { EditFunctionForm } from '@/pages/app/registers/Functions/edit/edit-function.form'
 import { EmployeeJourney } from '@/pages/app/registers/Functions/functions'
 import { Error } from '@/pages/error'
 import { AppLayout } from '@/pages/layouts/app'
@@ -14,5 +15,8 @@ export const employeeJourneyRoutes: RouteObject = {
     </ProtectedRoute>
   ),
   errorElement: <Error />,
-  children: [{ path: '/cadastros/jornadas', element: <EmployeeJourney /> }],
+  children: [
+    { path: '/cadastros/jornadas', element: <EmployeeJourney /> },
+    { path: '/cadastros/jornadas/:id/editar', element: <EditFunctionForm /> },
+  ],
 }

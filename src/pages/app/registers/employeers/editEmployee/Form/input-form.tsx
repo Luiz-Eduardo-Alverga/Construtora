@@ -21,7 +21,7 @@ export function InputForm({
   allspace,
   defaultValueData,
   type,
-  disabled = false
+  disabled = false,
 }: AddressInputProps) {
   const { register } = useFormContext()
 

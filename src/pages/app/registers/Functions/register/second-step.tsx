@@ -2,60 +2,18 @@ import { ArrowLeft } from 'lucide-react'
 import { useFormContext } from 'react-hook-form'
 
 import { Button } from '@/components/ui/button'
-import { Checkbox } from '@/components/ui/checkbox'
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-} from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+
+import { SelectDaysOfWeek } from '../form/select-days-of-week'
 
 interface SecondStepProps {
   setStep: (step: number) => void
   setProgress: (progress: number) => void
-  controlName: string
 }
 
-const daysOfWeek = [
-  {
-    id: 'segunda',
-    label: 'SEG',
-  },
-  {
-    id: 'terca',
-    label: 'TER',
-  },
-  {
-    id: 'quarta',
-    label: 'QUA',
-  },
-  {
-    id: 'quinta',
-    label: 'QUI',
-  },
-  {
-    id: 'sexta',
-    label: 'SEX',
-  },
-  {
-    id: 'sabado',
-    label: 'SAB',
-  },
-  {
-    id: 'domingo',
-    label: 'DOM',
-  },
-] as const
-
-export function SecondStep({
-  setProgress,
-  setStep,
-  controlName,
-}: SecondStepProps) {
+export function SecondStep({ setProgress, setStep }: SecondStepProps) {
   const {
-    control,
     register,
     formState: { isSubmitting },
   } = useFormContext()
@@ -64,47 +22,7 @@ export function SecondStep({
     <div className="space-y-8">
       <span>Selecione os dias da semana de trabalho</span>
       <div>
-        <FormField
-          control={control}
-          name="items"
-          render={() => (
-            <FormItem className="flex justify-between items-end">
-              {daysOfWeek.map((item) => (
-                <FormField
-                  key={item.id}
-                  control={control}
-                  name={controlName}
-                  render={({ field }) => {
-                    return (
-                      <FormItem
-                        key={item.id}
-                        className="flex flex-col items-center"
-                      >
-                        <FormLabel className="font-normal">
-                          {item.label}
-                        </FormLabel>
-                        <FormControl>
-                          <Checkbox
-                            checked={field.value?.includes(item.id)}
-                            onCheckedChange={(checked) => {
-                              return checked
-                                ? field.onChange([...field.value, item.id])
-                                : field.onChange(
-                                    field.value?.filter(
-                                      (value: string) => value !== item.id,
-                                    ),
-                                  )
-                            }}
-                          />
-                        </FormControl>
-                      </FormItem>
-                    )
-                  }}
-                />
-              ))}
-            </FormItem>
-          )}
-        />
+        <SelectDaysOfWeek />
       </div>
 
       <div className="space-y-4">

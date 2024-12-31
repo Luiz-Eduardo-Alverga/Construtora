@@ -22,7 +22,7 @@ export function SelectStatesForm({
   label,
   controlName,
   space,
-  disabled
+  disabled,
 }: SelectStatesFormProps) {
   const { control } = useFormContext()
 
@@ -37,8 +37,13 @@ export function SelectStatesForm({
       <Controller
         name={controlName}
         control={control}
+        defaultValue=""
         render={({ field }) => (
-          <Select disabled={disabled} onValueChange={field.onChange} value={field.value}>
+          <Select
+            disabled={disabled}
+            onValueChange={field.onChange}
+            value={field.value}
+          >
             <SelectTrigger className={`w-full ${space}`}>
               <SelectValue placeholder="Selecione a UF" />
             </SelectTrigger>
