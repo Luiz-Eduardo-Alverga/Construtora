@@ -32,7 +32,7 @@ const data = {
           url: 'cadastros/funcionarios',
         },
         {
-          title: 'Jornadas de Trabalho',
+          title: 'Funções',
           url: 'cadastros/jornadas',
         },
       ],

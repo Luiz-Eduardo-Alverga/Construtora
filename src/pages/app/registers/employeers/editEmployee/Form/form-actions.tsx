@@ -59,9 +59,13 @@ export function FormActions({
   })
 
   async function handleDeleteRegistration() {
-    await deleteSelectedFunction()
-    navigate(-1)
-    toast.success('Função deletada com sucesso')
+    try {
+      await deleteSelectedFunction()
+      navigate(-1)
+      toast.success('Função deletada com sucesso')
+    } catch {
+      toast.error('Erro ao excluir função')
+    }
   }
 
   return (

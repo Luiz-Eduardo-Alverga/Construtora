@@ -40,28 +40,32 @@ export function FilterFunctions() {
   }
 
   return (
-    <div className="flex justify-center">
+    <div className="w-full sm:flex sm:justify-center">
       <form
         onSubmit={handleSubmit(handleFilterFunctions)}
-        className="flex gap-2"
+        className="flex flex-col sm:flex-row gap-2"
       >
         <Input
-          className="w-64 sm:w-80 rounded-3xl"
+          className="sm:w-80 rounded-3xl"
           placeholder="Pesquise pelo nome da função"
           {...register('nome')}
         />
-        <Button className="rounded-full">
-          <Search className=" h-5 sm:w-5 text-center" />
-        </Button>
+        <div className="flex gap-2 justify-between">
+          <Button className="rounded-full">
+            <Search className=" h-5 sm:w-5 text-center" />
+            <span className="not-sr-only sm:sr-only">Filtrar resultado</span>
+          </Button>
 
-        <Button
-          type="button"
-          onClick={handleClearFilter}
-          variant={'outline'}
-          className="rounded-full"
-        >
-          <X className=" h-5 sm:w-5 text-center" />
-        </Button>
+          <Button
+            type="button"
+            onClick={handleClearFilter}
+            variant={'outline'}
+            className="rounded-full"
+          >
+            <X className=" h-5 sm:w-5 text-center" />
+            <span className="not-sr-only sm:sr-only">Remover Filtros</span>
+          </Button>
+        </div>
       </form>
     </div>
   )
