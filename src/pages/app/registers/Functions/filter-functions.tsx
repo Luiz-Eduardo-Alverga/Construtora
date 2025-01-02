@@ -15,7 +15,7 @@ type FunctionsFiltersSchema = z.infer<typeof functionsFiltersSchema>
 
 export function FilterFunctions() {
   const setSearchParams = useSearchParams()[1]
-  const { register, handleSubmit } = useForm<FunctionsFiltersSchema>({
+  const { register, handleSubmit, reset } = useForm<FunctionsFiltersSchema>({
     resolver: zodResolver(functionsFiltersSchema),
   })
 
@@ -37,6 +37,8 @@ export function FilterFunctions() {
 
       return state
     })
+
+    reset()
   }
 
   return (
