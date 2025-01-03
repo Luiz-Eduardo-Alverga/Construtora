@@ -15,6 +15,15 @@ interface DateState {
   clearDates: () => void
 }
 
+interface FormState {
+  isDeleteButtonVisible: boolean
+  registerId: number | null
+  registrationName: string | null
+  setIsDeleteButtonVisible: (visible: boolean) => void
+  setRegisterId: (id: number | null) => void
+  setRegistrationName: (name: string | null) => void
+  resetFormState: () => void
+}
 
 export const useSelectedDatesStore = create<SelectedDatesState>((set) => ({
   selectedDates: [],
@@ -36,5 +45,17 @@ export const useDateStore = create<DateState>((set) => ({
     }),
 }))
 
-
-
+export const useFormStore = create<FormState>((set) => ({
+  isDeleteButtonVisible: false,
+  registerId: null,
+  registrationName: null,
+  setIsDeleteButtonVisible: (visible) =>
+    set(() => ({ isDeleteButtonVisible: visible })),
+  setRegisterId: (id) => set(() => ({ registerId: id })),
+  setRegistrationName: (name) => set(() => ({ registrationName: name })),
+  resetFormState: () =>
+    set(() => ({
+      registerId: null,
+      registrationName: null,
+    })),
+}))

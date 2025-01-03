@@ -1,7 +1,7 @@
 import { api } from '@/lib/axios'
 
 interface deleteFunctionRequest {
-  id: number | undefined
+  id: number | null
 }
 
 export async function deleteFunction({ id }: deleteFunctionRequest) {

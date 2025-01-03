@@ -11,7 +11,7 @@ interface GetFunctionResponse {
     descricao?: string
     horasSemanais?: string
     diasJornada?:
-      | string // Caso ainda não tenha sido parseado
+      | string
       | {
           segunda: boolean
           terca: boolean

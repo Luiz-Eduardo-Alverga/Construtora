@@ -1,13 +1,17 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { useEffect, useMemo } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import { useParams } from 'react-router-dom'
+import { useNavigate, useParams } from 'react-router-dom'
+import { toast } from 'sonner'
 
+import { editFunction } from '@/api/employeeFunctions/edit-function'
 import { getFunction } from '@/api/employeeFunctions/get-function'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
+import { useFormStore } from '@/zustand/useSelectedDatesStore'
 
 import { FormHeader } from '../../employeers/editEmployee/Form/FormLayout/form-header'
 import {
@@ -15,9 +19,15 @@ import {
   registerNewFunctionsSchema,
 } from '../form/form-fields'
 import { SelectDaysOfWeek } from '../form/select-days-of-week'
+import { diasDaSemana } from '../register/register-new-functions-dialog'
 
 export function EditFunctionForm() {
   const { id } = useParams()
+
+  const navigate = useNavigate()
+
+  const { setRegisterId, setRegistrationName, setIsDeleteButtonVisible } =
+    useFormStore()
 
   const { data: functionName } = useQuery({
     queryKey: ['function'],
@@ -50,6 +60,52 @@ export function EditFunctionForm() {
     },
   })
 
+  const { mutateAsync } = useMutation({
+    mutationFn: editFunction,
+  })
+
+  async function handleEditFunction(data: RegisterNewFunctionsSchema) {
+    const diasSelecionados = data.daysOfWeek
+
+    const horasSemanaisParsed = parseInt(data.horasSemanais)
+
+    if (horasSemanaisParsed < 1) {
+      toast.error('Horas Semanais não pode ser menor ou igual a Zero')
+      return
+    }
+
+    if (horasSemanaisParsed > 44) {
+      toast.error(
+        'A carga horária máxima semanal permitida para trabalhadores formais no Brasil é de 44 horas',
+      )
+      return
+    }
+
+    const diasJornada = diasDaSemana.reduce<Record<string, boolean>>(
+      (acc, dia) => {
+        acc[dia] = diasSelecionados.includes(dia)
+        return acc
+      },
+      {},
+    )
+
+    try {
+      await mutateAsync({
+        id: Number(id),
+        dados: {
+          descricao: data.descricao,
+          funcao: data.nome,
+          horas: data.horasSemanais,
+          diasJornada,
+        },
+      })
+      navigate(-1)
+      toast.success('Função atualizada com sucesso')
+    } catch {
+      toast.error('Teste')
+    }
+  }
+
   useEffect(() => {
     const { setValue } = editFunctionForm
 
@@ -57,39 +113,52 @@ export function EditFunctionForm() {
     setValue('horasSemanais', functionName?.data.horasSemanais || '')
     setValue('descricao', functionName?.data.descricao || '')
     setValue('daysOfWeek', parsedDaysOfWeek)
-  }, [editFunctionForm, functionName, parsedDaysOfWeek])
+
+    setRegisterId(functionName?.data.id || null)
+    setRegistrationName(functionName?.data.funcao || null)
+    setIsDeleteButtonVisible(true)
+  }, [
+    editFunctionForm,
+    functionName,
+    parsedDaysOfWeek,
+    setIsDeleteButtonVisible,
+    setRegisterId,
+    setRegistrationName,
+  ])
 
   return (
     <FormProvider {...editFunctionForm}>
-      <FormHeader
-        isDeleteButtonVisible={true}
-        label={'Função'}
-        name={functionName?.data.funcao || ''}
-        registrationName={functionName?.data.funcao}
-      />
+      <form onSubmit={editFunctionForm.handleSubmit(handleEditFunction)}>
+        <FormHeader label={'Função'} name={functionName?.data.funcao || ''} />
 
-      <div className="mx-4 space-y-4">
-        <div className="space-y-0.5">
-          <Label>Função</Label>
-          <Input {...editFunctionForm.register('nome')} />
-        </div>
-
-        <div className="flex flex-col  gap-4 items-end">
-          <div className="space-y-0.5 w-full">
-            <Label>Horas Semanais</Label>
-            <Input {...editFunctionForm.register('horasSemanais')}></Input>
+        <div className="max-w-[450px] mx-auto space-y-4">
+          <div className="space-y-0.5">
+            <Label>Função</Label>
+            <Input {...editFunctionForm.register('nome')} />
           </div>
-          <div className="w-full">
-            <Label>Dias da Semana</Label>
-            <SelectDaysOfWeek />
+
+          <div className="flex flex-col  gap-4 items-end">
+            <div className="space-y-0.5 w-full">
+              <Label>Horas Semanais</Label>
+              <Input
+                type="number"
+                {...editFunctionForm.register('horasSemanais')}
+              ></Input>
+            </div>
+            <div className="w-full">
+              <Label>Dias da Semana</Label>
+              <SelectDaysOfWeek />
+            </div>
+          </div>
+
+          <div className="space-y-0.5">
+            <Label>Descrição</Label>
+            <Textarea {...editFunctionForm.register('descricao')} />
           </div>
         </div>
+      </form>
 
-        <div className="space-y-0.5">
-          <Label>Descrição</Label>
-          <Textarea {...editFunctionForm.register('descricao')} />
-        </div>
-      </div>
+      <Separator className="mt-2" />
     </FormProvider>
   )
 }

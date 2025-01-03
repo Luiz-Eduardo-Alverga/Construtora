@@ -14,7 +14,7 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useDateStore } from '@/zustand/useSelectedDatesStore'
+import { useDateStore, useFormStore } from '@/zustand/useSelectedDatesStore'
 
 interface FormActionsProps {
   onCancel?: () => void
@@ -29,13 +29,11 @@ interface FormActionsProps {
 
 export function FormActions({
   onCancel,
-  onSubmit,
   cancelLabel = 'Cancelar',
   submitLabel = 'Enviar',
-  isDeleteButtonVisible = false,
-  registerId,
-  registrationName,
 }: FormActionsProps) {
+  const { isDeleteButtonVisible, registerId, registrationName } = useFormStore()
+
   const {
     formState: { isSubmitting },
     reset,
@@ -54,6 +52,7 @@ export function FormActions({
 
     toast.info('Todos os campos do formulário foram limpados')
   }
+
   const { mutateAsync: deleteSelectedFunction } = useMutation({
     mutationFn: () => deleteFunction({ id: registerId }),
   })
@@ -118,7 +117,7 @@ export function FormActions({
         <X className="w-4 h-4" />
         <span>{cancelLabel}</span>
       </Button>
-      <Button className="gap-2" onClick={onSubmit} disabled={isSubmitting}>
+      <Button className="gap-2" disabled={isSubmitting}>
         <SquareCheckBig className="w-4 h-4" />
         <span>{submitLabel}</span>
       </Button>

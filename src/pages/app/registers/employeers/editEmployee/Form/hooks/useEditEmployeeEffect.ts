@@ -5,7 +5,7 @@ import { useForm } from 'react-hook-form'
 import { useLocation, useParams } from 'react-router-dom'
 
 import { getEmployee } from '@/api/employee/get-employee'
-import { useDateStore } from '@/zustand/useSelectedDatesStore'
+import { useDateStore, useFormStore } from '@/zustand/useSelectedDatesStore'
 
 import { fieldsMapping } from '../FieldsForm/fields-mapping'
 
@@ -22,12 +22,16 @@ export function useEditEmployeeForm(
     clearDates,
   } = useDateStore()
 
+  const { setIsDeleteButtonVisible } = useFormStore()
+
   const { data: employeers, isLoading } = useQuery({
     queryKey: ['EmployeeDetails', id],
     queryFn: () => getEmployee({ id }),
   })
 
   useEffect(() => {
+    setIsDeleteButtonVisible(false)
+
     const isEditEmployeeRoute = /^\/cadastros\/funcionarios\/\d+\/editar$/.test(
       location.pathname,
     )
@@ -80,6 +84,7 @@ export function useEditEmployeeForm(
     setSelectedDateResignation,
     setSelectedDateBirth,
     setSelectedDateAdmission,
+    setIsDeleteButtonVisible,
   ])
 
   return { employeers, isLoading }

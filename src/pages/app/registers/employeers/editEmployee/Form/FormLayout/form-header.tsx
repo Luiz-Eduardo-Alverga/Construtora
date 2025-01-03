@@ -7,16 +7,9 @@ import { FormActions } from '../form-actions'
 interface FormHeaderProps {
   name: string | null
   label: string | null
-  isDeleteButtonVisible?: boolean
-  registrationName?: string
 }
 
-export function FormHeader({
-  name,
-  label,
-  isDeleteButtonVisible,
-  registrationName,
-}: FormHeaderProps) {
+export function FormHeader({ name, label }: FormHeaderProps) {
   const navigate = useNavigate()
 
   return (
@@ -27,8 +20,6 @@ export function FormHeader({
         </h1>
 
         <FormActions
-          registrationName={registrationName}
-          isDeleteButtonVisible={isDeleteButtonVisible}
           onCancel={() => navigate(-1)}
           cancelLabel="Cancelar"
           submitLabel="Salvar"

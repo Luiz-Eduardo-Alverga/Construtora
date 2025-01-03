@@ -19,7 +19,7 @@ import {
 import { FirstStep } from './first-step'
 import { SecondStep } from './second-step'
 
-const diasDaSemana = [
+export const diasDaSemana = [
   'segunda',
   'terca',
   'quarta',
