@@ -131,13 +131,13 @@ export function EditFunctionForm() {
       <form onSubmit={editFunctionForm.handleSubmit(handleEditFunction)}>
         <FormHeader label={'Função'} name={functionName?.data.funcao || ''} />
 
-        <div className="max-w-[450px] mx-auto space-y-4">
+        <div className="mx-4 sm:max-w-[450px] sm:mx-auto space-y-4">
           <div className="space-y-0.5">
             <Label>Função</Label>
             <Input {...editFunctionForm.register('nome')} />
           </div>
 
-          <div className="flex flex-col  gap-4 items-end">
+          <div className="flex flex-col gap-4 items-end">
             <div className="space-y-0.5 w-full">
               <Label>Horas Semanais</Label>
               <Input
