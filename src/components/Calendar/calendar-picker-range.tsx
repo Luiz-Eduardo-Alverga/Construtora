@@ -42,7 +42,7 @@ export function CalendarPicker({ date, setDate }: CalendarPickerProps) {
           id="date"
           variant="outline"
           className={cn(
-            'w-full sm:w-[300px] justify-start text-left font-normal',
+            'w-full lg:w-[300px] justify-start text-left font-normal',
             !date && 'text-muted-foreground',
           )}
         >

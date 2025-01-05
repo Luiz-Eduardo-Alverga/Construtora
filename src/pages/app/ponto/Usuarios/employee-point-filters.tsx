@@ -119,7 +119,7 @@ export function EmployeePontFilters({
   return (
     <Form {...form}>
       <form
-        className="flex flex-col sm:flex-row sm:items-end gap-2"
+        className="flex flex-col lg:flex-row lg:items-end gap-2"
         onSubmit={form.handleSubmit(handleFilter)}
       >
         <FormField
@@ -135,7 +135,7 @@ export function EmployeePontFilters({
                       variant={'outline'}
                       role="combobox"
                       className={cn(
-                        'w-full sm:w-[300px] justify-between',
+                        'w-full lg:w-[300px] justify-between',
                         !field.value && 'text-muted-foreground',
                       )}
                     >

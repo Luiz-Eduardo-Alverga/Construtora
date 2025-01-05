@@ -53,7 +53,7 @@ export function FilterFunctions() {
           {...register('nome')}
         />
         <div className="flex gap-2 justify-between">
-          <Button className="rounded-full">
+          <Button className="rounded-full space-x-2">
             <Search className=" h-5 sm:w-5 text-center" />
             <span className="not-sr-only sm:sr-only">Filtrar resultado</span>
           </Button>
@@ -62,7 +62,7 @@ export function FilterFunctions() {
             type="button"
             onClick={handleClearFilter}
             variant={'outline'}
-            className="rounded-full"
+            className="rounded-full space-x-2"
           >
             <X className=" h-5 sm:w-5 text-center" />
             <span className="not-sr-only sm:sr-only">Remover Filtros</span>

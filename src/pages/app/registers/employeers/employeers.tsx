@@ -58,7 +58,7 @@ export function Employeers() {
 
   return (
     <>
-      <div className="flex flex-col gap-4 sm:flex-row items-center">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
         <HeaderPages
           title="Listagem de Funcionários"
           description="Cadastre ou pesquise por seus funcionários"
@@ -69,7 +69,7 @@ export function Employeers() {
           <DialogTrigger asChild>
             <Button
               type="button"
-              className="w-full sm:w-44 h-9 space-x-2 ml-auto"
+              className="w-full lg:w-44 h-9 space-x-2 ml-auto"
               onClick={() => setIsDialogOpen(true)}
             >
               <PlusCircle className="h-5 w-5" />

@@ -24,7 +24,7 @@ export function PointOptions() {
         </span>
 
         <div className="flex pt-10 m-2">
-          <div className="grid grid-cols-2 sm:grid-cols-3 gap-2 items-center">
+          <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-3 gap-2 items-center">
             <PointOptionButton
               icon={Users}
               label="Usuários"

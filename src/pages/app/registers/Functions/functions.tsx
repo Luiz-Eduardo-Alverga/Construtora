@@ -29,7 +29,7 @@ export function EmployeeJourney() {
 
   return (
     <>
-      <div className="flex flex-col gap-4 sm:flex-row items-center">
+      <div className="flex flex-col gap-4 lg:flex-row lg:items-center">
         <HeaderPages
           title="Jornadas de Trabalho"
           description="Cadastre ou visualize as suas jornadas de trabalho"
@@ -38,9 +38,9 @@ export function EmployeeJourney() {
 
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="w-full sm:w-44 h-9 space-x-2 ml-auto">
+            <Button className="w-full lg:w-44 h-9 space-x-2 ml-auto">
               <PlusCircle className="h-5 w-5" />
-              <span> Nova Função</span>
+              <span>Nova Função</span>
             </Button>
           </DialogTrigger>
 
@@ -53,7 +53,7 @@ export function EmployeeJourney() {
       <div className="space-y-6">
         <FilterFunctions />
 
-        <div className="mt-24 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <div className="mt-24 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {isLoadingFunctions && <CardSkeleton />}
           {employeeFunctions &&
             employeeFunctions.data.map((employeeFunction) => (

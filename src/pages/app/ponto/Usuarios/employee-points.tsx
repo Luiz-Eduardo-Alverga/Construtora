@@ -46,7 +46,7 @@ export function EmployeePoints() {
         description="Verifique os registros de pontos do seu funcionário"
         icon={FileClock}
       />
-      <div className="flex flex-col sm:flex-row sm:justify-between">
+      <div className="flex flex-col lg:flex-row lg:justify-between">
         <EmployeePontFilters
           employeers={employeers?.data ?? []}
           isLoadingEmployee={isLoading}
