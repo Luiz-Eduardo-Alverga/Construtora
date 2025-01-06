@@ -1,10 +1,13 @@
-import { ptBR } from 'date-fns/locale' // Importa a localização em pt-BR
+import { format, setMonth } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import { ChevronLeft, ChevronRight } from 'lucide-react'
 import * as React from 'react'
-import { DayPicker } from 'react-day-picker'
+import { DayPicker, useDayPicker, useNavigation } from 'react-day-picker'
 
 import { buttonVariants } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+
+import { Select, SelectContent, SelectItem, SelectTrigger } from './select'
 
 export type CalendarProps = React.ComponentProps<typeof DayPicker>
 
@@ -12,18 +15,23 @@ function Calendar({
   className,
   classNames,
   showOutsideDays = true,
+  captionLayout = 'buttons', // Valor padrão
   ...props
 }: CalendarProps) {
   return (
     <DayPicker
       showOutsideDays={showOutsideDays}
       locale={ptBR}
+      captionLayout={captionLayout}
       className={cn('p-3', className)}
       classNames={{
         months: 'flex flex-col sm:flex-row space-y-4 sm:space-x-4 sm:space-y-0',
         month: 'space-y-4',
         caption: 'flex justify-center pt-1 relative items-center',
-        caption_label: 'text-sm font-medium',
+        caption_label: cn(
+          'text-sm font-medium cursor-pointer',
+          captionLayout === 'dropdown' ? 'hidden' : '', // Oculta quando for dropdown
+        ),
         nav: 'space-x-1 flex items-center',
         nav_button: cn(
           buttonVariants({ variant: 'outline' }),
@@ -51,11 +59,80 @@ function Calendar({
         day_range_middle:
           'aria-selected:bg-accent aria-selected:text-accent-foreground',
         day_hidden: 'invisible',
+        caption_dropdowns: 'flex gap-1',
         ...classNames,
       }}
       components={{
         IconLeft: () => <ChevronLeft className="h-4 w-4" />,
         IconRight: () => <ChevronRight className="h-4 w-4" />,
+        Dropdown: (props) => {
+          const { fromMonth, fromYear, toMonth, toYear } = useDayPicker()
+
+          const { goToMonth, currentMonth } = useNavigation()
+          if (props.name === 'months') {
+            const selectItems = Array.from({ length: 12 }, (_, i) => ({
+              value: i.toString(),
+              label: format(setMonth(new Date(), i), 'MMMM', { locale: ptBR }),
+            }))
+            return (
+              <Select
+                onValueChange={(newValue) => {
+                  const newDate = new Date(currentMonth)
+                  newDate.setMonth(parseInt(newValue))
+                  goToMonth(newDate)
+                }}
+                value={props.value?.toString()}
+              >
+                <SelectTrigger>
+                  {format(currentMonth, 'MMM', { locale: ptBR })}
+                </SelectTrigger>
+                <SelectContent>
+                  {selectItems.map((selectItem) => (
+                    <SelectItem key={selectItem.value} value={selectItem.value}>
+                      {selectItem.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )
+          } else if (props.name === 'years') {
+            const earliestYear = fromYear || fromMonth?.getFullYear()
+
+            const latestYear = toYear || toMonth?.getFullYear()
+
+            let selectItems: { label: string; value: string }[] = []
+
+            if (earliestYear && latestYear) {
+              const yearsLength = latestYear - earliestYear + 1
+              selectItems = Array.from({ length: yearsLength }, (_, i) => ({
+                label: (earliestYear + i).toString(),
+                value: (earliestYear + i).toString(),
+              }))
+            }
+
+            return (
+              <Select
+                onValueChange={(newValue) => {
+                  const newDate = new Date(currentMonth)
+                  newDate.setFullYear(parseInt(newValue))
+                  goToMonth(newDate)
+                }}
+                value={props.value?.toString()}
+              >
+                <SelectTrigger>{currentMonth.getFullYear()}</SelectTrigger>
+                <SelectContent>
+                  {selectItems.map((selectItem) => (
+                    <SelectItem key={selectItem.value} value={selectItem.value}>
+                      {selectItem.label}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            )
+          }
+
+          return null
+        },
       }}
       {...props}
     />

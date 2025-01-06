@@ -20,6 +20,7 @@ import {
 } from '../form/form-fields'
 import { SelectDaysOfWeek } from '../form/select-days-of-week'
 import { diasDaSemana } from '../register/register-new-functions-dialog'
+import { EditFunctionFormSkeleton } from '../skeleton/edit-card-skeleton'
 
 export function EditFunctionForm() {
   const { id } = useParams()
@@ -29,10 +30,11 @@ export function EditFunctionForm() {
   const { setRegisterId, setRegistrationName, setIsDeleteButtonVisible } =
     useFormStore()
 
-  const { data: functionName } = useQuery({
-    queryKey: ['function'],
-    queryFn: () => getFunction({ id: id || '' }),
-  })
+  const { data: functionName, isLoading: isLoadingEmployeeFunctions } =
+    useQuery({
+      queryKey: ['function', id],
+      queryFn: () => getFunction({ id: id || '' }),
+    })
 
   const parsedDaysOfWeek = useMemo(() => {
     if (!functionName?.data.diasJornada) return []
@@ -127,38 +129,47 @@ export function EditFunctionForm() {
   ])
 
   return (
-    <FormProvider {...editFunctionForm}>
-      <form onSubmit={editFunctionForm.handleSubmit(handleEditFunction)}>
-        <FormHeader label={'Função'} name={functionName?.data.funcao || ''} />
+    <div>
+      {isLoadingEmployeeFunctions ? (
+        <EditFunctionFormSkeleton />
+      ) : (
+        <FormProvider {...editFunctionForm}>
+          <form onSubmit={editFunctionForm.handleSubmit(handleEditFunction)}>
+            <FormHeader
+              label={'Função'}
+              name={functionName?.data.funcao || ''}
+            />
 
-        <div className="mx-4 sm:max-w-[450px] sm:mx-auto space-y-4">
-          <div className="space-y-0.5">
-            <Label>Função</Label>
-            <Input {...editFunctionForm.register('nome')} />
-          </div>
+            <div className="mx-4 sm:max-w-[450px] sm:mx-auto space-y-4">
+              <div className="space-y-0.5">
+                <Label>Função</Label>
+                <Input {...editFunctionForm.register('nome')} />
+              </div>
 
-          <div className="flex flex-col gap-4 items-end">
-            <div className="space-y-0.5 w-full">
-              <Label>Horas Semanais</Label>
-              <Input
-                type="number"
-                {...editFunctionForm.register('horasSemanais')}
-              ></Input>
+              <div className="flex flex-col gap-4 items-end">
+                <div className="space-y-0.5 w-full">
+                  <Label>Horas Semanais</Label>
+                  <Input
+                    type="number"
+                    {...editFunctionForm.register('horasSemanais')}
+                  ></Input>
+                </div>
+                <div className="w-full">
+                  <Label>Dias da Semana</Label>
+                  <SelectDaysOfWeek />
+                </div>
+              </div>
+
+              <div className="space-y-0.5">
+                <Label>Descrição</Label>
+                <Textarea {...editFunctionForm.register('descricao')} />
+              </div>
             </div>
-            <div className="w-full">
-              <Label>Dias da Semana</Label>
-              <SelectDaysOfWeek />
-            </div>
-          </div>
+          </form>
 
-          <div className="space-y-0.5">
-            <Label>Descrição</Label>
-            <Textarea {...editFunctionForm.register('descricao')} />
-          </div>
-        </div>
-      </form>
-
-      <Separator className="mt-2" />
-    </FormProvider>
+          <Separator className="mt-2" />
+        </FormProvider>
+      )}
+    </div>
   )
 }

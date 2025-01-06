@@ -50,6 +50,9 @@ export function CalendarSingleDatePicker({
           defaultMonth={new Date()}
           selected={date}
           onSelect={setDate}
+          captionLayout="dropdown"
+          fromYear={1950}
+          toYear={2025}
         />
       </PopoverContent>
     </Popover>
