@@ -12,14 +12,14 @@ import ProtectedRoute from './protected-routes'
 import PublicRoute from './public.route'
 
 export const loginRoute: RouteObject = {
-  path: '/',
+  path: '/sign-in',
   element: (
     <PublicRoute>
       <AuthLayout />
     </PublicRoute>
   ),
   errorElement: <Error />,
-  children: [{ path: '/', element: <SignIn /> }],
+  children: [{ path: '/sign-in', element: <SignIn /> }],
 }
 
 export const enterpriseRoute: RouteObject = {

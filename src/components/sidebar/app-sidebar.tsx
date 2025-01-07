@@ -42,7 +42,7 @@ const data = {
     },
     {
       title: 'Ponto',
-      url: 'ponto',
+      url: 'ponto/usuarios',
       icon: Clock,
     },
   ],

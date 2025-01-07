@@ -20,16 +20,12 @@ export function AppLayout() {
   useEffect(() => {
     const interceptorId = api.interceptors.response.use(
       (response) => response,
+
       (error) => {
         if (isAxiosError(error)) {
-          const status = error.response?.data
-          console.log(status)
-
-          if (status === 401) {
-            localStorage.removeItem('authToken')
-            localStorage.removeItem('authTarget')
-            navigate('/sign-in', { replace: true })
-          }
+          localStorage.removeItem('authToken')
+          localStorage.removeItem('authTarget')
+          navigate('/sign-in', { replace: true })
         }
       },
     )

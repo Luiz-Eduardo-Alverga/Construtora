@@ -1,4 +1,4 @@
-import { createBrowserRouter } from 'react-router-dom'
+import { createBrowserRouter, Navigate } from 'react-router-dom'
 
 import {
   enterpriseRoute,
@@ -20,4 +20,8 @@ export const router = createBrowserRouter([
   pdfPointsRoute,
   employeeJourneyRoutes,
   enterpriseRoute,
+  {
+    path: '/',
+    element: <Navigate to="/sign-in" replace />,
+  },
 ])

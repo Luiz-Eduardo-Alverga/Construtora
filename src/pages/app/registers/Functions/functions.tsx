@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { PlusCircle, Watch } from 'lucide-react'
+import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
 import { getEmployeeFunctions } from '@/api/employeeFunctions/get-functions'
@@ -14,18 +15,16 @@ import { RegisterNewFunctionDialog } from './register/register-new-functions-dia
 import { CardSkeleton } from './skeleton/function-card-skeleton'
 
 export function EmployeeJourney() {
+  const [isDialogOpen, setIsDialogOpen] = useState(false)
+
   const searchParams = useSearchParams()[0]
 
   const nome = searchParams.get('nome')
-
-  console.log(nome)
 
   const { data: employeeFunctions, isLoading: isLoadingFunctions } = useQuery({
     queryKey: ['getEmployeeFunctions', nome],
     queryFn: () => getEmployeeFunctions({ funcao: nome || '' }),
   })
-
-  console.log(employeeFunctions)
 
   return (
     <>
@@ -36,7 +35,7 @@ export function EmployeeJourney() {
           icon={Watch}
         />
 
-        <Dialog>
+        <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           <DialogTrigger asChild>
             <Button className="w-full lg:w-44 h-9 space-x-2 ml-auto">
               <PlusCircle className="h-5 w-5" />
@@ -44,7 +43,7 @@ export function EmployeeJourney() {
             </Button>
           </DialogTrigger>
 
-          <RegisterNewFunctionDialog />
+          <RegisterNewFunctionDialog onClose={() => setIsDialogOpen(false)} />
         </Dialog>
       </div>
 

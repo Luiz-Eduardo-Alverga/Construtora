@@ -29,7 +29,13 @@ export const diasDaSemana = [
   'domingo',
 ]
 
-export function RegisterNewFunctionDialog() {
+interface RegisterNewEmployeeFunction {
+  onClose: () => void
+}
+
+export function RegisterNewFunctionDialog({
+  onClose,
+}: RegisterNewEmployeeFunction) {
   const [step, setStep] = useState(1)
   const [progress, setProgress] = useState(50)
 
@@ -93,6 +99,7 @@ export function RegisterNewFunctionDialog() {
         horasSemanais: data.horasSemanais,
         diasJornada,
       })
+      onClose()
       toast.success('Função cadastrada com sucesso!', {
         closeButton: true,
       })

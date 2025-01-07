@@ -107,7 +107,6 @@ export function RegisterEmployeeForm() {
       }
 
       try {
-        console.log(changedFields)
         await editEmployeeSelected({
           id,
           dadosFuncionario: changedFields,
