@@ -65,7 +65,13 @@ export function EmployeePoints() {
         ) : results ? (
           <DataTable columns={columns} data={results.data} />
         ) : (
-          <NoDataLayout image={searchInfo} />
+          <NoDataLayout
+            contentTop="Acompanhe de perto os pontos de seu funcionário"
+            contentBottom="Visualize ou Edite os pontos do seu funcionário. A simplicidade com
+            a eficiência nas operações é o elemento decisivo para o sucesso da
+            sua empresa."
+            image={searchInfo}
+          />
         )}
       </div>
     </main>

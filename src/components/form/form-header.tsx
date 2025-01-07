@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 
 import { Separator } from '@/components/ui/separator'
 
-import { FormActions } from '../form-actions'
+import { FormActions } from './form-actions'
 
 interface FormHeaderProps {
   name: string | null
@@ -21,7 +21,7 @@ export function FormHeader({ name, label }: FormHeaderProps) {
 
         <FormActions
           onCancel={() => navigate(-1)}
-          cancelLabel="Cancelar"
+          cancelLabel="Voltar"
           submitLabel="Salvar"
         />
       </div>

@@ -6,6 +6,7 @@ interface GetEmployeersListQuery {
   cpf?: string | null
   page?: number | null
   limit?: number | null
+  funcao?: string | null
 }
 
 interface GetEmployeersListResponse {
@@ -27,6 +28,7 @@ export async function getEmployeersList({
   cpf,
   limit,
   page,
+  funcao,
 }: GetEmployeersListQuery): Promise<GetEmployeersListResponse> {
   const token = localStorage.getItem('authToken')
   const target = localStorage.getItem('target')
@@ -41,6 +43,7 @@ export async function getEmployeersList({
       limit,
       target,
       user,
+      funcao,
     },
     headers: {
       Authorization: token,

@@ -109,6 +109,10 @@ const styles = StyleSheet.create({
   companyHeaderSubtitle: {
     fontSize: 8,
   },
+  companyHeaderSubtitleEmployee: {
+    fontSize: 10,
+    marginTop: 4,
+  },
 
   // Estilo do rodapé
   footer: {
@@ -142,11 +146,21 @@ const MyDocument = ({
   data,
   enterprise,
   employee,
+  dateFrom,
+  dateTo,
 }: {
   data: EmployeePointsData['data']
   enterprise: EnterpriseData
   employee: EmployeeData
+  dateFrom: string
+  dateTo: string
 }) => {
+  const formatDate = (date: string): string => {
+    if (!date) return 'N/A'
+    const [year, month, day] = date.split('-')
+    return `${day}/${month}/${year}`
+  }
+
   const HEADER_HEIGHT = 40 // Altura do cabeçalho da tabela
   const ROW_HEIGHT = 20 // Altura de cada linha da tabela
 
@@ -173,25 +187,44 @@ const MyDocument = ({
     <Document>
       {pages.map((pageData, pageIndex) => (
         <Page size="A4" style={styles.page} key={pageIndex}>
-          {/* Cabeçalho personalizado na primeira página */}
           {pageIndex === 0 && (
             <View style={styles.companyHeader}>
-              <Text style={styles.companyHeaderTitle}>
-                {enterprise?.razao || 'Razão Social Não Informada'}
-              </Text>
-              <Text style={styles.companyHeaderSubtitle}>
-                {enterprise?.fantasia || 'Nome Fantasia Não Informado'}
-              </Text>
-              <Text style={styles.companyHeaderSubtitle}>
-                Endereço: {enterprise?.endereco}, {enterprise?.numero},{' '}
-                {enterprise?.bairro}, {enterprise?.cidade} - {enterprise?.uf}
-              </Text>
-              <Text style={styles.companyHeaderSubtitle}>
-                CEP: {enterprise?.cep} | CNPJ: {enterprise?.cnpj}
-              </Text>
+              <View
+                style={{
+                  flexDirection: 'row',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <Text style={styles.companyHeaderTitle}>
+                  {enterprise?.razao || 'Razão Social Não Informada'}
+                </Text>
+                <Text style={styles.companyHeaderSubtitle}>
+                  {`Período: ${formatDate(dateFrom)} à ${formatDate(dateTo)}`}
+                </Text>
+              </View>
+
+              <View
+                style={{
+                  flexDirection: 'row',
+                  gap: 12,
+                }}
+              >
+                <Text style={styles.companyHeaderSubtitle}>
+                  {enterprise?.fantasia || 'Nome Fantasia Não Informado'}
+                </Text>
+                <Text style={styles.companyHeaderSubtitle}>
+                  {`CNPJ: ${enterprise?.cnpj || 'N/A'}`}
+                </Text>
+              </View>
 
               <Text style={styles.companyHeaderSubtitle}>
-                Funcionario: {employee?.nome} | Funcao: {employee?.funcao} |
+                Endereço: {enterprise?.endereco}, {enterprise?.numero},{' '}
+                {enterprise?.bairro}, {enterprise?.cidade} - {enterprise?.uf} -
+                CEP: {enterprise?.cep}
+              </Text>
+
+              <Text style={styles.companyHeaderSubtitleEmployee}>
+                Funcionário: {employee?.nome} | Função: {employee?.funcao} |
                 CPF: {employee?.cpf}
               </Text>
             </View>
@@ -224,7 +257,6 @@ const MyDocument = ({
               </View>
             </View>
 
-            {/* Linhas da Tabela */}
             {pageData.map((item, index) => (
               <View
                 style={
@@ -320,6 +352,8 @@ export function EmploeePDF() {
             data={results.data}
             enterprise={enterpriseData}
             employee={employeeData}
+            dateFrom={dateFrom || 'N/A'}
+            dateTo={dateTo || 'N/A'}
           />
         </PDFViewer>
       )}

@@ -28,7 +28,7 @@ const data = {
   navMain: [
     {
       title: 'Cadastros',
-      icon: User, // Adicione o ícone aqui
+      icon: User,
       items: [
         {
           title: 'Funcionários',
@@ -80,7 +80,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                   <SidebarMenuItem>
                     <CollapsibleTrigger asChild>
                       <SidebarMenuButton>
-                        {Icon && <Icon className="mr-2 size-4 " />}{' '}
+                        {Icon && <Icon className="mr-2 size-4" />}{' '}
                         {item.items && item.items.length > 0 ? (
                           <>
                             {item.title}
@@ -88,7 +88,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
                           </>
                         ) : (
                           <NavLink
-                            className={`w-full ${
+                            className={`w-full  ${
                               location.pathname === `/${item.url}`
                                 ? 'active-class'
                                 : ''

@@ -24,7 +24,11 @@ export const loginRoute: RouteObject = {
 
 export const enterpriseRoute: RouteObject = {
   path: '/empresas',
-  element: <UsersEnterprises />,
+  element: (
+    <ProtectedRoute>
+      <UsersEnterprises />
+    </ProtectedRoute>
+  ),
 }
 
 export const homeRoute: RouteObject = {

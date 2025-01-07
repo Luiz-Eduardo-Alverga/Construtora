@@ -1,4 +1,5 @@
 import { useQuery } from '@tanstack/react-query'
+import { useEffect } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 
 import { getEmployeeFunctions } from '@/api/employeeFunctions/get-functions'
@@ -25,11 +26,17 @@ export function SelectEmployeeFunctions({
   space,
   defaultValue,
 }: SelectEmployeeFunctionsProps) {
-  const { control } = useFormContext()
+  const { control, setValue } = useFormContext()
   const { data: employeeFunctions, isLoading } = useQuery({
     queryKey: ['getEmployeeFunctions'],
     queryFn: () => getEmployeeFunctions({ funcao: '' }),
   })
+
+  useEffect(() => {
+    if (defaultValue !== undefined && defaultValue !== null) {
+      setValue(controlName, defaultValue)
+    }
+  }, [defaultValue, controlName, setValue])
 
   function identifyFunction(idFuction: number) {
     const employeeFunction = employeeFunctions?.data.find(
@@ -52,7 +59,7 @@ export function SelectEmployeeFunctions({
         control={control}
         defaultValue={defaultValue || 0}
         render={({ field }) => (
-          <Select onValueChange={field.onChange} value={field.value}>
+          <Select onValueChange={field.onChange} value={String(field.value)}>
             <SelectTrigger className={`w-full ${space}`}>
               <SelectValue placeholder="Selecione a Função">
                 {field.value

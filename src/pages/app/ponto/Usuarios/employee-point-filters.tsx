@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { addDays, format as formatDate } from 'date-fns'
+import { endOfMonth, format as formatDate, startOfMonth } from 'date-fns'
 import { Check, ChevronsUpDown, Search } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { DateRange } from 'react-day-picker'
@@ -53,9 +53,12 @@ export function EmployeePontFilters({
   employeers,
   isLoadingEmployee,
 }: EmployeersProps) {
+  const today = new Date()
+  const firstDayOfMonth = startOfMonth(today)
+  const lastDayOfMonth = endOfMonth(today)
   const [date, setDate] = useState<DateRange | undefined>({
-    from: new Date(),
-    to: addDays(new Date(), 30),
+    from: firstDayOfMonth,
+    to: lastDayOfMonth,
   })
 
   const [employeeId, setEmployeeId] = useState<number | null>(null)

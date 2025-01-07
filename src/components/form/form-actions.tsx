@@ -1,5 +1,11 @@
 import { useMutation } from '@tanstack/react-query'
-import { Eraser, ListPlus, SquareCheckBig, Trash2, X } from 'lucide-react'
+import {
+  ArrowLeft,
+  Eraser,
+  ListPlus,
+  SquareCheckBig,
+  Trash2,
+} from 'lucide-react'
 import { useFormContext } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -114,7 +120,7 @@ export function FormActions({
         variant="secondary"
         onClick={onCancel}
       >
-        <X className="w-4 h-4" />
+        <ArrowLeft className="w-4 h-4" />
         <span>{cancelLabel}</span>
       </Button>
       <Button className="gap-2" disabled={isSubmitting}>

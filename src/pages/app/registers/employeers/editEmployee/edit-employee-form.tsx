@@ -7,16 +7,16 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { editEmployee, EditEmployeeBody } from '@/api/employee/edit-employee'
+import { FormHeader } from '@/components/form/form-header'
 import { Separator } from '@/components/ui/separator'
 import { useDateStore } from '@/zustand/useSelectedDatesStore'
 
+import { FormActions } from '../../../../../components/form/form-actions'
 import {
   editEmployeeSchema,
   fieldsMapping,
 } from './Form/FieldsForm/fields-mapping'
-import { FormActions } from './Form/form-actions'
 import { FormHeaderFirstLine } from './Form/FormLayout/form-first-line'
-import { FormHeader } from './Form/FormLayout/form-header'
 import { FormSecondLine } from './Form/FormLayout/Form-second-line'
 import { FormTabs } from './Form/FormTabs/form-tabs'
 import { useEditEmployeeForm } from './Form/hooks/useEditEmployeeEffect'
@@ -144,7 +144,7 @@ export function RegisterEmployeeForm() {
 
                   <FormActions
                     onCancel={() => navigate(-1)}
-                    cancelLabel="Cancelar"
+                    cancelLabel="Voltar"
                     submitLabel="Salvar"
                   />
                 </div>

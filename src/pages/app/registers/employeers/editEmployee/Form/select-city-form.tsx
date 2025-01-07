@@ -55,7 +55,11 @@ export function SelectCityForm({
         <FormItem className="flex flex-col mt-auto">
           <FormLabel>{label}</FormLabel>
           <Popover>
-            <PopoverTrigger disabled={disabled} asChild>
+            <PopoverTrigger
+              disabled={disabled}
+              className="disabled:hover:bg-transparent"
+              asChild
+            >
               <FormControl>
                 <Button
                   variant={'outline'}

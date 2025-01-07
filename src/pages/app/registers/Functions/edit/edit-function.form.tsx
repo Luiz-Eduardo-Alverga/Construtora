@@ -7,13 +7,13 @@ import { toast } from 'sonner'
 
 import { editFunction } from '@/api/employeeFunctions/edit-function'
 import { getFunction } from '@/api/employeeFunctions/get-function'
+import { FormHeader } from '@/components/form/form-header'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
 import { useFormStore } from '@/zustand/useSelectedDatesStore'
 
-import { FormHeader } from '../../employeers/editEmployee/Form/FormLayout/form-header'
 import {
   RegisterNewFunctionsSchema,
   registerNewFunctionsSchema,
@@ -21,6 +21,7 @@ import {
 import { SelectDaysOfWeek } from '../form/select-days-of-week'
 import { diasDaSemana } from '../register/register-new-functions-dialog'
 import { EditFunctionFormSkeleton } from '../skeleton/edit-card-skeleton'
+import { EmployeersTable } from './employee-tables'
 
 export function EditFunctionForm() {
   const { id } = useParams()
@@ -128,8 +129,10 @@ export function EditFunctionForm() {
     setRegistrationName,
   ])
 
+  console.log(isLoadingEmployeeFunctions)
+
   return (
-    <div>
+    <div className="mx-4">
       {isLoadingEmployeeFunctions ? (
         <EditFunctionFormSkeleton />
       ) : (
@@ -140,7 +143,7 @@ export function EditFunctionForm() {
               name={functionName?.data.funcao || ''}
             />
 
-            <div className="mx-4 sm:max-w-[450px] sm:mx-auto space-y-4">
+            <div className="sm:max-w-[450px] sm:mx-auto space-y-4">
               <div className="space-y-0.5">
                 <Label>Função</Label>
                 <Input {...editFunctionForm.register('nome')} />
@@ -167,7 +170,10 @@ export function EditFunctionForm() {
             </div>
           </form>
 
-          <Separator className="mt-2" />
+          <Separator className="mt-8 h-0.5 bg-purple-400" />
+          <Separator className="h-1 bg-secondary" />
+
+          <EmployeersTable functionId={id || ''} />
         </FormProvider>
       )}
     </div>
