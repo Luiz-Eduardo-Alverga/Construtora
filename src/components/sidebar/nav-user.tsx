@@ -1,7 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { BadgeCheck, ChevronsUpDown, LogOut } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
-import { toast } from 'sonner'
 
 import { logout } from '@/api/auth/logout'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -35,7 +34,8 @@ export function NavUser() {
       await userLogout()
       navigate('/sign-in')
     } catch {
-      toast.error('Erro ao fazer logout')
+      console.log('Logout realizado')
+      // toast.error('Erro ao fazer logout')
     }
   }
 

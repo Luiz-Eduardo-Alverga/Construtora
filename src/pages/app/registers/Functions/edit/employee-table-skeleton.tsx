@@ -22,13 +22,13 @@ export function EmployeersTableSkeleton() {
         {Array.from({ length: 10 }).map((_, i) => (
           <TableRow key={i}>
             <TableCell>
-              <Skeleton className="h-4" />
+              <Skeleton className="h-4 w-full" />
             </TableCell>
             <TableCell>
-              <Skeleton className="h-4" />
+              <Skeleton className="h-4 w-full" />
             </TableCell>
             <TableCell>
-              <Skeleton className="h-4" />
+              <Skeleton className="h-4 w-full" />
             </TableCell>
           </TableRow>
         ))}

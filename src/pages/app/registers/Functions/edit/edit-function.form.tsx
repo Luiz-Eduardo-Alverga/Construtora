@@ -129,8 +129,6 @@ export function EditFunctionForm() {
     setRegistrationName,
   ])
 
-  console.log(isLoadingEmployeeFunctions)
-
   return (
     <div className="mx-4">
       {isLoadingEmployeeFunctions ? (
