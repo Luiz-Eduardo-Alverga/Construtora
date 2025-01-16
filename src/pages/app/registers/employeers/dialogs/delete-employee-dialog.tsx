@@ -16,6 +16,7 @@ export function DeleteEmployeeDialog({
   onDelete,
 }: DeleteEmployeeProps) {
   const queryClient = useQueryClient()
+
   const { mutateAsync: deleteSelectedEmployee } = useMutation({
     mutationFn: () => deleteEmployee({ id: id || '' }),
     onSuccess: () => {
@@ -29,7 +30,9 @@ export function DeleteEmployeeDialog({
       })
     },
     onError: () => {
-      toast.error('Erro ao deletar o funcionário')
+      toast.error(
+        'Funcionário não pode ser excluido, pois já existem pontos registrados',
+      )
     },
   })
 

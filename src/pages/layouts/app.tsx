@@ -23,9 +23,11 @@ export function AppLayout() {
 
       (error) => {
         if (isAxiosError(error)) {
-          localStorage.removeItem('authToken')
-          localStorage.removeItem('target')
-          navigate('/sign-in', { replace: true })
+          if (error.response?.status === 401) {
+            localStorage.removeItem('authToken')
+            localStorage.removeItem('target')
+            navigate('/sign-in', { replace: true })
+          }
         }
       },
     )

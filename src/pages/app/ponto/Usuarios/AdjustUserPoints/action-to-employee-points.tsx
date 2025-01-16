@@ -1,4 +1,5 @@
 import { ClipboardPen, ListPlus, Printer } from 'lucide-react'
+import { useState } from 'react'
 import { NavLink } from 'react-router-dom'
 import { toast } from 'sonner'
 
@@ -25,6 +26,8 @@ export function OptionsToEmployeePoints({
   dateFrom,
   dateTo,
 }: OptionsToEmployeePointsProps) {
+  const [isDrawerOpen, setIsDrawerOpen] = useState(false)
+
   const selectedDates = useSelectedDatesStore((state) => state.selectedDates)
 
   const handleAdjustPointsClick = (
@@ -37,7 +40,7 @@ export function OptionsToEmployeePoints({
   }
 
   return (
-    <Drawer>
+    <Drawer open={isDrawerOpen} onOpenChange={setIsDrawerOpen}>
       <DropdownMenu>
         <DropdownMenuTrigger className="mt-2">
           <Button
@@ -74,7 +77,10 @@ export function OptionsToEmployeePoints({
         </DropdownMenuContent>
       </DropdownMenu>
 
-      <AdjustUserPointDrawer />
+      <AdjustUserPointDrawer
+        onClose={() => setIsDrawerOpen(false)}
+        employeeId={parsedEmployeeId || 0}
+      />
     </Drawer>
   )
 }

@@ -19,5 +19,7 @@ export async function deleteEmployee({ id }: DeleteEmployeeRequest) {
     },
   })
 
+  console.log(response.status)
+
   return response.data
 }

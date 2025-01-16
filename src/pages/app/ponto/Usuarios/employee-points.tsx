@@ -9,7 +9,7 @@ import { HeaderPages } from '@/components/header-pages'
 import { LoadingRequests } from '@/components/loading/loading'
 import { NoDataLayout } from '@/components/no-date-layout'
 
-import { OptionsToEmployeePoints } from './AdjustUserPoints/adjust-user-points-drawer'
+import { OptionsToEmployeePoints } from './AdjustUserPoints/action-to-employee-points'
 import { EmployeePontFilters } from './employee-point-filters'
 import { columns } from './EmployeePointsTable/colums'
 import { DataTable } from './EmployeePointsTable/data-table'

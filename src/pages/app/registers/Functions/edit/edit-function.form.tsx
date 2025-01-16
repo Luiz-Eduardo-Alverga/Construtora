@@ -130,7 +130,7 @@ export function EditFunctionForm() {
   ])
 
   return (
-    <div className="mx-4">
+    <div>
       {isLoadingEmployeeFunctions ? (
         <EditFunctionFormSkeleton />
       ) : (
@@ -141,7 +141,7 @@ export function EditFunctionForm() {
               name={functionName?.data.funcao || ''}
             />
 
-            <div className="sm:max-w-[450px] sm:mx-auto space-y-4">
+            <div className="mx-4 sm:max-w-[450px] sm:mx-auto space-y-4">
               <div className="space-y-0.5">
                 <Label>Função</Label>
                 <Input {...editFunctionForm.register('nome')} />
@@ -163,15 +163,20 @@ export function EditFunctionForm() {
 
               <div className="space-y-0.5">
                 <Label>Descrição</Label>
-                <Textarea {...editFunctionForm.register('descricao')} />
+                <Textarea
+                  className=" resize-none"
+                  {...editFunctionForm.register('descricao')}
+                />
               </div>
             </div>
           </form>
 
-          <Separator className="mt-8 h-0.5 bg-purple-400" />
-          <Separator className="h-1 bg-secondary" />
+          <div className="mx-4">
+            <Separator className="mt-8 h-0.5 bg-purple-400" />
+            <Separator className="h-1 bg-secondary" />
 
-          <EmployeersTable functionId={id || ''} />
+            <EmployeersTable functionId={id || ''} />
+          </div>
         </FormProvider>
       )}
     </div>

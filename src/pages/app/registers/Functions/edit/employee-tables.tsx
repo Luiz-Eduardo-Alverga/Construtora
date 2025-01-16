@@ -46,8 +46,6 @@ export function EmployeersTable({ functionId }: EmployeeTableProps) {
       }),
   })
 
-  console.log(isLoadingEmployeers)
-
   if (isLoadingEmployeers) {
     return <EmployeersTableSkeleton />
   }
