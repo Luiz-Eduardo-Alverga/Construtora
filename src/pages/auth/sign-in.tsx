@@ -1,15 +1,14 @@
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
-import { Eye, EyeOff, LoaderCircle } from 'lucide-react'
-import { useState } from 'react'
 import { Helmet } from 'react-helmet-async'
-import { useForm } from 'react-hook-form'
+import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { signIn } from '@/api/auth/sign-in'
-import { Button } from '@/components/ui/button'
+import { LoadingButton } from '@/components/buttons/loadingButton/loading-button'
+import { InputPassword } from '@/components/inputs/password/input-password'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 
@@ -21,13 +20,9 @@ const signInForm = z.object({
 type SignInForm = z.infer<typeof signInForm>
 
 export function SignIn() {
-  const [showPassword, setShowPassword] = useState(false)
+  const signInForm = useForm<SignInForm>()
 
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting },
-  } = useForm<SignInForm>()
+  const { register, handleSubmit } = signInForm
 
   const navigate = useNavigate()
 
@@ -66,51 +61,26 @@ export function SignIn() {
             Acompanhe seus horários pelo painel do parceiro
           </p>
         </div>
+        <FormProvider {...signInForm}>
+          <form className="space-y-4" onSubmit={handleSubmit(handleSignIn)}>
+            <div className="space-y-2">
+              <Label htmlFor="username">Seu E-mail</Label>
+              <Input
+                type="email"
+                className="text-base"
+                id="username"
+                {...register('username')}
+              />
+            </div>
 
-        <form className="space-y-4" onSubmit={handleSubmit(handleSignIn)}>
-          <div className="space-y-2">
-            <Label htmlFor="username">Seu E-mail</Label>
-            <Input
-              type="email"
-              className="h-12 text-base"
-              id="username"
-              {...register('username')}
+            <InputPassword label="Sua senha" registerName="password" />
+
+            <LoadingButton
+              label="Acessar painel"
+              className="w-full p-6 sm:p-0"
             />
-          </div>
-
-          <div className="space-y-2 relative">
-            <Label htmlFor="password">Sua senha</Label>
-            <Input
-              className="h-12 text-base pr-10"
-              id="password"
-              type={showPassword ? 'text' : 'password'}
-              {...register('password')}
-            />
-
-            <button
-              type="button"
-              className="absolute right-2 top-9"
-              onClick={() => setShowPassword(!showPassword)}
-            >
-              {showPassword ? (
-                <EyeOff className="h-5 w-5 text-gray-500" />
-              ) : (
-                <Eye className="h-5 w-5 text-gray-500" />
-              )}
-            </button>
-          </div>
-
-          <Button className="w-full p-6 sm:p-0" disabled={isSubmitting}>
-            {isSubmitting ? (
-              <div className="flex items-center justify-center gap-2">
-                <LoaderCircle className="h-5 w-5 animate-spin" />
-                Carregando...
-              </div>
-            ) : (
-              'Acessar painel'
-            )}
-          </Button>
-        </form>
+          </form>
+        </FormProvider>
       </div>
     </>
   )

@@ -1,6 +1,6 @@
 import { useMutation } from '@tanstack/react-query'
 import { BadgeCheck, ChevronsUpDown, LogOut } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
+import { NavLink, useNavigate } from 'react-router-dom'
 
 import { logout } from '@/api/auth/logout'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
@@ -80,10 +80,12 @@ export function NavUser() {
             <DropdownMenuSeparator />
 
             <DropdownMenuGroup>
-              <DropdownMenuItem className="space-x-2">
-                <BadgeCheck className="text-emerald-500" />
-                <span>Meu perfil</span>
-              </DropdownMenuItem>
+              <NavLink to="/cadastros/usuarios">
+                <DropdownMenuItem className="space-x-2">
+                  <BadgeCheck className="text-emerald-500" />
+                  <span>Meu perfil</span>
+                </DropdownMenuItem>
+              </NavLink>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={handleLogout} className="space-x-2">
