@@ -1,7 +1,7 @@
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
-import { EditEmployeeInformationTabs } from './edit-employee.-tab-informations'
 import { EditEmployeeAddressTab } from './edit-employee-tab-address'
+import { EditEmployeeInformationTabs } from './edit-employee-tab-informations'
 
 export function FormTabs() {
   return (
