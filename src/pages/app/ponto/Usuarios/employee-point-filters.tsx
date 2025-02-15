@@ -8,6 +8,7 @@ import { useSearchParams } from 'react-router-dom'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
+import { CalendarPicker } from '@/components/calendars/calendar-picker-range'
 import { Button } from '@/components/ui/button'
 import {
   Command,
@@ -31,8 +32,6 @@ import {
 } from '@/components/ui/popover'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { cn } from '@/lib/utils'
-
-import { CalendarPicker } from '../../../../components/calendar/calendar-picker-range'
 
 interface EmployeersProps {
   employeers:

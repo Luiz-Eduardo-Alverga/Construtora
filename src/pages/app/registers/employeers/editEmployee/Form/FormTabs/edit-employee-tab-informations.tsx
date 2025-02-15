@@ -1,10 +1,10 @@
 import { Controller, useFormContext } from 'react-hook-form'
 
+import { CalendarSingleDatePicker } from '@/components/calendars/calendar-picker-single'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { useDateStore } from '@/zustand/useSelectedDatesStore'
 
-import { CalendarSingleDatePicker } from '../../../../../../../components/calendar/calendar-picker-single' // Certifique-se de que o nome do componente é `SingleDatePicker`
 import { FormContainer } from '../FormLayout/form-container'
 import { InputForm } from '../input-form'
 import { SelectStatesForm } from '../select-states-form'

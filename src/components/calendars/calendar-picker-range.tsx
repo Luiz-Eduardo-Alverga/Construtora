@@ -72,7 +72,7 @@ export function CalendarPicker({ date, setDate }: CalendarPickerProps) {
           defaultMonth={new Date()}
           selected={date}
           onSelect={setDate}
-          numberOfMonths={numberOfMonths} // Número de meses dinâmico
+          numberOfMonths={numberOfMonths}
         />
       </PopoverContent>
     </Popover>
