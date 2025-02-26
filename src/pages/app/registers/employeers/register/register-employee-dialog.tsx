@@ -12,7 +12,7 @@ import { ProgressBar } from '@/components/progressBar'
 import { DialogContent, DialogDescription } from '@/components/ui/dialog'
 import { Workload } from '@/components/workoad'
 
-import { diasDaSemana } from '../../employeeFunctions/register/register-functions-dialog'
+import { diasDaSemana } from '../../employee-functions/register/register-functions-dialog'
 import { FirstStep } from './first-step'
 
 const registerNewEmployeeSchema = z.object({

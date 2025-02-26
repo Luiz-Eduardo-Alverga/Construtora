@@ -1,4 +1,4 @@
-import { diasDaSemana } from '../../../employeeFunctions/register/register-functions-dialog'
+import { diasDaSemana } from '../../../employee-functions/register/register-functions-dialog'
 import { EditEmployeeSchema } from '../edit-employee-form'
 import { Employee, fieldsMapping } from '../form/fields-mapping/fields'
 
