@@ -8,7 +8,7 @@ import { getEmployee } from '@/api/employee/get-employee'
 import { useDateStore, useFormStore } from '@/zustand/useSelectedDatesStore'
 
 import { EditEmployeeSchema } from '../edit-employee-form'
-import { fieldsMapping } from '../form/fieldsMapping'
+import { fieldsMapping } from '../form/fields-mapping'
 
 export function useEditEmployeeForm(
   editEmployeeForm: UseFormReturn<EditEmployeeSchema>,
