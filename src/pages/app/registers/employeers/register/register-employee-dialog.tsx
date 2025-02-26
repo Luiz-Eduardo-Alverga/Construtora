@@ -7,7 +7,7 @@ import { toast } from 'sonner'
 import { z } from 'zod'
 
 import { registerNewEmployee } from '@/api/employee/register-new-employee'
-import { DialogHeaderTitle } from '@/components/dialog/dialog-title'
+import { DialogHeaderTitle } from '@/components/dialogs/dialog-title'
 import { ProgressBar } from '@/components/progress-bar'
 import { DialogContent, DialogDescription } from '@/components/ui/dialog'
 import { Workload } from '@/components/workoad'

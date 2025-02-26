@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { useDateStore, useFormStore } from '@/zustand/useSelectedDatesStore'
 
-import { DialogHeaderTitle } from '../dialog/dialog-title'
+import { DialogHeaderTitle } from '../dialogs/dialog-title'
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
 import { Workload } from '../workoad'
 

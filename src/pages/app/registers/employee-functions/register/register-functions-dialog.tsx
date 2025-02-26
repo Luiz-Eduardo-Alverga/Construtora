@@ -5,7 +5,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 import { registerNewFunction } from '@/api/employee-functions/register-new-function'
-import { DialogHeaderTitle } from '@/components/dialog/dialog-title'
+import { DialogHeaderTitle } from '@/components/dialogs/dialog-title'
 import { ProgressBar } from '@/components/progress-bar'
 import { DialogContent, DialogDescription } from '@/components/ui/dialog'
 import { Workload } from '@/components/workoad'
