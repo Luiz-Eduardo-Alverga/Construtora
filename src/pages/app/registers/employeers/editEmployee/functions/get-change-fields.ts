@@ -1,6 +1,6 @@
 import { diasDaSemana } from '../../../employeeFunctions/register/register-functions-dialog'
 import { EditEmployeeSchema } from '../edit-employee-form'
-import { Employee, fieldsMapping } from '../form/fieldsForm/fields-mapping'
+import { Employee, fieldsMapping } from '../form/fieldsMapping'
 
 export function getChangedFields(
   data: EditEmployeeSchema,
