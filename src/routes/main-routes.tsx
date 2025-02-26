@@ -1,7 +1,7 @@
 import { RouteObject } from 'react-router-dom'
 
 import { NotFound } from '@/pages/404'
-import { Dashboard } from '@/pages/app/dashboard/dashboard'
+import { Dashboard } from '@/pages/app/dashboard'
 import { UsersEnterprises } from '@/pages/auth/enterprise'
 import { SignIn } from '@/pages/auth/sign-in'
 import { Error } from '@/pages/error'
