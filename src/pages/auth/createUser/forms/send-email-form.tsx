@@ -10,7 +10,7 @@ import { LoadingButton } from '@/components/buttons/loadingButton/loading-button
 import { InputPassword } from '@/components/inputs/password/input-password'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { APIError } from '@/interfaces/error'
+import { APIError } from '@/interfaces/error/index'
 
 const createUserSchema = z
   .object({
