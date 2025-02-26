@@ -1,7 +1,7 @@
 import { RouteObject } from 'react-router-dom'
 
 import { Employeers } from '@/pages/app/registers/employeers'
-import { RegisterEmployeeForm } from '@/pages/app/registers/employeers/editEmployee/edit-employee-form'
+import { RegisterEmployeeForm } from '@/pages/app/registers/employeers/edit-employee/edit-employee-form'
 import { Error } from '@/pages/error'
 import { AppLayout } from '@/pages/layouts/app'
 
