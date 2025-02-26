@@ -13,7 +13,7 @@ import { editEmployeeSchema } from './form/fieldsMapping'
 import { FormHeaderFirstLine } from './form/formLayout/form-first-line'
 import { FormSecondLine } from './form/formLayout/form-second-line'
 import { FormTabs } from './form/formTabs/form-tabs'
-import { useEditEmployeeForm } from './hooks/useEditEmployeeEffect'
+import { useEditEmployeeForm } from './hooks/use-editEmployee-effect'
 import { useHandleEditEmployee } from './hooks/useHandleEditEmployee'
 import { RegisterEmployeeFormSkeleton } from './skeleton/register-employee-form-skeleton'
 
