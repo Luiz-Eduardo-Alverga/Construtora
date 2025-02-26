@@ -9,7 +9,7 @@ import { useParsedDaysOfWeek } from '@/hooks/useParsedDaysOfWeek'
 import { useDateStore } from '@/zustand/useSelectedDatesStore'
 
 import { FormActions } from '../../../../../components/form/form-actions'
-import { editEmployeeSchema } from './form/fields-mapping'
+import { editEmployeeSchema } from './form/fields-mapping/fields'
 import { FormHeaderFirstLine } from './form/formLayout/form-first-line'
 import { FormSecondLine } from './form/formLayout/form-second-line'
 import { FormTabs } from './form/formTabs/form-tabs'
