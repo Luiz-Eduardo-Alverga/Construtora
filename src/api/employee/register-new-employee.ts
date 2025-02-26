@@ -1,13 +1,16 @@
 import { api } from '@/lib/axios'
 
 interface RegisterNewEmployeeBody {
-  nome: string
-  Funcao: number
+  dadosfuncionario: {
+    nome: string
+    funcao: number
+    horas: string
+    diasJornada: Record<string, boolean>
+  }
 }
 
 export async function registerNewEmployee({
-  nome,
-  Funcao,
+  dadosfuncionario,
 }: RegisterNewEmployeeBody) {
   const token = localStorage.getItem('authToken')
   const target = localStorage.getItem('target')
@@ -16,8 +19,7 @@ export async function registerNewEmployee({
   const response = await api.post(
     '/Funcionarios/Cadastrar',
     {
-      nome,
-      Funcao,
+      dadosfuncionario,
       target,
       user,
     },

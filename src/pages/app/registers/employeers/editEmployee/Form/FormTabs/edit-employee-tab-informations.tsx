@@ -5,7 +5,7 @@ import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { useDateStore } from '@/zustand/useSelectedDatesStore'
 
-import { FormContainer } from '../FormLayout/form-container'
+import { FormContainer } from '../formLayout/form-container'
 import { InputForm } from '../input-form'
 import { SelectStatesForm } from '../select-states-form'
 

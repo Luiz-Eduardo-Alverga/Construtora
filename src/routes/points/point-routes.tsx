@@ -1,7 +1,7 @@
 import { RouteObject } from 'react-router-dom'
 
-import { PointOptions } from '@/pages/app/ponto/point'
-import { EmployeePoints } from '@/pages/app/ponto/Usuarios/employee-points'
+import { PointOptions } from '@/pages/app/point'
+import { EmployeePoints } from '@/pages/app/point/employeers/employee-points'
 import { AppLayout } from '@/pages/layouts/app'
 
 import ProtectedRoute from '../protected-routes'

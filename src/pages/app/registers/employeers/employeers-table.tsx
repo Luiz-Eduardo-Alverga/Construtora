@@ -20,7 +20,7 @@ import {
   TableRow,
 } from '@/components/ui/table'
 
-import { DeleteEmployeeDialog } from './dialogs/delete-employee-dialog'
+import { DeleteEmployeeDialog } from './delete/delete-employee-dialog'
 import { EmployeersTableSkeleton } from './skeleton/employeers-table-skeleton'
 
 interface EmployeersProps {
@@ -109,7 +109,7 @@ export function EmployeersTable({
                         <DeleteEmployeeDialog
                           id={employee.cod}
                           name={employee.nome}
-                          onDelete={(id) => setRemovingEmployeeId(id)} // Definindo o ID do funcionário
+                          onDelete={(id) => setRemovingEmployeeId(id)}
                         />
                       </AlertDialog>
                     </TableCell>

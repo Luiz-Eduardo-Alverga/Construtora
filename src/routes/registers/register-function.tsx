@@ -1,7 +1,7 @@
 import { RouteObject } from 'react-router-dom'
 
-import { EmployeeJourney } from '@/pages/app/registers/Functions'
-import { EditFunctionForm } from '@/pages/app/registers/Functions/edit/edit-function.form'
+import { EmployeeJourney } from '@/pages/app/registers/employeeFunctions'
+import { EditFunctionForm } from '@/pages/app/registers/employeeFunctions/edit/edit-function.form'
 import { Error } from '@/pages/error'
 import { AppLayout } from '@/pages/layouts/app'
 

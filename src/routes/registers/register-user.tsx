@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router-dom'
 
-import { RegisterUser } from '@/pages/app/registers/Users/Users'
+import { RegisterUser } from '@/pages/app/registers/users'
 import { Error } from '@/pages/error'
 import { AppLayout } from '@/pages/layouts/app'
 

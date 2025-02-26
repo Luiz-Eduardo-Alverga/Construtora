@@ -14,11 +14,11 @@ interface DeleteModalProps {
   prefixLabel: string
   label: string
   register: string
-  deleteEmployee: () => void
+  deleteFunction: () => void
 }
 
 export function DeleteModal({
-  deleteEmployee,
+  deleteFunction,
   label,
   register,
   prefixLabel,
@@ -38,7 +38,7 @@ export function DeleteModal({
           <AlertDialogCancel>Cancelar</AlertDialogCancel>
         </Button>
 
-        <Button asChild variant={'destructive'} onClick={deleteEmployee}>
+        <Button asChild variant={'destructive'} onClick={deleteFunction}>
           <AlertDialogAction>Continuar</AlertDialogAction>
         </Button>
       </AlertDialogFooter>

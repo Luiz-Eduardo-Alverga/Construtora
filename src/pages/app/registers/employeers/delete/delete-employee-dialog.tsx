@@ -44,7 +44,7 @@ export function DeleteEmployeeDialog({
     <DeleteModal
       prefixLabel="o"
       label="usuário"
-      deleteEmployee={handleDeleteEmployee}
+      deleteFunction={handleDeleteEmployee}
       register={name || ''}
     />
   )

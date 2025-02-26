@@ -1,6 +1,7 @@
 import { useMutation } from '@tanstack/react-query'
 import {
   ArrowLeft,
+  Clock,
   Eraser,
   ListPlus,
   SquareCheckBig,
@@ -21,6 +22,10 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { useDateStore, useFormStore } from '@/zustand/useSelectedDatesStore'
+
+import { DialogHeaderTitle } from '../Dialog/dialog-title'
+import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
+import { Workload } from '../workoad'
 
 interface FormActionsProps {
   onCancel?: () => void
@@ -75,24 +80,42 @@ export function FormActions({
 
   return (
     <div className="flex flex-col sm:flex-row gap-4">
-      <DropdownMenu>
-        <DropdownMenuTrigger asChild>
-          <Button
-            variant={'outline'}
-            className="bg-blue-500 gap-2 text-white hover:bg-blue-500/90 hover:text-white"
-          >
-            <ListPlus className="w-4 h-4" />
-            <span> Mais opçoes</span>
-          </Button>
-        </DropdownMenuTrigger>
+      <Dialog>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Button
+              variant={'outline'}
+              className="bg-blue-500 gap-2 text-white hover:bg-blue-500/90 hover:text-white"
+            >
+              <ListPlus className="w-4 h-4" />
+              <span> Mais opçoes</span>
+            </Button>
+          </DropdownMenuTrigger>
 
-        <DropdownMenuContent align="center">
-          <DropdownMenuItem className=" gap-2" onClick={clearInputs}>
-            <Eraser className="h-4 w-4" />
-            <span>Limpar Campos</span>
-          </DropdownMenuItem>
-        </DropdownMenuContent>
-      </DropdownMenu>
+          <DropdownMenuContent align="center">
+            <DropdownMenuItem className=" gap-2" onClick={clearInputs}>
+              <Eraser className="h-4 w-4" />
+              <span>Limpar Campos</span>
+            </DropdownMenuItem>
+
+            <DropdownMenuItem asChild className="gap-2">
+              <DialogTrigger>
+                <Clock className="h-4 w-4" />
+                <span>Jornada de trabalho</span>
+              </DialogTrigger>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
+
+        <DialogContent>
+          <DialogHeaderTitle title="Edite a jornada de trabalho" />
+          <Workload
+            isButtonCloseDialog
+            isBackButtonVisible={false}
+            registerName="horas"
+          />
+        </DialogContent>
+      </Dialog>
 
       <AlertDialog>
         <AlertDialogTrigger asChild>
@@ -108,7 +131,7 @@ export function FormActions({
 
         <DeleteModal
           prefixLabel="a"
-          deleteEmployee={handleDeleteRegistration}
+          deleteFunction={handleDeleteRegistration}
           label="função"
           register={registrationName || ''}
         />

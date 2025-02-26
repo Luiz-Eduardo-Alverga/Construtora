@@ -5,19 +5,16 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 
 import { registerNewFunction } from '@/api/employeeFunctions/register-new-function'
-import {
-  DialogContent,
-  DialogDescription,
-  DialogTitle,
-} from '@/components/ui/dialog'
-import { Progress } from '@/components/ui/progress'
+import { DialogHeaderTitle } from '@/components/Dialog/dialog-title'
+import { ProgressBar } from '@/components/progressBar'
+import { DialogContent, DialogDescription } from '@/components/ui/dialog'
+import { Workload } from '@/components/workoad'
 
 import {
   RegisterNewFunctionsSchema,
   registerNewFunctionsSchema,
 } from '../form/form-fields'
 import { FirstStep } from './first-step'
-import { SecondStep } from './second-step'
 
 export const diasDaSemana = [
   'segunda',
@@ -115,17 +112,9 @@ export function RegisterNewFunctionDialog({
   return (
     <DialogContent>
       <div className="space-y-4">
-        <DialogTitle>
-          <h1 className="text-xl font-semibold">Cadastre uma função</h1>
-        </DialogTitle>
+        <DialogHeaderTitle title="Cadastre uma função" />
 
-        <div className="space-y-2">
-          <span>
-            Etapa <strong className="text-primary">{step}</strong> de{' '}
-            <strong className="text-primary">2</strong>
-          </span>
-          <Progress value={progress} className="w-[100%]"></Progress>
-        </div>
+        <ProgressBar value={progress} step={step} progress={progress} />
 
         <DialogDescription>
           <FormProvider {...registerNewFunctionForm}>
@@ -142,9 +131,10 @@ export function RegisterNewFunctionDialog({
               )}
 
               {progress === 100 && (
-                <SecondStep
-                  setProgress={() => setProgress(50)}
-                  setStep={() => setStep(1)}
+                <Workload
+                  registerName="horasSemanais"
+                  setProgress={setProgress}
+                  setStep={setStep}
                 />
               )}
             </form>

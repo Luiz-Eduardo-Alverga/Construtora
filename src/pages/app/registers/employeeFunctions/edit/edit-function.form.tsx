@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery } from '@tanstack/react-query'
-import { useEffect, useMemo } from 'react'
+import { useEffect } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { useNavigate, useParams } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -12,14 +12,15 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 import { Textarea } from '@/components/ui/textarea'
+import { useParsedDaysOfWeek } from '@/hooks/useParsedDaysOfWeek'
 import { useFormStore } from '@/zustand/useSelectedDatesStore'
 
+import { SelectDaysOfWeek } from '../../../../../components/workoad/select-days-of-week'
 import {
   RegisterNewFunctionsSchema,
   registerNewFunctionsSchema,
 } from '../form/form-fields'
-import { SelectDaysOfWeek } from '../form/select-days-of-week'
-import { diasDaSemana } from '../register/register-new-functions-dialog'
+import { diasDaSemana } from '../register/register-functions-dialog'
 import { EditFunctionFormSkeleton } from '../skeleton/edit-card-skeleton'
 import { EmployeersTable } from './employee-tables'
 
@@ -37,21 +38,7 @@ export function EditFunctionForm() {
       queryFn: () => getFunction({ id: id || '' }),
     })
 
-  const parsedDaysOfWeek = useMemo(() => {
-    if (!functionName?.data.diasJornada) return []
-
-    const diasJornada = functionName.data.diasJornada
-
-    if (typeof diasJornada === 'string') {
-      return Object.entries(JSON.parse(diasJornada))
-        .filter(([, value]) => value === true)
-        .map(([day]) => day)
-    }
-
-    return Object.entries(diasJornada)
-      .filter(([, value]) => value === true)
-      .map(([day]) => day)
-  }, [functionName?.data.diasJornada])
+  const parsedDaysOfWeek = useParsedDaysOfWeek(functionName?.data.diasJornada)
 
   const editFunctionForm = useForm<RegisterNewFunctionsSchema>({
     resolver: zodResolver(registerNewFunctionsSchema),

@@ -43,8 +43,8 @@ export function ConfirmCodeDialog({ email }: ConfirmCodeDialogProps) {
           />
 
           <DialogFooter className="m-auto">
-            <span className="text-red-500">
-              Não saia da tela até confirmar o código
+            <span className="text-red-500 text-center">
+              Não recarregue a página ou saia da tela até confirmar o código
             </span>
           </DialogFooter>
         </>

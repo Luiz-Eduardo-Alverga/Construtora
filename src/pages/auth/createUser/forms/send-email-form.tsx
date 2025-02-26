@@ -10,7 +10,7 @@ import { LoadingButton } from '@/components/buttons/loadingButton/loading-button
 import { InputPassword } from '@/components/inputs/password/input-password'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { APIError } from '@/interfaces/Error'
+import { APIError } from '@/interfaces/error'
 
 const createUserSchema = z
   .object({
@@ -74,7 +74,6 @@ export function SendEmailForm({ setIsDialogOpen, setEmail }: SendEmailProps) {
                 type="email"
                 placeholder="m@example.com"
                 required
-                className=""
                 {...register('email')}
               />
               {errors.email && (

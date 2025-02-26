@@ -20,7 +20,7 @@ import {
   InputOTPSeparator,
   InputOTPSlot,
 } from '@/components/ui/input-otp'
-import { APIError } from '@/interfaces/Error'
+import { APIError } from '@/interfaces/error'
 
 const confirmCodeSchema = z.object({
   pin: z.string().min(6, {

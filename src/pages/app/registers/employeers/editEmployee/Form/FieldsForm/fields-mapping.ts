@@ -2,7 +2,7 @@ import { z } from 'zod'
 
 import { EditEmployeeSchema } from '../../edit-employee-form'
 
-interface Employee {
+export interface Employee {
   id: string | null
   nome: string | null
   codigo: string | null
@@ -31,6 +31,8 @@ interface Employee {
   nascimentoMunicipio: string | null
   funcao: number | null
   dataNascimento: string | null
+  diasJornada?: Record<string, boolean>
+  horas?: number | null
 }
 
 export const fieldsMapping: {
@@ -58,6 +60,7 @@ export const fieldsMapping: {
   { formField: 'ctps', employeeField: 'ctps' },
   { formField: 'cpf', employeeField: 'cpf' },
   { formField: 'pis', employeeField: 'pisPasep' },
+  { formField: 'horas', employeeField: 'horas' },
 ]
 
 export const editEmployeeSchema = z.object({
@@ -87,4 +90,10 @@ export const editEmployeeSchema = z.object({
   ctps: z.string().optional(),
   dataDemissao: z.string().optional(),
   cpf: z.string().optional(),
+  horas: z.coerce.number().optional(),
+  daysOfWeek: z
+    .array(z.string())
+    .refine((value) => value.some((item) => item), {
+      message: 'Selecione pelo menos um dia da semana',
+    }),
 })

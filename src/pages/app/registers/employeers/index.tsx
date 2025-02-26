@@ -12,9 +12,9 @@ import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'
 import { Separator } from '@/components/ui/separator'
 
-import { RegisterNewEmployeeDialog } from './dialogs/register-employee-dialog'
 import { EmployeersFilters } from './employeers-filters'
 import { EmployeersTable } from './employeers-table'
+import { RegisterNewEmployeeDialog } from './register/register-employee-dialog'
 
 export function Employeers() {
   const [isDialogOpen, setIsDialogOpen] = useState(false)

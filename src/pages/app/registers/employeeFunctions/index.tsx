@@ -11,7 +11,7 @@ import { Separator } from '@/components/ui/separator'
 
 import { FilterFunctions } from './filter-functions'
 import { FunctionsCard } from './functions-card'
-import { RegisterNewFunctionDialog } from './register/register-new-functions-dialog'
+import { RegisterNewFunctionDialog } from './register/register-functions-dialog'
 import { CardSkeleton } from './skeleton/function-card-skeleton'
 
 export function EmployeeJourney() {

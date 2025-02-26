@@ -1,16 +1,17 @@
 import { useQuery } from '@tanstack/react-query'
 import { addMinutes, parseISO } from 'date-fns'
 import { useEffect } from 'react'
-import { useForm } from 'react-hook-form'
+import { UseFormReturn } from 'react-hook-form'
 import { useLocation, useParams } from 'react-router-dom'
 
 import { getEmployee } from '@/api/employee/get-employee'
 import { useDateStore, useFormStore } from '@/zustand/useSelectedDatesStore'
 
-import { fieldsMapping } from '../FieldsForm/fields-mapping'
+import { EditEmployeeSchema } from '../edit-employee-form'
+import { fieldsMapping } from '../form/fieldsForm/fields-mapping'
 
 export function useEditEmployeeForm(
-  editEmployeeForm: ReturnType<typeof useForm>,
+  editEmployeeForm: UseFormReturn<EditEmployeeSchema>,
 ) {
   const { id } = useParams()
   const location = useLocation()
