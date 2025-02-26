@@ -31,8 +31,7 @@ export interface Employee {
   nascimentoMunicipio: string | null
   funcao: number | null
   dataNascimento: string | null
-  diasJornada?: Record<string, boolean>
-  horas?: number | null
+  horas: number | null
 }
 
 export const fieldsMapping: {

@@ -34,7 +34,8 @@ export interface GetEmployeeResponse {
     nascimentoMunicipio: string | null
     funcao: number | null
     dataNascimento: string | null
-    diasJornada?: Record<string, boolean>
+    diasJornada: Record<string, boolean>
+    horas: number | null
   }[]
 }
 
