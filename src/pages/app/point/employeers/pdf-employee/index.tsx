@@ -10,8 +10,8 @@ import { useQuery } from '@tanstack/react-query'
 import { Helmet } from 'react-helmet-async'
 import { useParams } from 'react-router-dom'
 
-import { getEmployeePointsPdf } from '@/api/employeePoints/get-employee-data-pdf'
-import { getEmployeePoints } from '@/api/employeePoints/get-employee-points'
+import { getEmployeePointsPdf } from '@/api/employee-points/get-employee-data-pdf'
+import { getEmployeePoints } from '@/api/employee-points/get-employee-points'
 
 interface EmployeePointsData {
   data: {

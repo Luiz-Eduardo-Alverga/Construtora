@@ -3,7 +3,7 @@ import { PlusCircle, Watch } from 'lucide-react'
 import { useState } from 'react'
 import { useSearchParams } from 'react-router-dom'
 
-import { getEmployeeFunctions } from '@/api/employeeFunctions/get-functions'
+import { getEmployeeFunctions } from '@/api/employee-functions/get-functions'
 import { HeaderPages } from '@/components/header-pages'
 import { Button } from '@/components/ui/button'
 import { Dialog, DialogTrigger } from '@/components/ui/dialog'

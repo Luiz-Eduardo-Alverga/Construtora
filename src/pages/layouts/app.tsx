@@ -2,7 +2,7 @@ import { isAxiosError } from 'axios'
 import { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router-dom'
 
-import { BreadcrumbNav } from '@/components/breadcrumbsNav' // Importa o BreadcrumbNav
+import { BreadcrumbNav } from '@/components/breadcrumbs-nav' // Importa o BreadcrumbNav
 // import { Aside } from '@/components/aside'
 import { AppSidebar } from '@/components/sidebar/app-sidebar'
 import { ModeToggle } from '@/components/theme/theme-toggle'

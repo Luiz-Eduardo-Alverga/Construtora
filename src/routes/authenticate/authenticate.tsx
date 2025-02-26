@@ -1,6 +1,6 @@
 import { RouteObject } from 'react-router-dom'
 
-import { Authenticate } from '@/pages/auth/createUser'
+import { Authenticate } from '@/pages/auth/create-user'
 import { Error } from '@/pages/error'
 
 export const authenticateUser: RouteObject = {

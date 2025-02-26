@@ -1,6 +1,6 @@
 import { Separator } from '@/components/ui/separator'
 import { Skeleton } from '@/components/ui/skeleton'
-import { FormContainer } from '../form/formLayout/form-container'
+import { FormContainer } from '../form/form-layout/form-container'
 
 export function RegisterEmployeeFormSkeleton() {
   return (

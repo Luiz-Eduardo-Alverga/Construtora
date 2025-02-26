@@ -2,16 +2,16 @@ import { useQuery } from '@tanstack/react-query'
 import { FileClock } from 'lucide-react'
 import { useSearchParams } from 'react-router-dom'
 
-import { getEmployeePoints } from '@/api/employeePoints/get-employee-points'
+import { getEmployeePoints } from '@/api/employee-points/get-employee-points'
 import searchInfo from '@/assets/searcrInfo.svg'
 import { HeaderPages } from '@/components/header-pages'
 import { LoadingRequests } from '@/components/loading/loading'
 import { NoDataLayout } from '@/components/no-date-layout'
 
-import { OptionsToEmployeePoints } from './adjustUserPoints/action-to-employee-points'
+import { OptionsToEmployeePoints } from './adjust-user-points/action-to-employee-points'
 import { EmployeePontFilters } from './employee-point-filters'
-import { columns } from './employeePointsTable/colums'
-import { DataTable } from './employeePointsTable/data-table'
+import { columns } from './employee-points-table/colums'
+import { DataTable } from './employee-points-table/data-table'
 
 export function EmployeePoints() {
   const [searchParams] = useSearchParams()

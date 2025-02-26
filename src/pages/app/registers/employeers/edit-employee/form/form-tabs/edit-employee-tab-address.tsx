@@ -9,7 +9,7 @@ import { InputWithMask } from '@/components/ui/input-mask'
 import { Label } from '@/components/ui/label'
 import { Separator } from '@/components/ui/separator'
 
-import { FormContainer } from '../formLayout/form-container'
+import { FormContainer } from '../form-layout/form-container'
 import { InputForm } from '../input-form'
 import { SelectCityForm } from '../select-city-form'
 import { SelectStatesForm } from '../select-states-form'

@@ -11,7 +11,7 @@ import { useFormContext } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
 
-import { deleteFunction } from '@/api/employeeFunctions/delete-function'
+import { deleteFunction } from '@/api/employee-functions/delete-function'
 import { DeleteModal } from '@/components/delete/delete-modal'
 import { AlertDialog, AlertDialogTrigger } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
@@ -23,7 +23,7 @@ import {
 } from '@/components/ui/dropdown-menu'
 import { useDateStore, useFormStore } from '@/zustand/useSelectedDatesStore'
 
-import { DialogHeaderTitle } from '../Dialog/dialog-title'
+import { DialogHeaderTitle } from '../dialog/dialog-title'
 import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
 import { Workload } from '../workoad'
 

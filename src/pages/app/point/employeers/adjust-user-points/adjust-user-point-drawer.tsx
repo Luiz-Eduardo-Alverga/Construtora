@@ -6,7 +6,7 @@ import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
 import { z } from 'zod'
 
-import { AdjustPoints } from '@/api/employeePoints/adjust-point'
+import { AdjustPoints } from '@/api/employee-points/adjust-point'
 import optionsImage from '@/assets/optionsImage.svg'
 import { Button } from '@/components/ui/button'
 import {

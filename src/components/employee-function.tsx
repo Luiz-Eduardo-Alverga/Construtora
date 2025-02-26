@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { useEffect } from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
 
-import { getEmployeeFunctions } from '@/api/employeeFunctions/get-functions'
+import { getEmployeeFunctions } from '@/api/employee-functions/get-functions'
 import { Label } from '@/components/ui/label'
 import {
   Select,

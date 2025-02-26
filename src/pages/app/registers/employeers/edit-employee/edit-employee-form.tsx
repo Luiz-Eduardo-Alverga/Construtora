@@ -5,16 +5,16 @@ import { z } from 'zod'
 
 import { FormHeader } from '@/components/form/form-header'
 import { Separator } from '@/components/ui/separator'
-import { useParsedDaysOfWeek } from '@/hooks/useParsedDaysOfWeek'
+import { useParsedDaysOfWeek } from '@/hooks/use-parsed-days-of-week'
 import { useDateStore } from '@/zustand/useSelectedDatesStore'
 
 import { FormActions } from '../../../../../components/form/form-actions'
 import { editEmployeeSchema } from './form/fields-mapping/fields'
-import { FormHeaderFirstLine } from './form/formLayout/form-first-line'
-import { FormSecondLine } from './form/formLayout/form-second-line'
-import { FormTabs } from './form/formTabs/form-tabs'
+import { FormHeaderFirstLine } from './form/form-layout/form-first-line'
+import { FormSecondLine } from './form/form-layout/form-second-line'
+import { FormTabs } from './form/form-tabs/form-tabs'
 import { useEditEmployeeForm } from './hooks/use-editEmployee-effect'
-import { useHandleEditEmployee } from './hooks/useHandleEditEmployee'
+import { useHandleEditEmployee } from './hooks/use-handle-edit-employee'
 import { RegisterEmployeeFormSkeleton } from './skeleton/register-employee-form-skeleton'
 
 export type EditEmployeeSchema = z.infer<typeof editEmployeeSchema>
