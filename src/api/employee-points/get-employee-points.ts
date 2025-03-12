@@ -7,6 +7,8 @@ export interface GetEmployeeQuery {
 }
 
 export interface EmployeePointsResponse {
+  BancoHoras: string
+  HorasTrabalhadas: string
   data: {
     Data: string
     HoraInicio: string | null

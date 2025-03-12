@@ -19,10 +19,12 @@ interface GetFunctionsResponse {
 
 interface GetFunctionsParams {
   funcao?: string
+  id?: number
 }
 
 export async function getEmployeeFunctions({
   funcao,
+  id,
 }: GetFunctionsParams): Promise<GetFunctionsResponse> {
   const target = localStorage.getItem('target')
   const token = localStorage.getItem('authToken')
@@ -33,6 +35,7 @@ export async function getEmployeeFunctions({
       target,
       user,
       funcao,
+      id,
     },
     headers: {
       Authorization: token,

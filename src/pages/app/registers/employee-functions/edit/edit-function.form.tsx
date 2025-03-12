@@ -124,6 +124,7 @@ export function EditFunctionForm() {
         <FormProvider {...editFunctionForm}>
           <form onSubmit={editFunctionForm.handleSubmit(handleEditFunction)}>
             <FormHeader
+              visibleItems={['clearInputs']}
               label={'Função'}
               name={functionName?.data.funcao || ''}
             />

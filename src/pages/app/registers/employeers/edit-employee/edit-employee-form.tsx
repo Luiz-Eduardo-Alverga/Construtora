@@ -57,7 +57,11 @@ export function RegisterEmployeeForm() {
           {employeers &&
             employeers?.data.map((employee) => (
               <div key={employee.id}>
-                <FormHeader label={'Funcionário'} name={employee.nome} />
+                <FormHeader
+                  visibleItems={['addUser', 'clearInputs', 'workload']}
+                  label={'Funcionário'}
+                  name={employee.nome}
+                />
 
                 <div className="mx-4 space-y-6 ">
                   <FormHeaderFirstLine />
@@ -73,6 +77,7 @@ export function RegisterEmployeeForm() {
                   <Separator />
 
                   <FormActions
+                    visibleItems={['addUser', 'clearInputs', 'workload']}
                     onCancel={() => navigate(-1)}
                     cancelLabel="Voltar"
                     submitLabel="Salvar"

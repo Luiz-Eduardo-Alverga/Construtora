@@ -7,9 +7,10 @@ import { FormActions } from './form-actions'
 interface FormHeaderProps {
   name: string | null
   label: string | null
+  visibleItems: Array<'workload' | 'clearInputs' | 'addUser'>
 }
 
-export function FormHeader({ name, label }: FormHeaderProps) {
+export function FormHeader({ name, label, visibleItems }: FormHeaderProps) {
   const navigate = useNavigate()
 
   return (
@@ -20,6 +21,7 @@ export function FormHeader({ name, label }: FormHeaderProps) {
         </h1>
 
         <FormActions
+          visibleItems={visibleItems}
           onCancel={() => navigate(-1)}
           cancelLabel="Voltar"
           submitLabel="Salvar"

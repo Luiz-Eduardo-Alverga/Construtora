@@ -9,6 +9,8 @@ import { LoadingRequests } from '@/components/loading/loading'
 interface SelectEnterpriseProps {
   target: string
   user: string
+  enterpriseId: number
+  empresaName: string
 }
 
 export function UsersEnterprises() {
@@ -22,7 +24,6 @@ export function UsersEnterprises() {
   })
 
   useEffect(() => {
-    // Garantir que userEnterprises é válido e tem dados
     if (userEnterprises?.data?.length === 1) {
       const firstEnterprise = userEnterprises.data[0]
       localStorage.setItem('target', firstEnterprise.target)
@@ -31,9 +32,17 @@ export function UsersEnterprises() {
     }
   }, [navigate, userEnterprises?.data])
 
-  function handleSelectEnterprise({ target, user }: SelectEnterpriseProps) {
+  function handleSelectEnterprise({
+    target,
+    user,
+    enterpriseId,
+    empresaName,
+  }: SelectEnterpriseProps) {
+    console.log(userEnterprises)
     localStorage.setItem('target', target)
     localStorage.setItem('user', user)
+    localStorage.setItem('enterpriseId', String(enterpriseId))
+    localStorage.setItem('enterpriseName', empresaName)
 
     navigate('/app')
   }
@@ -51,6 +60,8 @@ export function UsersEnterprises() {
               handleSelectEnterprise({
                 target: userEnterprise.target,
                 user: userEnterprise.user,
+                enterpriseId: userEnterprise.idEmpresa,
+                empresaName: userEnterprise.empresa,
               })
             }
             key={userEnterprise.idEmpresa}

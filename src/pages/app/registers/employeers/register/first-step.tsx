@@ -1,10 +1,15 @@
+import { useQuery } from '@tanstack/react-query'
 import { useFormContext } from 'react-hook-form'
 
+import { getFunction } from '@/api/employee-functions/get-function'
 import { SelectEmployeeFunctions } from '@/components/employee-function'
 import { Button } from '@/components/ui/button'
 import { DialogClose } from '@/components/ui/dialog'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
+import { useParsedDaysOfWeek } from '@/hooks/use-parsed-days-of-week'
+
+import { RegisterNewEmployeeSchema } from './fields'
 
 interface FirstStepProps {
   onClose: () => void
@@ -13,10 +18,24 @@ interface FirstStepProps {
 }
 
 export function FirstStep({ onClose, setStep, setProgress }: FirstStepProps) {
-  const { register, watch } = useFormContext()
+  const { register, watch, setValue } =
+    useFormContext<RegisterNewEmployeeSchema>()
 
   const nameValue = watch('name')
   const funcaoValue = watch('funcao')
+
+  const { data: functionName } = useQuery({
+    queryKey: ['function', funcaoValue],
+    queryFn: () => getFunction({ id: String(funcaoValue) || '' }),
+    enabled: funcaoValue > 0,
+  })
+
+  const parsedDaysOfWeek = useParsedDaysOfWeek(functionName?.data?.diasJornada)
+
+  console.log(functionName?.data?.horasSemanais)
+
+  setValue('daysOfWeek', parsedDaysOfWeek)
+  setValue('horasSemanais', functionName?.data?.horasSemanais || '')
 
   const isInputNameValid = nameValue === undefined || nameValue?.length < 3
   const inFuncaoValueValid = funcaoValue === undefined || funcaoValue === 0

@@ -4,7 +4,6 @@ import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useEffect, useState } from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import { toast } from 'sonner'
-import { z } from 'zod'
 
 import { registerNewEmployee } from '@/api/employee/register-new-employee'
 import { DialogHeaderTitle } from '@/components/dialogs/dialog-title'
@@ -13,20 +12,8 @@ import { DialogContent, DialogDescription } from '@/components/ui/dialog'
 import { Workload } from '@/components/workoad'
 
 import { diasDaSemana } from '../../employee-functions/register/register-functions-dialog'
+import { RegisterNewEmployeeSchema, registerNewEmployeeSchema } from './fields'
 import { FirstStep } from './first-step'
-
-const registerNewEmployeeSchema = z.object({
-  name: z.string(),
-  funcao: z.coerce.number(),
-  horasSemanais: z.string(),
-  daysOfWeek: z
-    .array(z.string())
-    .refine((value) => value.some((item) => item), {
-      message: 'Selecione pelo menos um dia da semana',
-    }),
-})
-
-type RegisterNewEmployeeSchema = z.infer<typeof registerNewEmployeeSchema>
 
 interface RegisterNewEmployeeProps {
   onClose: () => void
@@ -39,6 +26,7 @@ export function RegisterNewEmployeeDialog({
   const [progress, setProgress] = useState(50)
 
   const queryClient = useQueryClient()
+
   const registerEmployeeForm = useForm<RegisterNewEmployeeSchema>({
     resolver: zodResolver(registerNewEmployeeSchema),
     defaultValues: {
@@ -71,7 +59,6 @@ export function RegisterNewEmployeeDialog({
     daysOfWeek,
     horasSemanais,
   }: RegisterNewEmployeeSchema) {
-    console.log('dasdas')
     const diasSelecionados = daysOfWeek
 
     const diasJornada = diasDaSemana.reduce<Record<string, boolean>>(

@@ -113,10 +113,40 @@ const styles = StyleSheet.create({
     fontSize: 10,
     marginTop: 4,
   },
-
+  footerContent: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: 20,
+  },
+  totalizer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'flex-start',
+    paddingLeft: 10,
+    border: 1,
+    width: '40%',
+    gap: 8,
+    backgroundColor: '#f3f4f6',
+    borderColor: '#d1d5db',
+  },
+  totalizerTitle: {
+    fontSize: 12,
+    paddingBottom: 4,
+    borderBottom: 1,
+    borderColor: '#d1d5db',
+    width: '100%',
+  },
+  totalizerRow: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    paddingRight: 5,
+  },
   // Estilo do rodapé
   footer: {
-    marginTop: 20,
+    width: '100%',
+    alignItems: 'flex-end',
     paddingTop: 10,
   },
   footerAssignature: {
@@ -124,7 +154,7 @@ const styles = StyleSheet.create({
     marginTop: 5,
     alignItems: 'flex-start', // Alinha tudo no lado esquerdo
     justifyContent: 'flex-start',
-    width: '50%', // Define largura específica para controlar o alinhamento
+    width: '70%', // Define largura específica para controlar o alinhamento
   },
   footerLine: {
     fontSize: 8,
@@ -148,12 +178,16 @@ const MyDocument = ({
   employee,
   dateFrom,
   dateTo,
+  BancoHoras,
+  HorasTrabalhadas,
 }: {
   data: EmployeePointsData['data']
   enterprise: EnterpriseData
   employee: EmployeeData
   dateFrom: string
   dateTo: string
+  BancoHoras: string
+  HorasTrabalhadas: string
 }) => {
   const formatDate = (date: string): string => {
     if (!date) return 'N/A'
@@ -300,16 +334,31 @@ const MyDocument = ({
           </View>
 
           {pageIndex === pages.length - 1 && (
-            <View style={styles.footer}>
-              <View style={styles.footerAssignature}>
-                <View style={{ width: '80%' }}>
-                  <Text style={styles.footerLine}></Text>
-                  <Text style={styles.footerText}>Assinatura</Text>
+            <View style={styles.footerContent}>
+              <View style={styles.totalizer}>
+                <Text style={styles.totalizerTitle}>Total de Horas</Text>
+                <View style={styles.totalizerRow}>
+                  <Text style={styles.footerText}>Horas Trabalhadas:</Text>
+                  <Text style={styles.footerText}>{HorasTrabalhadas}</Text>
                 </View>
 
-                <View style={{ width: '80%', marginTop: 10 }}>
-                  <Text style={styles.footerLine}></Text>
-                  <Text style={styles.footerText}>Assinatura Gestor</Text>
+                <View style={styles.totalizerRow}>
+                  <Text style={styles.footerText}>Banco de horas:</Text>
+                  <Text style={styles.footerText}>{BancoHoras}</Text>
+                </View>
+              </View>
+
+              <View style={styles.footer}>
+                <View style={styles.footerAssignature}>
+                  <View style={{ width: '80%' }}>
+                    <Text style={styles.footerLine}></Text>
+                    <Text style={styles.footerText}>Assinatura</Text>
+                  </View>
+
+                  <View style={{ width: '80%', marginTop: 10 }}>
+                    <Text style={styles.footerLine}></Text>
+                    <Text style={styles.footerText}>Assinatura Gestor</Text>
+                  </View>
                 </View>
               </View>
             </View>
@@ -349,6 +398,8 @@ export function EmploeePDF() {
       {results && enterpriseData && employeeData && (
         <PDFViewer width="100%" height="952">
           <MyDocument
+            BancoHoras={results.BancoHoras}
+            HorasTrabalhadas={results.HorasTrabalhadas}
             data={results.data}
             enterprise={enterpriseData}
             employee={employeeData}

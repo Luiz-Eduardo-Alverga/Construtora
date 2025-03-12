@@ -1,12 +1,5 @@
 import { useMutation } from '@tanstack/react-query'
-import {
-  ArrowLeft,
-  Clock,
-  Eraser,
-  ListPlus,
-  SquareCheckBig,
-  Trash2,
-} from 'lucide-react'
+import { ArrowLeft, SquareCheckBig, Trash2 } from 'lucide-react'
 import { useFormContext } from 'react-hook-form'
 import { useNavigate } from 'react-router-dom'
 import { toast } from 'sonner'
@@ -15,54 +8,30 @@ import { deleteFunction } from '@/api/employee-functions/delete-function'
 import { DeleteModal } from '@/components/delete/delete-modal'
 import { AlertDialog, AlertDialogTrigger } from '@/components/ui/alert-dialog'
 import { Button } from '@/components/ui/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
-import { useDateStore, useFormStore } from '@/zustand/useSelectedDatesStore'
+import { useFormStore } from '@/zustand/useSelectedDatesStore'
 
-import { DialogHeaderTitle } from '../dialogs/dialog-title'
-import { Dialog, DialogContent, DialogTrigger } from '../ui/dialog'
-import { Workload } from '../workoad'
+import { DropdownActions } from './dropdown-actions'
 
 interface FormActionsProps {
   onCancel?: () => void
-  onSubmit?: () => void
   cancelLabel?: string
   submitLabel?: string
-  registerId?: number
-  isSubmitting?: boolean
-  isDeleteButtonVisible?: boolean
-  registrationName?: string
+  visibleItems: Array<'workload' | 'clearInputs' | 'addUser'>
 }
 
 export function FormActions({
   onCancel,
   cancelLabel = 'Cancelar',
   submitLabel = 'Enviar',
+  visibleItems,
 }: FormActionsProps) {
   const { isDeleteButtonVisible, registerId, registrationName } = useFormStore()
 
   const {
     formState: { isSubmitting },
-    reset,
-    setValue,
   } = useFormContext()
-  const { clearDates } = useDateStore()
 
   const navigate = useNavigate()
-
-  function clearInputs() {
-    reset()
-    clearDates()
-    setValue('funcao', 0)
-    setValue('ufNasc', '')
-    setValue('ufRG', '')
-
-    toast.info('Todos os campos do formulário foram limpados')
-  }
 
   const { mutateAsync: deleteSelectedFunction } = useMutation({
     mutationFn: () => deleteFunction({ id: registerId }),
@@ -80,42 +49,7 @@ export function FormActions({
 
   return (
     <div className="flex flex-col sm:flex-row gap-4">
-      <Dialog>
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant={'outline'}
-              className="bg-blue-500 gap-2 text-white hover:bg-blue-500/90 hover:text-white"
-            >
-              <ListPlus className="w-4 h-4" />
-              <span> Mais opçoes</span>
-            </Button>
-          </DropdownMenuTrigger>
-
-          <DropdownMenuContent align="center">
-            <DropdownMenuItem className=" gap-2" onClick={clearInputs}>
-              <Eraser className="h-4 w-4" />
-              <span>Limpar Campos</span>
-            </DropdownMenuItem>
-
-            <DropdownMenuItem asChild className="gap-2">
-              <DialogTrigger>
-                <Clock className="h-4 w-4" />
-                <span>Jornada de trabalho</span>
-              </DialogTrigger>
-            </DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-
-        <DialogContent>
-          <DialogHeaderTitle title="Edite a jornada de trabalho" />
-          <Workload
-            isButtonCloseDialog
-            isBackButtonVisible={false}
-            registerName="horas"
-          />
-        </DialogContent>
-      </Dialog>
+      <DropdownActions visibleItems={visibleItems} />
 
       <AlertDialog>
         <AlertDialogTrigger asChild>
