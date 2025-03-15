@@ -12,17 +12,26 @@ export async function addUserFn({
   user,
 }: AddUserProps) {
   const target = localStorage.getItem('target')
+  const token = localStorage.getItem('authToken')
   const dbUser = localStorage.getItem('user')
   const empresaID = Number(localStorage.getItem('enterpriseId'))
 
-  const response = await api.post('User/Email', {
-    desativado,
-    empresaID,
-    nomeEmpresa,
-    user,
-    target,
-    db_user: dbUser,
-  })
+  const response = await api.post(
+    'User/Email',
+    {
+      desativado,
+      empresaID,
+      nomeEmpresa,
+      user,
+      target,
+      db_user: dbUser,
+    },
+    {
+      headers: {
+        Authorization: token,
+      },
+    },
+  )
 
   return response.data
 }

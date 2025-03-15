@@ -32,13 +32,13 @@ export function FirstStep({ onClose, setStep, setProgress }: FirstStepProps) {
 
   const parsedDaysOfWeek = useParsedDaysOfWeek(functionName?.data?.diasJornada)
 
-  console.log(functionName?.data?.horasSemanais)
-
   setValue('daysOfWeek', parsedDaysOfWeek)
   setValue('horasSemanais', functionName?.data?.horasSemanais || '')
 
   const isInputNameValid = nameValue === undefined || nameValue?.length < 3
   const inFuncaoValueValid = funcaoValue === undefined || funcaoValue === 0
+  const isParsedDaysOfWeekValid =
+    parsedDaysOfWeek === undefined || parsedDaysOfWeek.length < 0
 
   return (
     <>
@@ -69,7 +69,9 @@ export function FirstStep({ onClose, setStep, setProgress }: FirstStepProps) {
           </Button>
         </DialogClose>
         <Button
-          disabled={isInputNameValid || inFuncaoValueValid}
+          disabled={
+            isInputNameValid || inFuncaoValueValid || isParsedDaysOfWeekValid
+          }
           onClick={() => {
             setStep(2)
             setProgress(100)
